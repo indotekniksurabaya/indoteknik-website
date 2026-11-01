@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KATALOG | PT INDO TEKNIK EMPATBELAS</title>
+  <meta name="description" content="Katalog produk resmi proteksi kebakaran PT INDO TEKNIK EMPATBELAS. Fire Hydrant, Fire Alarm, Foam System, dan Clean Agent Supression System.">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23093180'/><polygon points='50,15 85,80 15,80' fill='%23ffc107'/><path d='M50 35 L70 75 L30 75 Z' fill='%23093180'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#093180',
+              hover: '#062460',
+              subtle: '#e6ecf5'
+            },
+            secondary: {
+              DEFAULT: '#ffc107',
+              hover: '#e0a800'
+            },
+            surface: {
+              DEFAULT: '#ffffff',
+              2: '#f3f4f6',
+              hover: '#f9fafb'
+            },
+            'text-primary': '#111827',
+            'text-secondary': '#4b5563',
+            'text-muted': '#9ca3af',
+            border: {
+              DEFAULT: '#e5e7eb',
+              strong: '#d1d5db'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif']
+          },
+          borderRadius: {
+            none: '0px'
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="src/css/style.css">
+</head>
+
+<body class="bg-white text-[#111827] font-sans antialiased selection:bg-[#093180] selection:text-white flex flex-col min-h-screen justify-between pt-20">
+
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 w-full h-20 bg-white/80 backdrop-blur-md border-b border-[#e5e7eb] transition-all duration-200">
+    <div class="w-full h-full px-4 sm:px-8 xl:px-12 flex items-center justify-between">
+      
+      <a href="index.html" class="flex items-center gap-3 shrink-0 group">
+        <div class="w-10 h-10 sm:w-11 sm:h-11 bg-[#093180] flex items-center justify-center font-bold text-white text-lg sm:text-xl border border-[#093180] group-hover:bg-[#062460] transition-colors shrink-0">
+          <span class="text-[#ffc107]">14</span>
+        </div>
+        <div class="flex flex-col shrink-0">
+          <span class="text-sm sm:text-base lg:text-lg font-bold tracking-tight text-[#111827] leading-tight whitespace-nowrap">
+            PT INDO TEKNIK EMPATBELAS
+          </span>
+          <span class="text-[10px] sm:text-[11px] font-semibold text-[#093180] tracking-wider uppercase whitespace-nowrap hidden sm:block">
+            Fire Protection & Mechanical Electrical
+          </span>
+        </div>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-4 xl:gap-7">
+        <a href="index.html" class="nav-link font-bold text-xs uppercase tracking-wider text-[#111827] hover:text-[#093180]">HOME</a>
+        <a href="tentang.html" class="nav-link font-bold text-xs uppercase tracking-wider text-[#111827] hover:text-[#093180]">TENTANG KAMI</a>
+        <a href="portofolio.html" class="nav-link font-bold text-xs uppercase tracking-wider text-[#111827] hover:text-[#093180]">PORTOFOLIO</a>
+        <a href="galeri.html" class="nav-link font-bold text-xs uppercase tracking-wider text-[#111827] hover:text-[#093180]">GALERI</a>
+        <a href="katalog.html" class="nav-link active font-bold text-xs uppercase tracking-wider text-[#093180]">KATALOG</a>
+        <a href="kontak.html" class="nav-link font-bold text-xs uppercase tracking-wider text-[#111827] hover:text-[#093180]">HUBUNGI KAMI</a>
+      </nav>
+
+      <button id="mobileMenuBtn" aria-label="Buka Menu" class="lg:hidden p-2 text-[#111827] hover:text-[#093180] focus:outline-none">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+
+    </div>
+    <div id="scrollProgress" class="absolute bottom-0 left-0 h-[2.5px] bg-[#093180] w-0 transition-all duration-75"></div>
+  </header>
+
+  <div id="mobileMenu" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex justify-end">
+    <div class="w-full max-w-sm bg-white h-full p-6 flex flex-col justify-between border-l border-[#e5e7eb] shadow-2xl">
+      <div>
+        <div class="flex items-center justify-between pb-6 border-b border-[#e5e7eb]">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 bg-[#093180] text-[#ffc107] font-bold flex items-center justify-center text-sm">14</div>
+            <span class="font-bold text-sm text-[#111827]">PT INDO TEKNIK 14</span>
+          </div>
+          <button id="closeMobileMenuBtn" aria-label="Tutup Menu" class="p-2 text-[#4b5563] hover:text-[#111827]">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <nav class="flex flex-col gap-4 mt-6">
+          <a href="index.html" class="mobile-nav-link text-base font-bold py-2 text-[#111827] hover:text-[#093180] border-b border-[#f3f4f6]">HOME</a>
+          <a href="tentang.html" class="mobile-nav-link text-base font-bold py-2 text-[#111827] hover:text-[#093180] border-b border-[#f3f4f6]">TENTANG KAMI</a>
+          <a href="portofolio.html" class="mobile-nav-link text-base font-bold py-2 text-[#111827] hover:text-[#093180] border-b border-[#f3f4f6]">PORTOFOLIO</a>
+          <a href="galeri.html" class="mobile-nav-link text-base font-bold py-2 text-[#111827] hover:text-[#093180] border-b border-[#f3f4f6]">GALERI</a>
+          <a href="katalog.html" class="mobile-nav-link text-base font-bold py-2 text-[#093180] border-b border-[#f3f4f6]">KATALOG</a>
+          <a href="kontak.html" class="mobile-nav-link text-base font-bold py-2 text-[#111827] hover:text-[#093180]">HUBUNGI KAMI</a>
+        </nav>
+      </div>
+      <div class="pt-6 border-t border-[#e5e7eb]">
+        <a href="https://wa.me/6281390630360" target="_blank" class="w-full btn-secondary text-center block">Chat WhatsApp: +62 813-9063-0360</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="flex-1 w-full bg-white">
+
+    <section class="w-full pt-16 pb-12 bg-white border-b border-[#e5e7eb]">
+      <div class="max-w-[1280px] mx-auto px-4 sm:px-8 xl:px-12">
+        <div class="mask-reveal">
+          <span class="text-[11px] font-bold tracking-[0.25em] text-[#093180] uppercase block mb-2">04 / Katalog Produk & Peralatan</span>
+        </div>
+        <div class="mask-reveal mask-delay-100">
+          <h1 class="text-3xl sm:text-4xl font-extrabold text-[#111827] tracking-tight uppercase mb-3">
+            KATALOG PRODUK
+          </h1>
+        </div>
+        <p class="text-xs sm:text-sm text-[#4b5563] max-w-2xl leading-relaxed mb-8">
+          Peralatan utama proteksi kebakaran bersertifikasi teknis (NFPA, SNI, CE). Klik produk untuk melihat rincian spesifikasi teknis dan penawaran langsung.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3 pt-2">
+          <button data-category="all" class="catalog-tab px-4 py-2 text-xs font-bold uppercase tracking-wider border border-[#093180] bg-[#093180] text-white transition-all cursor-pointer">
+            Semua Produk
+          </button>
+          <button data-category="hydrant" class="catalog-tab px-4 py-2 text-xs font-bold uppercase tracking-wider border border-[#e5e7eb] bg-white text-[#4b5563] hover:border-[#093180] transition-all cursor-pointer">
+            Fire Hydrant & Perpipaan
+          </button>
+          <button data-category="alarm" class="catalog-tab px-4 py-2 text-xs font-bold uppercase tracking-wider border border-[#e5e7eb] bg-white text-[#4b5563] hover:border-[#093180] transition-all cursor-pointer">
+            Fire Alarm System
+          </button>
+          <button data-category="foam" class="catalog-tab px-4 py-2 text-xs font-bold uppercase tracking-wider border border-[#e5e7eb] bg-white text-[#4b5563] hover:border-[#093180] transition-all cursor-pointer">
+            Foam Suppression
+          </button>
+          <button data-category="cleanagent" class="catalog-tab px-4 py-2 text-xs font-bold uppercase tracking-wider border border-[#e5e7eb] bg-white text-[#4b5563] hover:border-[#093180] transition-all cursor-pointer">
+            Clean Agent Suppression
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="w-full py-12 sm:py-16 bg-white section-layered">
+      <div class="max-w-[1280px] mx-auto px-4 sm:px-8 xl:px-12">
+
+        <div id="catalogGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+
+          <button data-product-id="vinci-box-a1" data-category="hydrant" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/vinci_hydrant_box_a1.jpg" alt="HYDRANT BOX TYPE A1" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">VINCI-BOX-A1</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              HYDRANT BOX TYPE A1 (INDOOR)
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="vinci-box-a2" data-category="hydrant" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/vinci_hydrant_box_a2.jpg" alt="HYDRANT BOX TYPE A2" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">VINCI-BOX-A2</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              HYDRANT BOX TYPE A2 (INDOOR)
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="vinci-box-b" data-category="hydrant" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/vinci_hydrant_box_b.jpg" alt="HYDRANT BOX TYPE B" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">VINCI-BOX-B</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              HYDRANT BOX TYPE B (INDOOR)
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="vinci-box-c" data-category="hydrant" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/vinci_hydrant_box_c.jpg" alt="HYDRANT BOX TYPE C" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">VINCI-BOX-C</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              HYDRANT BOX TYPE C (OUTDOOR)
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="vinci-hp-13a" data-category="hydrant" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/vinci_hydrant_pillar_1way.jpg" alt="HYDRANT PILLAR 1-WAY" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">VINCI-HP-13A</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              HYDRANT PILLAR 1-WAY (H-13A)
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="vinci-hp-14a" data-category="hydrant" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/vinci_hydrant_pillar_2way.jpg" alt="HYDRANT PILLAR TWO-WAY" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">VINCI-HP-14A</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              HYDRANT PILLAR TWO-WAY (H-14A)
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="vinci-sc-s7a" data-category="hydrant" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/vinci_siamese_connection.jpg" alt="SIAMESE CONNECTION" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">VINCI-SC-S7A</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              SIAMESE CONNECTION S-7A / S-11
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="vinci-hr-01" data-category="hydrant" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/vinci_hose_reel.jpg" alt="FIRE HOSE REEL" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">VINCI-HR-01</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              FIRE HOSE REEL SWING TYPE
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="vinci-yc-25" data-category="hydrant" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/vinci_y_connection.jpg" alt="Y CONNECTION" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">VINCI-YC-25</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              'Y' CONNECTION / DIVIDING BREECHING
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="vinci-hr-rack" data-category="hydrant" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/vinci_hose_rack.jpg" alt="FIRE HOSE RACK" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">VINCI-HR-RACK</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              FIRE HOSE RACK (ALLOY COMB)
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="vinci-hv-16k" data-category="hydrant" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/vinci_hydrant_valve.jpg" alt="HYDRANT LANDING VALVE" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">VINCI-HV-16K</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              HYDRANT LANDING VALVE 10K / 16K
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="vinci-noz-str" data-category="hydrant" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/vinci_branchpipe_nozzle.jpg" alt="BRANCHPIPE NOZZLE" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">VINCI-NOZ-STR</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              BRANCHPIPE WITH STRAIGHT NOZZLE
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="vinci-noz-var" data-category="hydrant" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/vinci_variable_nozzle.jpg" alt="VARIABLE HEAD NOZZLE" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">VINCI-NOZ-VAR</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              VARIABLE HEAD NOZZLE (FOG / JET)
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="vinci-hse-k13" data-category="hydrant" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/vinci_fire_hose_kanvas.jpg" alt="FIRE HOSE KANVAS" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">VINCI-HSE-K13</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              FIRE HOSE KANVAS 13K (WHITE CANVAS)
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="vinci-hse-r20" data-category="hydrant" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/vinci_fire_hose_rubber.jpg" alt="FIRE HOSE RUBBER" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">VINCI-HSE-R20</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              FIRE HOSE RUBBER NITRILE 20K
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="al-cfp-mcfa" data-category="alarm" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/alerta_alarm_panel.jpg" alt="CONVENTIONAL FIRE ALARM PANEL" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">AL-CFP-MCFA</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              CONVENTIONAL FIRE ALARM PANEL CFP
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="al-sd601" data-category="alarm" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/alerta_smoke_sd601.jpg" alt="SMOKE DETECTOR AL-SD601" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">AL-SD601</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              SMOKE DETECTOR AL-SD601
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="al-sd501" data-category="alarm" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/alerta_smoke_sd501.jpg" alt="SMOKE DETECTOR AL-SD501" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">AL-SD501</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              SMOKE DETECTOR AL-SD501
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="al-d223" data-category="alarm" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/alerta_detector_d223.jpg" alt="DETECTOR D-223" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">AL-D223</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              SINGLE STATION SMOKE & HEAT D-223
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="al-hd306" data-category="alarm" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/alerta_heat_hd306.jpg" alt="ROR HEAT DETECTOR AL-HD306" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">AL-HD306</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              ROR HEAT DETECTOR AL-HD306
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="al-hd307" data-category="alarm" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/alerta_heat_hd307.jpg" alt="FIXED HEAT DETECTOR AL-HD307" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">AL-HD307</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              FIXED TEMP HEAT DETECTOR AL-HD307
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="al-fb6" data-category="alarm" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/alerta_alarm_bell_fb6.jpg" alt="FIRE ALARM BELL AL-FB6" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">AL-FB6</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              FIRE ALARM BELL 6 INCH AL-FB6
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="al-fl3" data-category="alarm" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/alerta_indicator_lamp_fl3.jpg" alt="LED INDICATOR LAMP AL-FL3" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">AL-FL3</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              LED REMOTE INDICATOR LAMP AL-FL3
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="al-ps1" data-category="alarm" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/alerta_push_station_ps1.jpg" alt="MANUAL PUSH STATION AL-PS1" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">AL-PS1</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              MANUAL PUSH STATION AL-PS1
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="al-fp1" data-category="alarm" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/alerta_call_point_fp1.jpg" alt="RESETTABLE CALL POINT AL-FP1" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">AL-FP1</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              RESETTABLE CALL POINT AL-FP1
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="al-alrml" data-category="foam" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/alerta_foam_tank_vertical.jpg" alt="VERTICAL FOAM BLADDER TANK" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">AL-ALRML</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              VERTICAL FOAM BLADDER TANK ALRML
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="al-alrm" data-category="foam" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/alerta_foam_tank_horizontal.jpg" alt="HORIZONTAL FOAM BLADDER TANK" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">AL-ALRM</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              HORIZONTAL FOAM BLADDER TANK ALRM
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="al-sl-28" data-category="foam" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/alerta_foam_eductor.jpg" alt="PORTABLE FOAM EDUCTOR" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">AL-SL-28</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              PORTABLE INLINE FOAM EDUCTOR
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="al-ig-sys" data-category="cleanagent" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/alerta_inert_gas_cylinder.jpg" alt="INERT GAS CLEAN AGENT SYSTEM" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">AL-IG-SYS</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              INERT GAS CLEAN AGENT SYSTEM
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="al-dymp" data-category="cleanagent" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/alerta_inert_gas_system.jpg" alt="CYLINDER GROUP DYMP" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">AL-DYMP</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              CYLINDER GROUP DYMP80/30 & 140/30
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="al-popc-noz" data-category="cleanagent" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/alerta_discharge_nozzle.jpg" alt="CALIBRATED DISCHARGE NOZZLE" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">AL-POPC-NOZ</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              CALIBRATED DISCHARGE NOZZLE POPC
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+          <button data-product-id="al-ext-pnl" data-category="cleanagent" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
+            <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
+              <img src="images/catalog/products/alerta_control_panel.jpg" alt="GAS CONTROL PANEL" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+            <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">AL-EXT-PNL</span>
+            <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
+              EXTINGUISHING GAS CONTROL PANEL
+            </h3>
+            <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
+              <span>Lihat Detail</span>
+              <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </button>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <div id="hydrantDetailModal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-4 sm:p-8">
+    <div class="relative bg-white border border-[#093180] max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 sm:p-10">
+      
+      <button id="closeHydrantModalBtn" aria-label="Tutup Detail" class="absolute top-5 right-5 text-[#6b7280] hover:text-[#111827] focus:outline-none p-2">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center pt-2">
+        <div class="bg-white border border-[#e5e7eb] p-4 flex items-center justify-center aspect-square">
+          <img id="modalProductImage" src="images/catalog/products/vinci_hydrant_pillar_2way.jpg" alt="Detail Produk" class="max-h-[320px] max-w-full object-contain">
+        </div>
+
+        <div class="space-y-4 text-left">
+          <div>
+            <span id="modalProductCode" class="text-[10px] font-bold text-[#093180] tracking-[0.2em] uppercase block mb-1">VINCI-HP-14A</span>
+            <h2 id="modalProductTitle" class="text-xl sm:text-2xl font-bold text-[#111827] tracking-tight">HYDRANT PILLAR TWO-WAY (H-14A)</h2>
+            <span id="modalProductBrand" class="text-xs text-[#6b7280] font-semibold">Vinci Firefighting Supplier</span>
+          </div>
+
+          <p id="modalProductDesc" class="text-xs text-[#4b5563] leading-relaxed">
+            Unit pilar hidran dua arah bertekanan tinggi untuk instalasi luar gedung dengan material ductile iron tahan korosi, lengkap dengan tutup kuningan (brass cap) dan rantai pengaman.
+          </p>
+
+          <div id="modalProductSpecs" class="border-t border-b border-[#e5e7eb] py-3 text-xs space-y-1 text-[#4b5563] max-h-48 overflow-y-auto">
+            <div class="flex justify-between items-start gap-4 py-1.5 border-b border-[#f3f4f6]">
+              <span class="font-bold text-[#111827] shrink-0">Ukuran Inlet:</span>
+              <span class="text-right text-[#4b5563]">4 Inch (DN100) Flange Standar</span>
+            </div>
+            <div class="flex justify-between items-start gap-4 py-1.5 border-b border-[#f3f4f6]">
+              <span class="font-bold text-[#111827] shrink-0">Ukuran Outlet:</span>
+              <span class="text-right text-[#4b5563]">2 x 2.5 Inch Machino / VDH</span>
+            </div>
+            <div class="flex justify-between items-start gap-4 py-1.5 border-b border-[#f3f4f6]">
+              <span class="font-bold text-[#111827] shrink-0">Tekanan Kerja:</span>
+              <span class="text-right text-[#4b5563]">10 - 16 Bar (145 - 232 PSI)</span>
+            </div>
+            <div class="flex justify-between items-start gap-4 py-1.5 border-b border-[#f3f4f6]">
+              <span class="font-bold text-[#111827] shrink-0">Tekanan Uji:</span>
+              <span class="text-right text-[#4b5563]">20 Bar Hydrostatic Tested</span>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <a id="modalProductWa" href="https://wa.me/6281390630360?text=Halo%20PT%20INDO%20TEKNIK%20EMPATBELAS,%20saya%20ingin%20menanyakan%20penawaran%20harga%20produk." target="_blank" class="w-full btn-primary text-center block py-3 text-xs font-bold uppercase tracking-wider">
+              Hubungi via WhatsApp untuk Penawaran
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="bg-[#093180] text-white pt-12 pb-8 border-t border-[#062460] w-full">
+    <div class="max-w-[1280px] mx-auto px-4 sm:px-8 xl:px-12">
+      
+      <div class="flex flex-col md:flex-row items-center justify-between pb-8 border-b border-white/10 gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-white text-[#093180] font-bold text-lg flex items-center justify-center">14</div>
+          <div>
+            <span class="text-base font-bold text-white block">PT INDO TEKNIK EMPATBELAS</span>
+            <span class="text-xs text-[#ffc107] font-semibold tracking-wider uppercase block">Fire Protection & Mechanical Electrical</span>
+          </div>
+        </div>
+
+        <nav class="flex flex-wrap items-center gap-6 text-xs uppercase font-semibold">
+          <a href="index.html" class="hover:text-[#ffc107] transition-colors">HOME</a>
+          <a href="tentang.html" class="hover:text-[#ffc107] transition-colors">TENTANG KAMI</a>
+          <a href="portofolio.html" class="hover:text-[#ffc107] transition-colors">PORTOFOLIO</a>
+          <a href="galeri.html" class="hover:text-[#ffc107] transition-colors">GALERI</a>
+          <a href="katalog.html" class="hover:text-[#ffc107] transition-colors text-[#ffc107]">KATALOG</a>
+          <a href="kontak.html" class="hover:text-[#ffc107] transition-colors">HUBUNGI KAMI</a>
+        </nav>
+      </div>
+
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 gap-4">
+        <div>
+          &copy; 2026 PT INDO TEKNIK EMPATBELAS. Dusun Pekojo, Tunggalpager, Pungging, Mojokerto, Jawa Timur.
+        </div>
+        <div>
+          <a href="#navbar" class="text-[#ffc107] hover:underline">Kembali ke Atas ↑</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <button id="fabScrollTop" aria-label="Scroll ke Atas" class="fab-scroll-button fixed bottom-6 right-6 z-40 w-12 h-12 bg-white text-[#093180] border border-[#e5e7eb] shadow-lg flex items-center justify-center hover:bg-[#e6ecf5] hover:text-[#062460] transition-all duration-200 opacity-0 pointer-events-none translate-y-8">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+  </button>
+
+  <script type="module" src="src/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PT INDO TEKNIK EMPATBELAS | Fire Protection & Mechanical Electrical</title>
+  <meta name="description" content="PT INDO TEKNIK EMPATBELAS - Kontraktor Spesialis Sistem Proteksi Kebakaran dan Plambing.">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23093180'/><polygon points='50,15 85,80 15,80' fill='%23ffc107'/><path d='M50 35 L70 75 L30 75 Z' fill='%23093180'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#093180',
+              hover: '#062460',
+              subtle: '#e6ecf5'
+            },
+            secondary: {
+              DEFAULT: '#ffc107',
+              hover: '#e0a800'
+            },
+            surface: {
+              DEFAULT: '#ffffff',
+              2: '#f3f4f6',
+              hover: '#f9fafb'
+            },
+            'text-primary': '#111827',
+            'text-secondary': '#4b5563',
+            'text-muted': '#9ca3af',
+            border: {
+              DEFAULT: '#e5e7eb',
+              strong: '#d1d5db'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif']
+          },
+          borderRadius: {
+            none: '0px'
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="src/css/style.css">
+</head>
+
+<body class="bg-white text-[#111827] font-sans antialiased selection:bg-[#093180] selection:text-white flex flex-col min-h-screen justify-between pt-20">
+
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 w-full h-20 bg-white/80 backdrop-blur-md border-b border-[#e5e7eb] transition-all duration-200">
+    <div class="w-full h-full px-4 sm:px-8 xl:px-12 flex items-center justify-between">
+      
+      <a href="index.html" class="flex items-center gap-3 shrink-0 group">
+        <div class="w-10 h-10 sm:w-11 sm:h-11 bg-[#093180] flex items-center justify-center font-bold text-white text-lg sm:text-xl border border-[#093180] group-hover:bg-[#062460] transition-colors shrink-0">
+          <span class="text-[#ffc107]">14</span>
+        </div>
+        <div class="flex flex-col shrink-0">
+          <span class="text-sm sm:text-base lg:text-lg font-bold tracking-tight text-[#111827] leading-tight whitespace-nowrap">
+            PT INDO TEKNIK EMPATBELAS
+          </span>
+          <span class="text-[10px] sm:text-[11px] font-semibold text-[#093180] tracking-wider uppercase whitespace-nowrap hidden sm:block">
+            Fire Protection & Mechanical Electrical
+          </span>
+        </div>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-4 xl:gap-7">
+        <a href="index.html" class="nav-link active font-bold text-xs uppercase tracking-wider text-[#093180]">HOME</a>
+        <a href="tentang.html" class="nav-link font-bold text-xs uppercase tracking-wider text-[#111827] hover:text-[#093180]">TENTANG KAMI</a>
+        <a href="portofolio.html" class="nav-link font-bold text-xs uppercase tracking-wider text-[#111827] hover:text-[#093180]">PORTOFOLIO</a>
+        <a href="galeri.html" class="nav-link font-bold text-xs uppercase tracking-wider text-[#111827] hover:text-[#093180]">GALERI</a>
+        <a href="katalog.html" class="nav-link font-bold text-xs uppercase tracking-wider text-[#111827] hover:text-[#093180]">KATALOG</a>
+        <a href="kontak.html" class="nav-link font-bold text-xs uppercase tracking-wider text-[#111827] hover:text-[#093180]">HUBUNGI KAMI</a>
+      </nav>
+
+      <button id="mobileMenuBtn" aria-label="Buka Menu" class="lg:hidden p-2 text-[#111827] hover:text-[#093180] focus:outline-none">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+
+    </div>
+    <div id="scrollProgress" class="absolute bottom-0 left-0 h-[2.5px] bg-[#093180] w-0 transition-all duration-75"></div>
+  </header>
+
+  <div id="mobileMenu" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex justify-end">
+    <div class="w-full max-w-sm bg-white h-full p-6 flex flex-col justify-between border-l border-[#e5e7eb] shadow-2xl">
+      <div>
+        <div class="flex items-center justify-between pb-6 border-b border-[#e5e7eb]">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 bg-[#093180] text-[#ffc107] font-bold flex items-center justify-center text-sm">14</div>
+            <span class="font-bold text-sm text-[#111827]">PT INDO TEKNIK 14</span>
+          </div>
+          <button id="closeMobileMenuBtn" aria-label="Tutup Menu" class="p-2 text-[#4b5563] hover:text-[#111827]">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <nav class="flex flex-col gap-4 mt-6">
+          <a href="index.html" class="mobile-nav-link text-base font-bold py-2 text-[#093180] border-b border-[#f3f4f6]">HOME</a>
+          <a href="tentang.html" class="mobile-nav-link text-base font-bold py-2 text-[#111827] hover:text-[#093180] border-b border-[#f3f4f6]">TENTANG KAMI</a>
+          <a href="portofolio.html" class="mobile-nav-link text-base font-bold py-2 text-[#111827] hover:text-[#093180] border-b border-[#f3f4f6]">PORTOFOLIO</a>
+          <a href="galeri.html" class="mobile-nav-link text-base font-bold py-2 text-[#111827] hover:text-[#093180] border-b border-[#f3f4f6]">GALERI</a>
+          <a href="katalog.html" class="mobile-nav-link text-base font-bold py-2 text-[#111827] hover:text-[#093180] border-b border-[#f3f4f6]">KATALOG</a>
+          <a href="kontak.html" class="mobile-nav-link text-base font-bold py-2 text-[#111827] hover:text-[#093180]">HUBUNGI KAMI</a>
+        </nav>
+      </div>
+      <div class="pt-6 border-t border-[#e5e7eb]">
+        <a href="https://wa.me/6281390630360" target="_blank" class="w-full btn-secondary text-center block">Chat WhatsApp: +62 813-9063-0360</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="flex-1 w-full bg-white">
+    
+    <section class="relative w-full aspect-[16/9] sm:aspect-[21/9] sm:min-h-[380px] sm:max-h-[560px] lg:max-h-[620px] bg-black overflow-hidden border-b border-[#e5e7eb] flex items-center justify-center">
+      <video autoplay loop muted playsinline preload="auto" class="video-landscape-crisp absolute inset-0 w-full h-full object-cover">
+        <source src="videos/asset-video.mp4" type="video/mp4">
+      </video>
+
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-black/55"></div>
+
+      <div class="relative z-10 flex items-center justify-center gap-2.5 sm:gap-5 md:gap-6 px-3 sm:px-6 text-center sm:text-left select-none">
+        <div class="w-8 h-8 sm:w-14 sm:h-14 md:w-18 md:h-18 bg-[#093180] flex items-center justify-center font-extrabold text-white text-xs sm:text-2xl md:text-3xl border sm:border-2 border-white/90 shrink-0 shadow-lg">
+          <span class="text-[#ffc107]">14</span>
+        </div>
+        <div class="flex flex-col text-left">
+          <h1 class="text-xs sm:text-2xl md:text-4xl lg:text-5xl font-black tracking-tight text-white uppercase whitespace-nowrap drop-shadow-md">
+            PT. INDO TEKNIK EMPATBELAS
+          </h1>
+          <span class="text-[8px] sm:text-xs md:text-sm font-bold tracking-wider sm:tracking-[0.22em] text-[#ffc107] uppercase mt-0.5 sm:mt-1 drop-shadow-sm whitespace-nowrap">
+            Fire Protection & Mechanical Electrical
+          </span>
+        </div>
+      </div>
+    </section>
+    
+    <section id="tentang-kami" class="w-full py-16 sm:py-20 bg-white border-b border-[#e5e7eb] section-layered">
+      <div class="max-w-[1280px] mx-auto px-4 sm:px-8 xl:px-12">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-4 border-b border-[#e5e7eb] gap-4">
+          <div>
+            <div class="mask-reveal">
+              <span class="text-[11px] font-bold tracking-[0.25em] text-[#093180] uppercase block mb-2">
+                01 / Tentang Perusahaan
+              </span>
+            </div>
+            <div class="mask-reveal mask-delay-100">
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight uppercase">
+                PT INDO TEKNIK EMPATBELAS
+              </h2>
+            </div>
+          </div>
+          <a href="tentang.html" class="btn-outline text-xs py-2 px-4 self-start md:self-auto inline-flex items-center gap-2">
+            <span>Profil Lengkap</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+          <div class="scroll-reveal scroll-stagger-1 h-full flex flex-col justify-between p-6 sm:p-7 lg:p-8 bg-white border border-[#e5e7eb]">
+            <div class="space-y-4">
+              <div class="pb-3 border-b border-[#e5e7eb] flex items-center justify-between">
+                <span class="text-[11px] font-bold text-[#093180] tracking-widest uppercase">01 / PROFIL</span>
+                <span class="w-2 h-2 bg-[#ffc107]"></span>
+              </div>
+              <h3 class="text-sm font-bold text-[#111827] uppercase tracking-wide">
+                Badan Usaha Resmi
+              </h3>
+              <p class="text-xs text-[#4b5563] leading-relaxed">
+                Mitra kontraktor berbadan hukum dengan keahlian teknis khusus pada sistem proteksi kebakaran, perpipaan, dan mekanikal elektrikal gedung industri.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-[#e5e7eb] mt-6">
+              <span class="text-[10px] font-bold text-[#093180] tracking-wider uppercase block">Integritas & Presisi</span>
+            </div>
+          </div>
+
+          <div class="scroll-reveal scroll-stagger-2 h-full flex flex-col justify-between p-6 sm:p-7 lg:p-8 bg-white border border-[#e5e7eb]">
+            <div class="space-y-4">
+              <div class="pb-3 border-b border-[#e5e7eb] flex items-center justify-between">
+                <span class="text-[11px] font-bold text-[#093180] tracking-widest uppercase">02 / KESELAMATAN</span>
+                <span class="w-2 h-2 bg-[#ffc107]"></span>
+              </div>
+              <h3 class="text-sm font-bold text-[#111827] uppercase tracking-wide">
+                Standar NFPA & SNI
+              </h3>
+              <p class="text-xs text-[#4b5563] leading-relaxed">
+                Kepatuhan mutlak pada regulasi keselamatan kerja K3L Zero Accident, standar internasional NFPA, serta pengujian kelayakan teknis hydrotest.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-[#e5e7eb] mt-6">
+              <span class="text-[10px] font-bold text-[#093180] tracking-wider uppercase block">Standar Teruji</span>
+            </div>
+          </div>
+
+          <div class="scroll-reveal scroll-stagger-3 h-full flex flex-col justify-between p-6 sm:p-7 lg:p-8 bg-white border border-[#e5e7eb]">
+            <div class="space-y-4">
+              <div class="pb-3 border-b border-[#e5e7eb] flex items-center justify-between">
+                <span class="text-[11px] font-bold text-[#093180] tracking-widest uppercase">03 / LAYANAN</span>
+                <span class="w-2 h-2 bg-[#ffc107]"></span>
+              </div>
+              <h3 class="text-sm font-bold text-[#111827] uppercase tracking-wide">
+                Solusi Terintegrasi
+              </h3>
+              <p class="text-xs text-[#4b5563] leading-relaxed">
+                Layanan menyeluruh meliputi instalasi fire hydrant, sprinkler, clean agent suppression, perakitan fire pump room, hingga maintenance berkala.
+              </p>
+            </div>
+            <div class="pt-4 border-t border-[#e5e7eb] mt-6">
+              <span class="text-[10px] font-bold text-[#093180] tracking-wider uppercase block">End-to-End Service</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="portofolio" class="w-full py-16 sm:py-20 bg-white border-b border-[#e5e7eb] section-layered">
+      <div class="max-w-[1280px] mx-auto px-4 sm:px-8 xl:px-12">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-4 border-b border-[#e5e7eb] gap-4">
+          <div>
+            <div class="mask-reveal">
+              <span class="text-[11px] font-bold tracking-[0.25em] text-[#093180] uppercase block mb-2">
+                02 / Rekam Jejak & Kepercayaan Klien
+              </span>
+            </div>
+            <div class="mask-reveal mask-delay-100">
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight uppercase">
+                HIGHLIGHT PORTOFOLIO
+              </h2>
+            </div>
+          </div>
+          <a href="portofolio.html" class="btn-outline text-xs py-2 px-4 self-start md:self-auto inline-flex items-center gap-2">
+            <span>Lihat Seluruh Portofolio</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+          <div class="scroll-reveal scroll-stagger-1 h-full flex flex-col justify-between p-6 sm:p-7 lg:p-8 bg-white border border-[#e5e7eb]">
+            <div>
+              <div class="text-3xl sm:text-4xl font-extrabold text-[#093180] mb-2 tabular-numbers">50+</div>
+              <h3 class="text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">Instalasi Hydrant & Sprinkler</h3>
+              <p class="text-xs text-[#4b5563] leading-relaxed">Pemasangan jaringan pipa distribusi, pilar hidran, dan sistem sprinkler kawasan industri serta pergudangan.</p>
+            </div>
+            <div class="pt-4 border-t border-[#e5e7eb] mt-6">
+              <span class="text-[10px] font-bold text-[#093180] tracking-wider uppercase">Tersebar di Berbagai Proyek</span>
+            </div>
+          </div>
+          <div class="scroll-reveal scroll-stagger-2 h-full flex flex-col justify-between p-6 sm:p-7 lg:p-8 bg-white border border-[#e5e7eb]">
+            <div>
+              <div class="text-3xl sm:text-4xl font-extrabold text-[#093180] mb-2 tabular-numbers">100%</div>
+              <h3 class="text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">Standar Teknis Teruji</h3>
+              <p class="text-xs text-[#4b5563] leading-relaxed">Seluruh pekerjaan melalui pengujian tekanan hydrotest dan prosedur keselamatan kerja K3 ketat.</p>
+            </div>
+            <div class="pt-4 border-t border-[#e5e7eb] mt-6">
+              <span class="text-[10px] font-bold text-[#093180] tracking-wider uppercase">NFPA & SNI Compliant</span>
+            </div>
+          </div>
+          <div class="scroll-reveal scroll-stagger-3 h-full flex flex-col justify-between p-6 sm:p-7 lg:p-8 bg-white border border-[#e5e7eb]">
+            <div>
+              <div class="text-3xl sm:text-4xl font-extrabold text-[#093180] mb-2 tabular-numbers">24 Jam</div>
+              <h3 class="text-xs font-bold uppercase tracking-wider text-[#111827] mb-2">Siaga Teknis & Maintenance</h3>
+              <p class="text-xs text-[#4b5563] leading-relaxed">Dukungan teknisi responsif untuk inspeksi berkala, perbaikan darurat, dan komisioning sistem pompa.</p>
+            </div>
+            <div class="pt-4 border-t border-[#e5e7eb] mt-6">
+              <span class="text-[10px] font-bold text-[#093180] tracking-wider uppercase">Dukungan Siaga Penuh</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="galeri" class="w-full py-16 sm:py-20 bg-white border-b border-[#e5e7eb] section-layered">
+      <div class="max-w-[1280px] mx-auto px-4 sm:px-8 xl:px-12">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-4 border-b border-[#e5e7eb] gap-4">
+          <div>
+            <div class="mask-reveal">
+              <span class="text-[11px] font-bold tracking-[0.25em] text-[#093180] uppercase block mb-2">
+                03 / Dokumentasi Lapangan Terpilih
+              </span>
+            </div>
+            <div class="mask-reveal mask-delay-100">
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight uppercase">
+                DOKUMENTASI PEKERJAAN & INSTALASI
+              </h2>
+            </div>
+          </div>
+          <a href="galeri.html" class="btn-outline text-xs py-2 px-4 self-start md:self-auto inline-flex items-center gap-2">
+            <span>Buka Galeri Foto Lengkap</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <a href="galeri.html" class="scroll-reveal scroll-stagger-1 group bg-white border border-[#e5e7eb] overflow-hidden hover:shadow-lg transition-all">
+            <div class="aspect-[4/3] overflow-hidden bg-gray-100 parallax-container">
+              <img src="images/hydrant-pillar.jpg" alt="Instalasi Hydrant" class="w-full h-full object-cover parallax-img group-hover:scale-105 transition-transform duration-300">
+            </div>
+            <div class="p-4 border-t border-[#e5e7eb]">
+              <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block mb-1">Hydrant Outdoor</span>
+              <h3 class="text-xs font-bold text-[#111827] group-hover:text-[#093180]">Instalasi Hydrant Pillar</h3>
+            </div>
+          </a>
+          <a href="galeri.html" class="scroll-reveal scroll-stagger-2 group bg-white border border-[#e5e7eb] overflow-hidden hover:shadow-lg transition-all">
+            <div class="aspect-[4/3] overflow-hidden bg-gray-100 parallax-container">
+              <img src="images/fire-pump-room.jpg" alt="Fire Pump Room" class="w-full h-full object-cover parallax-img group-hover:scale-105 transition-transform duration-300">
+            </div>
+            <div class="p-4 border-t border-[#e5e7eb]">
+              <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block mb-1">Rumah Pompa</span>
+              <h3 class="text-xs font-bold text-[#111827] group-hover:text-[#093180]">Fire Pump Turbin & Diesel</h3>
+            </div>
+          </a>
+          <a href="galeri.html" class="scroll-reveal scroll-stagger-3 group bg-white border border-[#e5e7eb] overflow-hidden hover:shadow-lg transition-all">
+            <div class="aspect-[4/3] overflow-hidden bg-gray-100 parallax-container">
+              <img src="images/foam-bladder-tank.jpg" alt="Foam Bladder Tank" class="w-full h-full object-cover parallax-img group-hover:scale-105 transition-transform duration-300">
+            </div>
+            <div class="p-4 border-t border-[#e5e7eb]">
+              <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block mb-1">Busa Industri</span>
+              <h3 class="text-xs font-bold text-[#111827] group-hover:text-[#093180]">Tangki Busa Foam Bladder</h3>
+            </div>
+          </a>
+          <a href="galeri.html" class="scroll-reveal scroll-stagger-4 group bg-white border border-[#e5e7eb] overflow-hidden hover:shadow-lg transition-all">
+            <div class="aspect-[4/3] overflow-hidden bg-gray-100 parallax-container">
+              <img src="images/fire-drill-nozzle.jpg" alt="Testing Commissioning" class="w-full h-full object-cover parallax-img group-hover:scale-105 transition-transform duration-300">
+            </div>
+            <div class="p-4 border-t border-[#e5e7eb]">
+              <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block mb-1">Testing</span>
+              <h3 class="text-xs font-bold text-[#111827] group-hover:text-[#093180]">Uji Pancaran & Fire Drill</h3>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="katalog" class="w-full py-16 sm:py-20 bg-white border-b border-[#e5e7eb] section-layered">
+      <div class="max-w-[1280px] mx-auto px-4 sm:px-8 xl:px-12">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-4 border-b border-[#e5e7eb] gap-4">
+          <div>
+            <div class="mask-reveal">
+              <span class="text-[11px] font-bold tracking-[0.25em] text-[#093180] uppercase block mb-2">
+                04 / Katalog Produk & Peralatan
+              </span>
+            </div>
+            <div class="mask-reveal mask-delay-100">
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight uppercase">
+                PRODUK UNGGULAN
+              </h2>
+            </div>
+          </div>
+          <a href="katalog.html" class="btn-outline text-xs py-2 px-4 self-start md:self-auto inline-flex items-center gap-2">
+            <span>Buka Katalog Lengkap</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </div>
+
+        <div class="flex justify-center py-6">
+          <button id="openHydrantModalBtn" class="scroll-reveal group flex flex-col items-center bg-white p-6 max-w-sm w-full focus:outline-none transition-all duration-300 hover:opacity-90 cursor-pointer border border-transparent hover:border-[#e5e7eb]">
+            <div class="w-full aspect-[3/4] bg-white flex items-center justify-center overflow-hidden mb-6 parallax-container">
+              <img src="images/catalog/products/vinci_hydrant_pillar_2way.jpg" alt="Pillar Hydrant Two-Way" class="w-full h-full object-contain parallax-img transition-transform duration-500 group-hover:scale-105">
+            </div>
+            <div class="text-center">
+              <span class="text-xs font-bold tracking-[0.2em] text-[#093180] uppercase block mb-1">VINCI-HP-14A</span>
+              <span class="text-[11px] tracking-wider text-[#6b7280] uppercase block mb-3">PILLAR HYDRANT TWO-WAY</span>
+              <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#093180] group-hover:underline">
+                <span>Klik untuk Detail Spesifikasi</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div class="w-full h-14 sm:h-16 bg-[#093180] border-y border-[#062460] marquee-container select-none flex items-center">
+      <div class="marquee-track flex items-center h-full">
+        <div class="flex items-center gap-8 sm:gap-10 pr-8 sm:pr-10 shrink-0 h-full">
+          <span class="text-xs sm:text-sm font-bold uppercase tracking-[0.16em] text-white whitespace-nowrap">PT INDO TEKNIK EMPATBELAS</span>
+          <img src="images/Fire-Hydrant-Yellow.png" alt="Hydrant" class="h-6 sm:h-7 w-auto object-contain shrink-0">
+          <span class="text-xs sm:text-sm font-bold uppercase tracking-[0.16em] text-[#ffc107] whitespace-nowrap">FIRE PROTECTION SPECIALIST</span>
+          <img src="images/Fire-Hydrant-Yellow.png" alt="Hydrant" class="h-6 sm:h-7 w-auto object-contain shrink-0">
+          <span class="text-xs sm:text-sm font-bold uppercase tracking-[0.16em] text-white whitespace-nowrap">INSTALASI HYDRANT & SPRINKLER</span>
+          <img src="images/Fire-Hydrant-Yellow.png" alt="Hydrant" class="h-6 sm:h-7 w-auto object-contain shrink-0">
+          <span class="text-xs sm:text-sm font-bold uppercase tracking-[0.16em] text-[#ffc107] whitespace-nowrap">MECHANICAL ELECTRICAL</span>
+          <img src="images/Fire-Hydrant-Yellow.png" alt="Hydrant" class="h-6 sm:h-7 w-auto object-contain shrink-0">
+          <span class="text-xs sm:text-sm font-bold uppercase tracking-[0.16em] text-white whitespace-nowrap">STANDAR RESMI NFPA & SNI</span>
+          <img src="images/Fire-Hydrant-Yellow.png" alt="Hydrant" class="h-6 sm:h-7 w-auto object-contain shrink-0">
+          <span class="text-xs sm:text-sm font-bold uppercase tracking-[0.16em] text-[#ffc107] whitespace-nowrap">LAYANAN TEKNIS SIAGA 24 JAM</span>
+          <img src="images/Fire-Hydrant-Yellow.png" alt="Hydrant" class="h-6 sm:h-7 w-auto object-contain shrink-0">
+        </div>
+        <div class="flex items-center gap-8 sm:gap-10 pr-8 sm:pr-10 shrink-0 h-full" aria-hidden="true">
+          <span class="text-xs sm:text-sm font-bold uppercase tracking-[0.16em] text-white whitespace-nowrap">PT INDO TEKNIK EMPATBELAS</span>
+          <img src="images/Fire-Hydrant-Yellow.png" alt="Hydrant" class="h-6 sm:h-7 w-auto object-contain shrink-0">
+          <span class="text-xs sm:text-sm font-bold uppercase tracking-[0.16em] text-[#ffc107] whitespace-nowrap">FIRE PROTECTION SPECIALIST</span>
+          <img src="images/Fire-Hydrant-Yellow.png" alt="Hydrant" class="h-6 sm:h-7 w-auto object-contain shrink-0">
+          <span class="text-xs sm:text-sm font-bold uppercase tracking-[0.16em] text-white whitespace-nowrap">INSTALASI HYDRANT & SPRINKLER</span>
+          <img src="images/Fire-Hydrant-Yellow.png" alt="Hydrant" class="h-6 sm:h-7 w-auto object-contain shrink-0">
+          <span class="text-xs sm:text-sm font-bold uppercase tracking-[0.16em] text-[#ffc107] whitespace-nowrap">MECHANICAL ELECTRICAL</span>
+          <img src="images/Fire-Hydrant-Yellow.png" alt="Hydrant" class="h-6 sm:h-7 w-auto object-contain shrink-0">
+          <span class="text-xs sm:text-sm font-bold uppercase tracking-[0.16em] text-white whitespace-nowrap">STANDAR RESMI NFPA & SNI</span>
+          <img src="images/Fire-Hydrant-Yellow.png" alt="Hydrant" class="h-6 sm:h-7 w-auto object-contain shrink-0">
+          <span class="text-xs sm:text-sm font-bold uppercase tracking-[0.16em] text-[#ffc107] whitespace-nowrap">LAYANAN TEKNIS SIAGA 24 JAM</span>
+          <img src="images/Fire-Hydrant-Yellow.png" alt="Hydrant" class="h-6 sm:h-7 w-auto object-contain shrink-0">
+        </div>
+      </div>
+    </div>
+
+    <section id="hubungi-kami" class="w-full py-20 bg-white border-b border-[#e5e7eb] section-layered">
+      <div class="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-16">
+        
+        <div class="mb-12">
+          <div class="mask-reveal">
+            <span class="text-[11px] font-bold tracking-[0.25em] text-[#093180] uppercase block mb-2">05 / Informasi & Layanan</span>
+          </div>
+          <div class="mask-reveal mask-delay-100">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-[#111827] tracking-tight uppercase mb-2">
+              HUBUNGI KAMI
+            </h2>
+          </div>
+          <p class="text-xs sm:text-sm text-[#4b5563] max-w-2xl leading-relaxed">
+            Hubungi PT INDO TEKNIK EMPATBELAS untuk konsultasi teknis, survei lokasi, atau penawaran resmi pekerjaan instalasi proteksi kebakaran dan mekanikal elektrikal.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+          
+          <div class="scroll-reveal scroll-stagger-1 h-full flex flex-col justify-between p-6 sm:p-7 lg:p-8 bg-white border border-[#e5e7eb]">
+            <div class="space-y-6">
+              <div>
+                <h3 class="text-sm font-bold text-[#093180] uppercase tracking-wider mb-3 pb-3 border-b border-[#e5e7eb] flex items-center gap-2">
+                  <span class="w-2 h-2 bg-[#ffc107] inline-block"></span>
+                  Kantor Pusat & Workshop
+                </h3>
+                <p class="text-xs text-[#4b5563] leading-relaxed">
+                  <strong class="text-[#111827]">PT INDO TEKNIK EMPATBELAS</strong><br>
+                  Dusun Pekojo, RT 02/RW 02, Desa Tunggalpager, Kec. Pungging, Kab. Mojokerto, Provinsi Jawa Timur 61384
+                </p>
+              </div>
+
+              <div class="space-y-3 text-xs">
+                <div>
+                  <span class="text-[#9ca3af] block">Telepon / WhatsApp:</span>
+                  <a href="https://wa.me/6281390630360" target="_blank" class="text-sm font-bold text-[#093180] hover:underline">+62 813-9063-0360</a>
+                </div>
+                <div>
+                  <span class="text-[#9ca3af] block">Email Resmi:</span>
+                  <a href="mailto:indoteknikempatbelas@gmail.com" class="text-sm font-semibold text-[#093180] hover:underline">indoteknikempatbelas@gmail.com</a>
+                </div>
+                <div>
+                  <span class="text-[#9ca3af] block">Bidang Usaha:</span>
+                  <span class="text-xs font-semibold text-[#111827]">Fire Protection & Mechanical Electrical</span>
+                </div>
+                <div>
+                  <span class="text-[#9ca3af] block">Wilayah Operasional:</span>
+                  <span class="text-xs font-semibold text-[#111827]">Jawa Timur & Seluruh Indonesia</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-6 border-t border-[#e5e7eb] mt-6">
+              <span class="text-xs font-bold text-[#111827] uppercase tracking-wider block mb-2">Jam Operasional:</span>
+              <div class="text-xs text-[#4b5563] space-y-1.5">
+                <div class="flex justify-between">
+                  <span>Senin - Jumat:</span>
+                  <span class="font-semibold text-[#111827]">08:00 - 17:00 WIB</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>Sabtu:</span>
+                  <span class="font-semibold text-[#111827]">08:00 - 13:00 WIB</span>
+                </div>
+                <div class="flex justify-between text-[#093180] font-semibold">
+                  <span>Layanan Darurat:</span>
+                  <span>Siaga 24 Jam</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="scroll-reveal scroll-stagger-2 h-full flex flex-col justify-between p-6 sm:p-7 lg:p-8 bg-white border border-[#e5e7eb]">
+            <div class="space-y-4">
+              <h3 class="text-sm font-bold text-[#093180] uppercase tracking-wider pb-3 border-b border-[#e5e7eb] flex items-center gap-2">
+                <span class="w-2 h-2 bg-[#ffc107] inline-block"></span>
+                Formulir Penawaran Teknis
+              </h3>
+
+              <form id="rfqContactForm" class="space-y-4">
+                <div>
+                  <label for="contactName" class="block text-xs font-bold text-[#111827] uppercase tracking-wider mb-1">
+                    Nama Lengkap *
+                  </label>
+                  <input type="text" id="contactName" required placeholder="Nama Anda" class="w-full px-3 py-2 bg-white border border-[#e5e7eb] text-xs text-[#111827] focus:outline-none focus:border-[#093180]">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+                  <div>
+                    <label for="contactCompany" class="block text-xs font-bold text-[#111827] uppercase tracking-wider mb-1">
+                      Perusahaan
+                    </label>
+                    <input type="text" id="contactCompany" placeholder="PT / CV" class="w-full px-3 py-2 bg-white border border-[#e5e7eb] text-xs text-[#111827] focus:outline-none focus:border-[#093180]">
+                  </div>
+                  <div>
+                    <label for="contactPhone" class="block text-xs font-bold text-[#111827] uppercase tracking-wider mb-1">
+                      WhatsApp / HP *
+                    </label>
+                    <input type="tel" id="contactPhone" required placeholder="08139063xxxx" class="w-full px-3 py-2 bg-white border border-[#e5e7eb] text-xs text-[#111827] focus:outline-none focus:border-[#093180]">
+                  </div>
+                </div>
+
+                <div>
+                  <label for="contactService" class="block text-xs font-bold text-[#111827] uppercase tracking-wider mb-1">
+                    Kebutuhan Layanan
+                  </label>
+                  <select id="contactService" class="w-full px-3 py-2 bg-white border border-[#e5e7eb] text-xs text-[#111827] focus:outline-none focus:border-[#093180]">
+                    <option value="Fire Hydrant System">Instalasi Fire Hydrant & Plambing</option>
+                    <option value="Automatic Sprinkler">Automatic Fire Sprinkler System</option>
+                    <option value="Fire Alarm System">Fire Alarm Addressable / Konvensional</option>
+                    <option value="Clean Agent FM-200">Clean Agent Suppression (FM-200 / CO2)</option>
+                    <option value="Fire Pump Room">Instalasi Rumah Pompa Kebakaran NFPA 20</option>
+                    <option value="Hydrotest & Sertifikasi">Uji Hydrotest & Pengurusan Izin K3 Disnaker</option>
+                    <option value="Preventive Maintenance">Maintenance & Service Rutin Berkala</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="contactMessage" class="block text-xs font-bold text-[#111827] uppercase tracking-wider mb-1">
+                    Deskripsi Singkat Proyek / Lokasi *
+                  </label>
+                  <textarea id="contactMessage" rows="3" required placeholder="Sebutkan lokasi proyek, estimasi luas bangunan, atau kebutuhan spesifikasi teknis..." class="w-full px-3 py-2 bg-white border border-[#e5e7eb] text-xs text-[#111827] focus:outline-none focus:border-[#093180]"></textarea>
+                </div>
+
+                <button type="submit" class="w-full btn-primary text-center py-2.5">
+                  <span>Kirim Permintaan Penawaran</span>
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <div class="scroll-reveal scroll-stagger-3 h-full flex flex-col justify-between p-6 sm:p-7 lg:p-8 bg-white border border-[#e5e7eb]">
+            <div class="space-y-6">
+              <div>
+                <h3 class="text-sm font-bold text-[#093180] uppercase tracking-wider mb-3 pb-3 border-b border-[#e5e7eb] flex items-center gap-2">
+                  <span class="w-2 h-2 bg-[#ffc107] inline-block"></span>
+                  Layanan & Jangkauan
+                </h3>
+                <span class="text-xs font-bold text-[#111827] block mb-1">Dukungan Penanganan Cepat 24 Jam</span>
+                <p class="text-xs text-[#4b5563] leading-relaxed mb-4">
+                  Tim teknisi kami siaga 24 jam untuk penanganan darurat kebocoran pipa hidran, trip pompa, atau alarm false call.
+                </p>
+                <a href="https://wa.me/6281390630360?text=Halo%20PT%20Indo%20Teknik%20Empatbelas" target="_blank" class="w-full btn-secondary text-center text-xs py-2.5 block">
+                  <span>Direct Chat WhatsApp: +62 813-9063-0360</span>
+                </a>
+              </div>
+
+              <div class="pt-4 border-t border-[#e5e7eb]">
+                <h4 class="text-xs font-bold text-[#111827] uppercase tracking-wider mb-2">Wilayah Jangkauan Proyek:</h4>
+                <div class="grid grid-cols-2 gap-2 text-xs text-[#4b5563]">
+                  <div class="flex items-center gap-1.5"><span class="text-[#093180] font-bold">✔</span> Jawa & Madura</div>
+                  <div class="flex items-center gap-1.5"><span class="text-[#093180] font-bold">✔</span> Sumatera & Riau</div>
+                  <div class="flex items-center gap-1.5"><span class="text-[#093180] font-bold">✔</span> Kalimantan</div>
+                  <div class="flex items-center gap-1.5"><span class="text-[#093180] font-bold">✔</span> Sulawesi & Timur</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-6 border-t border-[#e5e7eb] mt-6 text-xs text-[#4b5563] space-y-1.5">
+              <strong class="text-[#111827] block mb-1 uppercase tracking-wider text-[11px]">Kualifikasi & Jaminan Layanan:</strong>
+              <div>• Badan Usaha Resmi Berbadan Hukum</div>
+              <div>• Standar Instalasi Sesuai NFPA & SNI</div>
+              <div>• Dukungan Teknisi Bersertifikasi & Berpengalaman</div>
+              <div>• Standar Mutu Keselamatan Kerja & K3L</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <div id="hydrantDetailModal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-4 sm:p-8">
+    <div class="relative bg-white border border-[#093180] max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl p-6 sm:p-10">
+      
+      <button id="closeHydrantModalBtn" aria-label="Tutup Detail" class="absolute top-5 right-5 text-[#6b7280] hover:text-[#111827] focus:outline-none p-2">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center pt-2">
+        <div class="bg-white border border-[#e5e7eb] p-4 flex items-center justify-center aspect-square">
+          <img id="modalProductImage" src="images/catalog/products/vinci_hydrant_pillar_2way.jpg" alt="Detail Produk" class="max-h-[320px] max-w-full object-contain">
+        </div>
+
+        <div class="space-y-4 text-left">
+          <div>
+            <span id="modalProductCode" class="text-[10px] font-bold text-[#093180] tracking-[0.2em] uppercase block mb-1">VINCI-HP-14A</span>
+            <h2 id="modalProductTitle" class="text-xl sm:text-2xl font-bold text-[#111827] tracking-tight">HYDRANT PILLAR TWO-WAY (H-14A)</h2>
+            <span id="modalProductBrand" class="text-xs text-[#6b7280] font-semibold">Vinci Firefighting Supplier</span>
+          </div>
+
+          <p id="modalProductDesc" class="text-xs text-[#4b5563] leading-relaxed">
+            Unit pilar hidran dua arah bertekanan tinggi untuk instalasi luar gedung dengan material ductile iron tahan korosi, lengkap dengan tutup kuningan (brass cap) dan rantai pengaman.
+          </p>
+
+          <div id="modalProductSpecs" class="border-t border-b border-[#e5e7eb] py-3 text-xs space-y-1 text-[#4b5563] max-h-48 overflow-y-auto">
+            <div class="flex justify-between items-start gap-4 py-1.5 border-b border-[#f3f4f6]">
+              <span class="font-bold text-[#111827] shrink-0">Ukuran Inlet:</span>
+              <span class="text-right text-[#4b5563]">4 Inch (DN100) Flange Standar</span>
+            </div>
+            <div class="flex justify-between items-start gap-4 py-1.5 border-b border-[#f3f4f6]">
+              <span class="font-bold text-[#111827] shrink-0">Ukuran Outlet:</span>
+              <span class="text-right text-[#4b5563]">2 x 2.5 Inch Machino / VDH</span>
+            </div>
+            <div class="flex justify-between items-start gap-4 py-1.5 border-b border-[#f3f4f6]">
+              <span class="font-bold text-[#111827] shrink-0">Tekanan Kerja:</span>
+              <span class="text-right text-[#4b5563]">10 - 16 Bar (145 - 232 PSI)</span>
+            </div>
+            <div class="flex justify-between items-start gap-4 py-1.5 border-b border-[#f3f4f6]">
+              <span class="font-bold text-[#111827] shrink-0">Tekanan Uji:</span>
+              <span class="text-right text-[#4b5563]">20 Bar Hydrostatic Tested</span>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <a id="modalProductWa" href="https://wa.me/6281390630360?text=Halo%20PT%20INDO%20TEKNIK%20EMPATBELAS,%20saya%20ingin%20menanyakan%20penawaran%20harga%20produk." target="_blank" class="w-full btn-primary text-center block py-3 text-xs font-bold uppercase tracking-wider">
+              Hubungi via WhatsApp untuk Penawaran
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="bg-[#093180] text-white pt-12 pb-8 border-t border-[#062460] w-full">
+    <div class="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-16">
+      
+      <div class="flex flex-col md:flex-row items-center justify-between pb-8 border-b border-white/10 gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-white text-[#093180] font-bold text-lg flex items-center justify-center">14</div>
+          <div>
+            <span class="text-base font-bold text-white block">PT INDO TEKNIK EMPATBELAS</span>
+            <span class="text-xs text-[#ffc107] font-semibold tracking-wider uppercase block">Fire Protection & Mechanical Electrical</span>
+          </div>
+        </div>
+
+        <nav class="flex flex-wrap items-center gap-6 text-xs uppercase font-semibold">
+          <a href="index.html" class="hover:text-[#ffc107] transition-colors">HOME</a>
+          <a href="tentang.html" class="hover:text-[#ffc107] transition-colors">TENTANG KAMI</a>
+          <a href="portofolio.html" class="hover:text-[#ffc107] transition-colors">PORTOFOLIO</a>
+          <a href="galeri.html" class="hover:text-[#ffc107] transition-colors">GALERI</a>
+          <a href="katalog.html" class="hover:text-[#ffc107] transition-colors">KATALOG</a>
+          <a href="kontak.html" class="hover:text-[#ffc107] transition-colors">HUBUNGI KAMI</a>
+        </nav>
+      </div>
+
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 gap-4">
+        <div>
+          &copy; 2026 PT INDO TEKNIK EMPATBELAS. Dusun Pekojo, Tunggalpager, Pungging, Mojokerto, Jawa Timur.
+        </div>
+        <div>
+          <a href="#navbar" class="text-[#ffc107] hover:underline">Kembali ke Atas ↑</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <button id="fabScrollTop" aria-label="Scroll ke Atas" class="fab-scroll-button fixed bottom-6 right-6 z-40 w-12 h-12 bg-white text-[#093180] border border-[#e5e7eb] shadow-lg flex items-center justify-center hover:bg-[#e6ecf5] hover:text-[#062460] transition-all duration-200 opacity-0 pointer-events-none translate-y-8">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+  </button>
+
+  <script type="module" src="src/js/main.js"></script>
+</body>
+</html>

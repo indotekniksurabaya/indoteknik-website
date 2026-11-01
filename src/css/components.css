@@ -1,0 +1,294 @@
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-text-on-primary);
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: 1px solid var(--color-primary);
+  border-radius: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-text-primary);
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: 1px solid var(--color-secondary);
+  border-radius: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-secondary-hover);
+  border-color: var(--color-secondary-hover);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--color-primary);
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: 1px solid transparent;
+  border-radius: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-ghost:hover {
+  background-color: var(--color-primary-subtle);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 180ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-outline:hover {
+  background-color: var(--color-primary);
+  color: var(--color-text-on-primary);
+}
+
+.info-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0;
+  padding: 1.5rem;
+  box-shadow: none;
+  transition: border-color 200ms ease, background-color 200ms ease;
+}
+
+.info-card:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-surface-hover);
+}
+
+.image-card-blog {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0;
+}
+
+.image-card-blog .card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(9, 49, 128, 0.95) 0%, rgba(9, 49, 128, 0.5) 45%, rgba(0, 0, 0, 0) 80%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  color: var(--color-text-on-dark);
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.image-card-blog:hover .card-overlay {
+  background: linear-gradient(to top, rgba(9, 49, 128, 0.98) 0%, rgba(9, 49, 128, 0.7) 60%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+.image-card-blog img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.image-card-blog:hover img {
+  transform: scale(1.05);
+}
+
+.nav-link {
+  color: var(--color-text-primary);
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: color 150ms ease;
+  position: relative;
+  padding-bottom: 0.25rem;
+  white-space: nowrap;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--color-primary);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-primary);
+  transition: width 200ms ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: max-content;
+  animation: marquee-scroll 24s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes pageEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+main {
+  animation: pageEntrance 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.mask-reveal {
+  overflow: hidden;
+  display: block;
+}
+
+.mask-reveal > * {
+  display: block;
+  transform: translateY(115%);
+  opacity: 0;
+  transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.mask-reveal.is-visible > * {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.mask-delay-100 > * {
+  transition-delay: 100ms;
+}
+
+.mask-delay-200 > * {
+  transition-delay: 200ms;
+}
+
+.mask-delay-300 > * {
+  transition-delay: 300ms;
+}
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-stagger-1 {
+  transition-delay: 75ms;
+}
+
+.scroll-stagger-2 {
+  transition-delay: 150ms;
+}
+
+.scroll-stagger-3 {
+  transition-delay: 225ms;
+}
+
+.scroll-stagger-4 {
+  transition-delay: 300ms;
+}
+
+.parallax-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.parallax-img {
+  will-change: transform;
+  transition: transform 0.12s linear;
+  transform: scale(1.1) translateY(var(--parallax-y, 0px));
+}
+
+.section-layered {
+  position: relative;
+  background-color: #ffffff;
+  transition: box-shadow 0.3s ease;
+}
+
+.section-layered:hover {
+  box-shadow: 0 10px 30px -10px rgba(9, 49, 128, 0.06);
+}
+
+.video-landscape-crisp {
+  image-rendering: -webkit-optimize-contrast;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  filter: contrast(1.05) brightness(0.95);
+}

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TENTANG KAMI | PT INDO TEKNIK EMPATBELAS</title>
+  <meta name="description" content="Tentang PT INDO TEKNIK EMPATBELAS - Spesialis Proteksi Kebakaran dan Mekanikal Elektrikal.">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23093180'/><polygon points='50,15 85,80 15,80' fill='%23ffc107'/><path d='M50 35 L70 75 L30 75 Z' fill='%23093180'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#093180',
+              hover: '#062460',
+              subtle: '#e6ecf5'
+            },
+            secondary: {
+              DEFAULT: '#ffc107',
+              hover: '#e0a800'
+            },
+            surface: {
+              DEFAULT: '#ffffff',
+              2: '#f3f4f6',
+              hover: '#f9fafb'
+            },
+            'text-primary': '#111827',
+            'text-secondary': '#4b5563',
+            'text-muted': '#9ca3af',
+            border: {
+              DEFAULT: '#e5e7eb',
+              strong: '#d1d5db'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif']
+          },
+          borderRadius: {
+            none: '0px'
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="src/css/style.css">
+</head>
+
+<body class="bg-white text-[#111827] font-sans antialiased selection:bg-[#093180] selection:text-white flex flex-col min-h-screen justify-between pt-20">
+
+  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 w-full h-20 bg-white/80 backdrop-blur-md border-b border-[#e5e7eb] transition-all duration-200">
+    <div class="w-full h-full px-4 sm:px-8 xl:px-12 flex items-center justify-between">
+      
+      <a href="index.html" class="flex items-center gap-3 shrink-0 group">
+        <div class="w-10 h-10 sm:w-11 sm:h-11 bg-[#093180] flex items-center justify-center font-bold text-white text-lg sm:text-xl border border-[#093180] group-hover:bg-[#062460] transition-colors shrink-0">
+          <span class="text-[#ffc107]">14</span>
+        </div>
+        <div class="flex flex-col shrink-0">
+          <span class="text-sm sm:text-base lg:text-lg font-bold tracking-tight text-[#111827] leading-tight whitespace-nowrap">
+            PT INDO TEKNIK EMPATBELAS
+          </span>
+          <span class="text-[10px] sm:text-[11px] font-semibold text-[#093180] tracking-wider uppercase whitespace-nowrap hidden sm:block">
+            Fire Protection & Mechanical Electrical
+          </span>
+        </div>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-4 xl:gap-7">
+        <a href="index.html" class="nav-link font-bold text-xs uppercase tracking-wider text-[#111827] hover:text-[#093180]">HOME</a>
+        <a href="tentang.html" class="nav-link active font-bold text-xs uppercase tracking-wider text-[#093180]">TENTANG KAMI</a>
+        <a href="portofolio.html" class="nav-link font-bold text-xs uppercase tracking-wider text-[#111827] hover:text-[#093180]">PORTOFOLIO</a>
+        <a href="galeri.html" class="nav-link font-bold text-xs uppercase tracking-wider text-[#111827] hover:text-[#093180]">GALERI</a>
+        <a href="katalog.html" class="nav-link font-bold text-xs uppercase tracking-wider text-[#111827] hover:text-[#093180]">KATALOG</a>
+        <a href="kontak.html" class="nav-link font-bold text-xs uppercase tracking-wider text-[#111827] hover:text-[#093180]">HUBUNGI KAMI</a>
+      </nav>
+
+      <button id="mobileMenuBtn" aria-label="Buka Menu" class="lg:hidden p-2 text-[#111827] hover:text-[#093180] focus:outline-none">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+
+    </div>
+    <div id="scrollProgress" class="absolute bottom-0 left-0 h-[2.5px] bg-[#093180] w-0 transition-all duration-75"></div>
+  </header>
+
+  <div id="mobileMenu" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex justify-end">
+    <div class="w-full max-w-sm bg-white h-full p-6 flex flex-col justify-between border-l border-[#e5e7eb] shadow-2xl">
+      <div>
+        <div class="flex items-center justify-between pb-6 border-b border-[#e5e7eb]">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 bg-[#093180] text-[#ffc107] font-bold flex items-center justify-center text-sm">14</div>
+            <span class="font-bold text-sm text-[#111827]">PT INDO TEKNIK 14</span>
+          </div>
+          <button id="closeMobileMenuBtn" aria-label="Tutup Menu" class="p-2 text-[#4b5563] hover:text-[#111827]">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <nav class="flex flex-col gap-4 mt-6">
+          <a href="index.html" class="mobile-nav-link text-base font-bold py-2 text-[#111827] hover:text-[#093180] border-b border-[#f3f4f6]">HOME</a>
+          <a href="tentang.html" class="mobile-nav-link text-base font-bold py-2 text-[#093180] border-b border-[#f3f4f6]">TENTANG KAMI</a>
+          <a href="portofolio.html" class="mobile-nav-link text-base font-bold py-2 text-[#111827] hover:text-[#093180] border-b border-[#f3f4f6]">PORTOFOLIO</a>
+          <a href="galeri.html" class="mobile-nav-link text-base font-bold py-2 text-[#111827] hover:text-[#093180] border-b border-[#f3f4f6]">GALERI</a>
+          <a href="katalog.html" class="mobile-nav-link text-base font-bold py-2 text-[#111827] hover:text-[#093180] border-b border-[#f3f4f6]">KATALOG</a>
+          <a href="kontak.html" class="mobile-nav-link text-base font-bold py-2 text-[#111827] hover:text-[#093180]">HUBUNGI KAMI</a>
+        </nav>
+      </div>
+      <div class="pt-6 border-t border-[#e5e7eb]">
+        <a href="https://wa.me/6281390630360" target="_blank" class="w-full btn-secondary text-center block">Chat WhatsApp: +62 813-9063-0360</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="flex-1 w-full bg-white">
+
+    <section class="w-full pt-16 pb-12 bg-white border-b border-[#e5e7eb]">
+      <div class="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-16">
+        <div class="mask-reveal">
+          <span class="text-[11px] font-bold tracking-[0.25em] text-[#093180] uppercase block mb-2">01 / Profil & Integritas</span>
+        </div>
+        <div class="mask-reveal mask-delay-100">
+          <h1 class="text-3xl sm:text-4xl font-extrabold text-[#111827] tracking-tight uppercase mb-3">
+            PT INDO TEKNIK EMPATBELAS
+          </h1>
+        </div>
+        <p class="text-xs sm:text-sm text-[#4b5563] max-w-2xl leading-relaxed">
+          Mitra kontraktor spesialis sistem proteksi kebakaran, instalasi perpipaan hidran, sprinkler, dan mekanikal elektrikal berskala komersial maupun fasilitas industri di seluruh Indonesia.
+        </p>
+      </div>
+    </section>
+
+    <section class="w-full py-20 bg-white section-layered">
+      <div class="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-16">
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+
+          <div class="scroll-reveal scroll-stagger-1 h-full flex flex-col justify-between p-6 sm:p-7 lg:p-8 bg-white border border-[#e5e7eb]">
+            <div class="space-y-5">
+              <div class="pb-3 border-b border-[#e5e7eb] flex items-center justify-between">
+                <span class="text-[11px] font-bold text-[#093180] tracking-widest uppercase">01 / PROFIL</span>
+                <span class="w-2 h-2 bg-[#ffc107]"></span>
+              </div>
+              <h2 class="text-base font-bold text-[#111827] uppercase tracking-wide">
+                Profil & Identitas
+              </h2>
+              <p class="text-xs text-[#4b5563] leading-relaxed">
+                PT INDO TEKNIK EMPATBELAS adalah badan usaha resmi berbadan hukum yang berfokus pada pekerjaan teknik proteksi kebakaran dan instalasi perpipaan mekanikal elektrikal berkualitas tinggi.
+              </p>
+              <div class="space-y-2 pt-3 border-t border-[#e5e7eb] text-xs text-[#4b5563]">
+                <div class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-[#093180]"></span>
+                  <span>Badan Usaha Resmi Berbadan Hukum</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-[#093180]"></span>
+                  <span>Spesialisasi Proteksi Kebakaran & Plambing</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-[#093180]"></span>
+                  <span>Didukung Tenaga Ahli Berpengalaman</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-6 border-t border-[#e5e7eb] mt-6">
+              <span class="text-[11px] font-bold text-[#093180] tracking-wider uppercase block">Komitmen Profesionalisme</span>
+            </div>
+          </div>
+
+          <div class="scroll-reveal scroll-stagger-2 h-full flex flex-col justify-between p-6 sm:p-7 lg:p-8 bg-white border border-[#e5e7eb]">
+            <div class="space-y-5">
+              <div class="pb-3 border-b border-[#e5e7eb] flex items-center justify-between">
+                <span class="text-[11px] font-bold text-[#093180] tracking-widest uppercase">02 / KESELAMATAN</span>
+                <span class="w-2 h-2 bg-[#ffc107]"></span>
+              </div>
+              <h2 class="text-base font-bold text-[#111827] uppercase tracking-wide">
+                Standar Mutu & K3L
+              </h2>
+              <p class="text-xs text-[#4b5563] leading-relaxed">
+                Setiap instalasi dikerjakan dengan kepatuhan penuh terhadap standar keselamatan kerja, regulasi teknis Standar Nasional Indonesia (SNI), dan acuan National Fire Protection Association (NFPA).
+              </p>
+              <div class="space-y-2 pt-3 border-t border-[#e5e7eb] text-xs text-[#4b5563]">
+                <div class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-[#093180]"></span>
+                  <span>Penerapan Ketat Budaya Zero Accident K3L</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-[#093180]"></span>
+                  <span>Kepatuhan Standar NFPA & Regulasi SNI</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-[#093180]"></span>
+                  <span>Pengujian Hydrotest & Kelaikan Operasional</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-6 border-t border-[#e5e7eb] mt-6">
+              <span class="text-[11px] font-bold text-[#093180] tracking-wider uppercase block">Keandalan Teruji</span>
+            </div>
+          </div>
+
+          <div class="scroll-reveal scroll-stagger-3 h-full flex flex-col justify-between p-6 sm:p-7 lg:p-8 bg-white border border-[#e5e7eb]">
+            <div class="space-y-5">
+              <div class="pb-3 border-b border-[#e5e7eb] flex items-center justify-between">
+                <span class="text-[11px] font-bold text-[#093180] tracking-widest uppercase">03 / LAYANAN</span>
+                <span class="w-2 h-2 bg-[#ffc107]"></span>
+              </div>
+              <h2 class="text-base font-bold text-[#111827] uppercase tracking-wide">
+                Lingkup Keahlian
+              </h2>
+              <p class="text-xs text-[#4b5563] leading-relaxed">
+                Menyediakan pengadaan material bersertifikat, fabrikasi pipa, instalasi lapangan terpadu, hingga komisioning pengujian sistem pemadam dan pompa bertekanan tinggi.
+              </p>
+              <div class="space-y-2 pt-3 border-t border-[#e5e7eb] text-xs text-[#4b5563]">
+                <div class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-[#093180]"></span>
+                  <span>Fire Hydrant & Automatic Sprinkler</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-[#093180]"></span>
+                  <span>Fire Pump Room NFPA 20 & Diesel Engine</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 bg-[#093180]"></span>
+                  <span>Clean Agent FM-200 & Fire Alarm Addressable</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-6 border-t border-[#e5e7eb] mt-6">
+              <span class="text-[11px] font-bold text-[#093180] tracking-wider uppercase block">Solusi Terintegrasi</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="mt-16 pt-12 border-t border-[#e5e7eb] flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <h3 class="text-base font-bold text-[#111827]">Butuh Konsultasi Teknis atau Penawaran Proyek?</h3>
+            <p class="text-xs text-[#4b5563]">Hubungi tim teknis kami untuk survei lapangan atau spesifikasi teknis.</p>
+          </div>
+          <div class="flex items-center gap-4">
+            <a href="portofolio.html" class="btn-secondary text-xs">Lihat Portofolio</a>
+            <a href="kontak.html" class="btn-primary text-xs">Hubungi Kami</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-[#093180] text-white pt-12 pb-8 border-t border-[#062460] w-full">
+    <div class="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-16">
+      
+      <div class="flex flex-col md:flex-row items-center justify-between pb-8 border-b border-white/10 gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-white text-[#093180] font-bold text-lg flex items-center justify-center">14</div>
+          <div>
+            <span class="text-base font-bold text-white block">PT INDO TEKNIK EMPATBELAS</span>
+            <span class="text-xs text-[#ffc107] font-semibold tracking-wider uppercase block">Fire Protection & Mechanical Electrical</span>
+          </div>
+        </div>
+
+        <nav class="flex flex-wrap items-center gap-6 text-xs uppercase font-semibold">
+          <a href="index.html" class="hover:text-[#ffc107] transition-colors">HOME</a>
+          <a href="tentang.html" class="hover:text-[#ffc107] transition-colors text-[#ffc107]">TENTANG KAMI</a>
+          <a href="portofolio.html" class="hover:text-[#ffc107] transition-colors">PORTOFOLIO</a>
+          <a href="galeri.html" class="hover:text-[#ffc107] transition-colors">GALERI</a>
+          <a href="katalog.html" class="hover:text-[#ffc107] transition-colors">KATALOG</a>
+          <a href="kontak.html" class="hover:text-[#ffc107] transition-colors">HUBUNGI KAMI</a>
+        </nav>
+      </div>
+
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 gap-4">
+        <div>
+          &copy; 2026 PT INDO TEKNIK EMPATBELAS. Dusun Pekojo, Tunggalpager, Pungging, Mojokerto, Jawa Timur.
+        </div>
+        <div>
+          <a href="#navbar" class="text-[#ffc107] hover:underline">Kembali ke Atas ↑</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <button id="fabScrollTop" aria-label="Scroll ke Atas" class="fab-scroll-button fixed bottom-6 right-6 z-40 w-12 h-12 bg-white text-[#093180] border border-[#e5e7eb] shadow-lg flex items-center justify-center hover:bg-[#e6ecf5] hover:text-[#062460] transition-all duration-200 opacity-0 pointer-events-none translate-y-8">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+  </button>
+
+  <script type="module" src="src/js/main.js"></script>
+</body>
+</html>
