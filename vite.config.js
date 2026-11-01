@@ -1,16 +1,19 @@
 import { resolve } from 'path';
+import { fileURLToPath } from 'url';
 import { defineConfig } from 'vite';
+
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
 export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: resolve(import.meta.dirname, 'index.html'),
-        tentang: resolve(import.meta.dirname, 'tentang.html'),
-        portofolio: resolve(import.meta.dirname, 'portofolio.html'),
-        galeri: resolve(import.meta.dirname, 'galeri.html'),
-        katalog: resolve(import.meta.dirname, 'katalog.html'),
-        kontak: resolve(import.meta.dirname, 'kontak.html')
+        main: resolve(__dirname, 'index.html'),
+        tentang: resolve(__dirname, 'tentang.html'),
+        portofolio: resolve(__dirname, 'portofolio.html'),
+        galeri: resolve(__dirname, 'galeri.html'),
+        katalog: resolve(__dirname, 'katalog.html'),
+        kontak: resolve(__dirname, 'kontak.html')
       }
     }
   }
