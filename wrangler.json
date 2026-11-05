@@ -1,7 +1,11 @@
 {
-  "name": "indoteknik",
+  "name": "indoteknik-website",
   "compatibility_date": "2026-11-01",
   "assets": {
     "directory": "./dist"
+  },
+  "vars": {
+    "VITE_SUPABASE_URL": "https://asdapivwgwihgbxjedzu.supabase.co",
+    "VITE_SUPABASE_ANON_KEY": "sb_publishable_6kaiJ-t5Hlbqyeb-ugS9vg_dz-fMknP"
   }
 }
