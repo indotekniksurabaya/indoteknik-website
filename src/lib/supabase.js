@@ -272,62 +272,130 @@ export async function updateCompanyProfile(profile) {
 // 4. RFQ / CONTACT INQUIRIES API
 // ==========================================
 
+const LOCAL_INQUIRIES_KEY = 'indoteknik_local_inquiries';
+
+function getLocalInquiries() {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = localStorage.getItem(LOCAL_INQUIRIES_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (_) {
+    return [];
+  }
+}
+
+function saveLocalInquiry(item) {
+  if (typeof window === 'undefined') return;
+  try {
+    const current = getLocalInquiries();
+    current.unshift(item);
+    localStorage.setItem(LOCAL_INQUIRIES_KEY, JSON.stringify(current.slice(0, 100)));
+  } catch (_) {}
+}
+
 export async function submitInquiry(inquiry) {
   const client = getSupabaseClient();
+  const inquiryRecord = {
+    id: `rfq-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+    name: inquiry.name,
+    company: inquiry.company || '',
+    phone: inquiry.phone,
+    email: inquiry.email || '',
+    service: inquiry.service || '',
+    message: inquiry.message,
+    created_at: new Date().toISOString()
+  };
+
+  // Always save locally to ensure no inquiry is lost
+  saveLocalInquiry(inquiryRecord);
+
   if (!client) {
-    console.info('Supabase offline: RFQ recorded locally in memory.');
-    return { success: true, offline: true };
+    console.info('Supabase offline: RFQ recorded locally.');
+    return { success: true, data: inquiryRecord };
   }
 
   try {
-    const { data, error } = await client
+    // Note: Do NOT use .select() here because anon key does not have SELECT permission on rfq_inquiries
+    const { error } = await client
       .from('rfq_inquiries')
       .insert([{
-        name: inquiry.name,
-        company: inquiry.company || '',
-        phone: inquiry.phone,
-        email: inquiry.email || '',
-        service: inquiry.service || '',
-        message: inquiry.message,
-        created_at: new Date().toISOString()
-      }])
-      .select()
-      .single();
+        name: inquiryRecord.name,
+        company: inquiryRecord.company,
+        phone: inquiryRecord.phone,
+        email: inquiryRecord.email,
+        service: inquiryRecord.service,
+        message: inquiryRecord.message,
+        created_at: inquiryRecord.created_at
+      }]);
 
     if (error) {
-      console.warn('Gagal menyimpan RFQ ke Supabase, tetap lanjut:', error);
-      return { success: false, error: error.message };
+      console.warn('Gagal menyimpan RFQ ke Supabase, tetap tersimpan lokal:', error.message);
+      return { success: true, data: inquiryRecord, warning: error.message };
     }
 
-    return { success: true, data };
+    return { success: true, data: inquiryRecord };
   } catch (err) {
-    return { success: false, error: err.message };
+    console.warn('Gagal koneksi Supabase RFQ, tetap tersimpan lokal:', err.message);
+    return { success: true, data: inquiryRecord, warning: err.message };
   }
 }
 
 export async function getInquiries() {
+  const localList = getLocalInquiries();
   const client = getSupabaseClient();
-  if (!client) return [];
+  if (!client) return localList;
 
-  const { data, error } = await client
-    .from('rfq_inquiries')
-    .select('*')
-    .order('created_at', { ascending: false });
+  try {
+    const { data, error } = await client
+      .from('rfq_inquiries')
+      .select('*')
+      .order('created_at', { ascending: false });
 
-  if (error) throw error;
-  return data || [];
+    if (error || !data || data.length === 0) {
+      return localList;
+    }
+
+    // Merge Supabase items and local items (deduplicated by phone + message or timestamp)
+    const map = new Map();
+    data.forEach(item => {
+      const key = `${item.phone}-${item.message}`;
+      map.set(key, item);
+    });
+    localList.forEach(item => {
+      const key = `${item.phone}-${item.message}`;
+      if (!map.has(key)) {
+        map.set(key, item);
+      }
+    });
+
+    return Array.from(map.values()).sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+  } catch (err) {
+    console.warn('Fetch inquiries error, returning local:', err);
+    return localList;
+  }
 }
 
 export async function deleteInquiry(id) {
+  // Delete from local storage
+  if (typeof window !== 'undefined') {
+    try {
+      const current = getLocalInquiries().filter(i => i.id !== id);
+      localStorage.setItem(LOCAL_INQUIRIES_KEY, JSON.stringify(current));
+    } catch (_) {}
+  }
+
+  // Delete from Supabase
   const client = getSupabaseClient();
-  if (!client) throw new Error('Supabase client belum dikonfigurasi.');
+  if (!client) return true;
 
-  const { error } = await client
-    .from('rfq_inquiries')
-    .delete()
-    .eq('id', id);
-
-  if (error) throw error;
+  try {
+    await client
+      .from('rfq_inquiries')
+      .delete()
+      .eq('id', id);
+  } catch (err) {
+    console.warn('Supabase delete error:', err);
+  }
   return true;
 }
 

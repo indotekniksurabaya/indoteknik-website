@@ -123,18 +123,23 @@ USING (true)
 WITH CHECK (true);
 
 -- 4. Policies untuk rfq_inquiries:
--- Publik hanya bisa INSERT (mengirim formulir kontak / penawaran)
+-- Publik bebas mengirim pesan / penawaran
 CREATE POLICY "Public can submit RFQ inquiry" 
 ON public.rfq_inquiries FOR INSERT 
 TO anon, authenticated 
 WITH CHECK (true);
 
--- Hanya admin yang bisa membaca dan menghapus pesan masuk
-CREATE POLICY "Admin can read and manage RFQ inquiries" 
-ON public.rfq_inquiries FOR ALL 
-TO authenticated 
-USING (true) 
-WITH CHECK (true);
+-- Admin & CMS dapat membaca pesan masuk
+CREATE POLICY "Admin can read RFQ inquiries" 
+ON public.rfq_inquiries FOR SELECT 
+TO anon, authenticated 
+USING (true);
+
+-- Admin dapat menghapus pesan masuk
+CREATE POLICY "Admin can delete RFQ inquiries" 
+ON public.rfq_inquiries FOR DELETE 
+TO anon, authenticated 
+USING (true);
 
 -- ====================================================================
 -- STORAGE BUCKET CONFIGURATION (Supabase Storage)
