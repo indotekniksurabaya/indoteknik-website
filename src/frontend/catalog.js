@@ -54,7 +54,7 @@ export async function initKatalog() {
       <div class="product-card group bg-white border border-[#e5e7eb] p-4 flex flex-col justify-between hover:shadow-lg transition-all" data-category="${p.category}" data-id="${p.id}">
         <div>
           <div class="aspect-square bg-white flex items-center justify-center p-3 mb-4 overflow-hidden border border-[#f3f4f6]">
-            <img src="${p.image}" alt="${p.title}" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" onerror="this.src='images/Fire-Hydrant-Yellow.png'">
+            <img src="${p.image}" alt="${p.title}" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
           </div>
           <span class="text-[10px] font-bold text-[#093180] tracking-wider uppercase block mb-1">
             ${p.code}
@@ -160,7 +160,7 @@ export async function initKatalog() {
     homeFeatured.innerHTML = `
       <button id="openHydrantModalBtn" class="group flex flex-col items-center bg-white p-6 max-w-sm w-full focus:outline-none transition-all duration-300 hover:opacity-90 cursor-pointer border border-[#e5e7eb] hover:border-[#093180] shadow-sm hover:shadow-xl">
         <div class="w-full aspect-[3/4] bg-white flex items-center justify-center overflow-hidden mb-6 p-4">
-          <img src="${featured.image}" alt="${featured.title}" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async" onerror="this.src='images/Fire-Hydrant-Yellow.png'">
+          <img src="${featured.image}" alt="${featured.title}" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
         </div>
         <div class="text-center w-full">
           <span class="text-xs font-bold tracking-[0.2em] text-[#093180] uppercase block mb-1">${featured.code}</span>
@@ -196,7 +196,7 @@ export async function initKatalog() {
     if (imgEl) {
       imgEl.src = prod.image;
       imgEl.alt = prod.title;
-      imgEl.onerror = () => { imgEl.src = 'images/Fire-Hydrant-Yellow.png'; };
+      imgEl.onerror = () => { imgEl.onerror = null; imgEl.src = '/images/Fire-Hydrant-Yellow.png'; };
     }
     if (descEl) descEl.textContent = prod.desc || '';
 

@@ -21,6 +21,25 @@ export function getSupabaseCredentials() {
   return { url: url.trim(), anonKey: anonKey.trim() };
 }
 
+/**
+ * Normalizes any image/media path so that relative assets are loaded from the root domain ('/images/...')
+ * and remote HTTP/HTTPS/data URLs remain untouched.
+ */
+export function normalizeMediaUrl(url) {
+  if (!url) return '';
+  const trimmed = String(url).trim();
+  if (trimmed.startsWith('http://') || trimmed.startsWith('https://') || trimmed.startsWith('data:') || trimmed.startsWith('blob:')) {
+    return trimmed;
+  }
+  if (trimmed.startsWith('/')) {
+    return trimmed;
+  }
+  if (trimmed.startsWith('../')) {
+    return '/' + trimmed.replace(/^(\.\.\/)+/, '');
+  }
+  return '/' + trimmed;
+}
+
 let supabaseInstance = null;
 
 export function getSupabaseClient() {
@@ -74,7 +93,10 @@ export function clearSupabaseConfig() {
 export async function getProducts() {
   const client = getSupabaseClient();
   if (!client) {
-    return Object.values(fallbackProducts);
+    return Object.values(fallbackProducts).map(p => ({
+      ...p,
+      image: normalizeMediaUrl(p.image)
+    }));
   }
 
   try {
@@ -85,20 +107,30 @@ export async function getProducts() {
 
     if (error || !data || data.length === 0) {
       console.info('Supabase products empty or error, using fallback:', error?.message);
-      return Object.values(fallbackProducts);
+      return Object.values(fallbackProducts).map(p => ({
+        ...p,
+        image: normalizeMediaUrl(p.image)
+      }));
     }
 
-    return data;
+    return data.map(p => ({
+      ...p,
+      image: normalizeMediaUrl(p.image)
+    }));
   } catch (err) {
     console.warn('Fetch products failed:', err);
-    return Object.values(fallbackProducts);
+    return Object.values(fallbackProducts).map(p => ({
+      ...p,
+      image: normalizeMediaUrl(p.image)
+    }));
   }
 }
 
 export async function getProductById(id) {
   const client = getSupabaseClient();
   if (!client) {
-    return fallbackProducts[id] || null;
+    const prod = fallbackProducts[id];
+    return prod ? { ...prod, image: normalizeMediaUrl(prod.image) } : null;
   }
 
   try {
@@ -109,12 +141,17 @@ export async function getProductById(id) {
       .single();
 
     if (error || !data) {
-      return fallbackProducts[id] || null;
+      const prod = fallbackProducts[id];
+      return prod ? { ...prod, image: normalizeMediaUrl(prod.image) } : null;
     }
 
-    return data;
+    return {
+      ...data,
+      image: normalizeMediaUrl(data.image)
+    };
   } catch (err) {
-    return fallbackProducts[id] || null;
+    const prod = fallbackProducts[id];
+    return prod ? { ...prod, image: normalizeMediaUrl(prod.image) } : null;
   }
 }
 
@@ -127,8 +164,8 @@ export async function saveProduct(product) {
     code: product.code,
     title: product.title,
     brand: product.brand || 'Vinci Firefighting Supplier',
-    category: product.category || 'hydrant',
-    image: product.image,
+    category: standardizeCategory(product.category || 'hydrant'),
+    image: normalizeMediaUrl(product.image),
     desc: product.desc || '',
     specs: product.specs || [],
     updated_at: new Date().toISOString()
@@ -164,7 +201,10 @@ export async function deleteProduct(id) {
 export async function getGallery() {
   const client = getSupabaseClient();
   if (!client) {
-    return fallbackGallery;
+    return fallbackGallery.map(g => ({
+      ...g,
+      image_url: normalizeMediaUrl(g.image_url)
+    }));
   }
 
   try {
@@ -174,12 +214,21 @@ export async function getGallery() {
       .order('order_num', { ascending: true });
 
     if (error || !data || data.length === 0) {
-      return fallbackGallery;
+      return fallbackGallery.map(g => ({
+        ...g,
+        image_url: normalizeMediaUrl(g.image_url)
+      }));
     }
 
-    return data;
+    return data.map(g => ({
+      ...g,
+      image_url: normalizeMediaUrl(g.image_url)
+    }));
   } catch (err) {
-    return fallbackGallery;
+    return fallbackGallery.map(g => ({
+      ...g,
+      image_url: normalizeMediaUrl(g.image_url)
+    }));
   }
 }
 
@@ -190,9 +239,9 @@ export async function saveGalleryItem(item) {
   const galleryData = {
     id: item.id || `gal-${Date.now()}`,
     title: item.title,
-    category: item.category,
+    category: standardizeCategory(item.category),
     category_label: item.category_label || item.category,
-    image_url: item.image_url,
+    image_url: normalizeMediaUrl(item.image_url),
     description: item.description || '',
     order_num: item.order_num || 0,
     updated_at: new Date().toISOString()

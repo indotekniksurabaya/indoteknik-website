@@ -70,7 +70,7 @@ export async function initGallery() {
     grid.innerHTML = pageItems.map(item => `
       <div class="gallery-item group bg-white border border-[#e5e7eb] overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300" data-category="${item.category}" data-id="${item.id}">
         <div class="relative overflow-hidden aspect-[4/3] bg-gray-100">
-          <img src="${item.image_url}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async" onerror="this.src='images/Fire-Hydrant-Yellow.png'">
+          <img src="${item.image_url}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
           <div class="absolute top-3 left-3">
             <span class="px-2.5 py-0.5 bg-[#093180] text-white text-[10px] font-bold uppercase tracking-wider shadow">
               ${item.category_label || item.category}
@@ -173,7 +173,7 @@ export async function initGallery() {
     homeGrid.innerHTML = topItems.map(item => `
       <a href="gallery.html" class="group bg-white border border-[#e5e7eb] overflow-hidden hover:shadow-lg transition-all flex flex-col justify-between">
         <div class="aspect-[4/3] overflow-hidden bg-gray-100 relative">
-          <img src="${item.image_url}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" onerror="this.src='images/Fire-Hydrant-Yellow.png'">
+          <img src="${item.image_url}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
           <div class="absolute top-2 left-2">
             <span class="px-2 py-0.5 bg-[#093180] text-white text-[9px] font-bold uppercase tracking-wider">
               ${item.category_label || item.category}

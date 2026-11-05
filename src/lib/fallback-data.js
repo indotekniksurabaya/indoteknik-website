@@ -66,7 +66,7 @@ export const fallbackGallery = [
     title: 'Instalasi Hydrant Pillar Outdoor',
     category: 'hydrant',
     category_label: 'Instalasi Hydrant',
-    image_url: 'images/hydrant-pillar.jpg',
+    image_url: '/images/hydrant-pillar.jpg',
     description: 'Pemasangan pilar hidran two-way dilengkapi ball valve kuningan dan sambungan Machino 2.5 inci standar Dinas Pemadam.',
     order_num: 1
   },
@@ -75,7 +75,7 @@ export const fallbackGallery = [
     title: 'Instalasi Hydrant Box & Alarm Valve Indoor',
     category: 'hydrant',
     category_label: 'Hydrant Box & Valve',
-    image_url: 'images/hydrant-box-indoor.jpg',
+    image_url: '/images/hydrant-box-indoor.jpg',
     description: 'Pemasangan boks hidran tipe indoor lengkap dengan landing valve, nozzle, fire hose kanvas 30 meter, dan alarm valve otomatis.',
     order_num: 2
   },
@@ -84,7 +84,7 @@ export const fallbackGallery = [
     title: 'Instalasi Fire Pump Room Lengkap',
     category: 'pump',
     category_label: 'Fire Pump NFPA 20',
-    image_url: 'images/fire-pump-room.jpg',
+    image_url: '/images/fire-pump-room.jpg',
     description: 'Ruang pompa kebakaran komprehensif mengintegrasikan Electric Pump, Diesel Engine Pump, dan Jockey Pump sesuai standar NFPA 20.',
     order_num: 3
   },
@@ -93,7 +93,7 @@ export const fallbackGallery = [
     title: 'Pemasangan Foam Bladder Tank & Proporsional',
     category: 'pump',
     category_label: 'Sistem Busa Foam',
-    image_url: 'images/foam-bladder-tank.jpg',
+    image_url: '/images/foam-bladder-tank.jpg',
     description: 'Tangki proporsional busa pemadam vertikal untuk proteksi area penyimpanan bahan bakar cair dan cairan mudah terbakar.',
     order_num: 4
   },
@@ -102,7 +102,7 @@ export const fallbackGallery = [
     title: 'Pengelasan Flange & Pipa Utama Hidran',
     category: 'pipa',
     category_label: 'Pengelasan Bersertifikat',
-    image_url: 'images/welding-hydrant-pipe.jpg',
+    image_url: '/images/welding-hydrant-pipe.jpg',
     description: 'Pekerjaan pengelasan penetrasi penuh pada sambungan pipa baja karbon Sch 40 menggunakan juru las bersertifikasi migas/depnaker.',
     order_num: 5
   },
@@ -111,7 +111,7 @@ export const fallbackGallery = [
     title: 'Fabrikasi & Header Manifold Pipa',
     category: 'pipa',
     category_label: 'Fabrikasi Pipa',
-    image_url: 'images/pipe-installation.jpg',
+    image_url: '/images/pipe-installation.jpg',
     description: 'Perakitan header pipa manifold diameter 8 hingga 10 inci untuk pembagian jalur sprinkler dan hidran gedung bertingkat.',
     order_num: 6
   },
@@ -120,7 +120,7 @@ export const fallbackGallery = [
     title: 'Pengecatan Standar Merah Proteksi Kebakaran',
     category: 'pipa',
     category_label: 'Coating Tahan Karat',
-    image_url: 'images/pipe-painting-uniform.jpg',
+    image_url: '/images/pipe-painting-uniform.jpg',
     description: 'Aplikasi primer zincromate dan top coat epoxy red signal untuk ketahanan pipa terhadap korosi atmosferik dan identifikasi visual darurat.',
     order_num: 7
   },
@@ -129,7 +129,7 @@ export const fallbackGallery = [
     title: 'Perakitan & Wiring Panel Kontrol Pompa',
     category: 'pump',
     category_label: 'Panel Kelistrikan',
-    image_url: 'images/control-panel-service.jpg',
+    image_url: '/images/control-panel-service.jpg',
     description: 'Penyusunan kabel kontrol otomatis, kontaktor bintang-segitiga (Star-Delta), dan pengujian pressure switch aktivasi pompa.',
     order_num: 8
   },
@@ -138,7 +138,7 @@ export const fallbackGallery = [
     title: 'Pemeriksaan Mesin Pompa Diesel',
     category: 'pump',
     category_label: 'Mesin Pompa Diesel',
-    image_url: 'images/diesel-pump-inspection.jpg',
+    image_url: '/images/diesel-pump-inspection.jpg',
     description: 'Inspeksi sistem starter elektrik ganda, sirkulasi pendingin radiator heat-exchanger, dan bahan bakar mesin diesel proteksi kebakaran.',
     order_num: 9
   },
@@ -147,7 +147,7 @@ export const fallbackGallery = [
     title: 'Uji Semprot Hydrant & Fire Drill',
     category: 'team',
     category_label: 'Uji Commissioning',
-    image_url: 'images/fire-drill-nozzle.jpg',
+    image_url: '/images/fire-drill-nozzle.jpg',
     description: 'Pengujian pancaran nosel bertekanan kerja 7 bar bersama tim K3 dan petugas keselamatan kerja klien industri.',
     order_num: 10
   },
@@ -156,7 +156,7 @@ export const fallbackGallery = [
     title: 'Tim Engineer PT Indo Teknik Empatbelas',
     category: 'team',
     category_label: 'Tim Profesional',
-    image_url: 'images/project-team-tanks.jpg',
+    image_url: '/images/project-team-tanks.jpg',
     description: 'Tenaga ahli lapangan dengan perlengkapan APD lengkap siap memberikan instalasi, perawatan berkala, dan solusi proteksi kebakaran.',
     order_num: 11
   }
@@ -168,7 +168,7 @@ export const fallbackProducts = {
     title: 'HYDRANT BOX TYPE A1 (INDOOR)',
     brand: 'Vinci Firefighting Supplier',
     category: 'hydrant',
-    image: 'images/catalog/products/vinci_hydrant_box_a1.jpg',
+    image: '/images/catalog/products/vinci_hydrant_box_a1.jpg',
     desc: 'Kotak hidran dalam ruangan (indoor) untuk penyimpanan selang pemadam dan nozzle, dibuat dari plat mild steel tebal dengan proses degreasing, phosphating, zincromate primer, dan finishing powder coating red signal.',
     specs: [
       { key: 'Dimensi', value: '66 (T) x 52 (P) x 15 (L) cm' },
@@ -184,7 +184,7 @@ export const fallbackProducts = {
     title: 'HYDRANT BOX TYPE A2 (INDOOR)',
     brand: 'Vinci Firefighting Supplier',
     category: 'hydrant',
-    image: 'images/catalog/products/vinci_hydrant_box_a2.jpg',
+    image: '/images/catalog/products/vinci_hydrant_box_a2.jpg',
     desc: 'Kotak hidran indoor kapasitas standar untuk menampung selang 1.5 Inch x 30 Meter, nozzle, dan landing valve. Finishing cat oven tahan benturan dan karat.',
     specs: [
       { key: 'Dimensi', value: '100 (T) x 80 (P) x 18 (L) cm' },
@@ -200,7 +200,7 @@ export const fallbackProducts = {
     title: 'HYDRANT BOX TYPE B (INDOOR)',
     brand: 'Vinci Firefighting Supplier',
     category: 'hydrant',
-    image: 'images/catalog/products/vinci_hydrant_box_b.jpg',
+    image: '/images/catalog/products/vinci_hydrant_box_b.jpg',
     desc: 'Kotak hidran indoor ukuran besar yang dilengkapi kompartemen khusus di bagian atas untuk pemasangan manual push station, alarm bell, dan lampu indikator sistem alarm.',
     specs: [
       { key: 'Dimensi', value: '125 (T) x 75 (P) x 18 (L) cm' },
@@ -216,7 +216,7 @@ export const fallbackProducts = {
     title: 'HYDRANT BOX TYPE C (OUTDOOR)',
     brand: 'Vinci Firefighting Supplier',
     category: 'hydrant',
-    image: 'images/catalog/products/vinci_hydrant_box_c.jpg',
+    image: '/images/catalog/products/vinci_hydrant_box_c.jpg',
     desc: 'Kotak hidran luar ruangan (outdoor) tahan cuaca ekstrem lengkap dengan sepasang kaki penopang tiang, kisi ventilasi air, dan sistem kunci tahan karat.',
     specs: [
       { key: 'Dimensi', value: '95 (T) x 66 (P) x 20 (L) cm' },
@@ -232,7 +232,7 @@ export const fallbackProducts = {
     title: 'HYDRANT PILLAR 1-WAY (H-13A)',
     brand: 'Vinci Firefighting Supplier',
     category: 'hydrant',
-    image: 'images/catalog/products/vinci_hydrant_pillar_1way.jpg',
+    image: '/images/catalog/products/vinci_hydrant_pillar_1way.jpg',
     desc: 'Pilar hidran luar gedung satu jalur outlet (one-way) bertekanan tinggi dengan katup buka-tutup mandiri, material besi cor tahan korosi, dan sambungan cepat Machino/VDH.',
     specs: [
       { key: 'Model / Tipe', value: 'H-13A (1-Way Outlet)' },
@@ -249,7 +249,7 @@ export const fallbackProducts = {
     title: 'HYDRANT PILLAR TWO-WAY (H-14A)',
     brand: 'Vinci Firefighting Supplier',
     category: 'hydrant',
-    image: 'images/catalog/products/vinci_hydrant_pillar_2way.jpg',
+    image: '/images/catalog/products/vinci_hydrant_pillar_2way.jpg',
     desc: 'Pilar hidran luar gedung dua jalur outlet (two-way) bertekanan tinggi untuk jaringan proteksi utama kawasan, lengkap dengan tutup kuningan berantai pengaman baja.',
     specs: [
       { key: 'Model / Tipe', value: 'H-14A (Two-Way Outlet)' },
@@ -267,7 +267,7 @@ export const fallbackProducts = {
     title: 'SIAMESE CONNECTION TYPE S-7A / S-11',
     brand: 'Vinci Firefighting Supplier',
     category: 'hydrant',
-    image: 'images/catalog/products/vinci_siamese_connection.jpg',
+    image: '/images/catalog/products/vinci_siamese_connection.jpg',
     desc: 'Koneksi injeksi pasokan air mobil pemadam ke pipa tegak sprinkler dan hidran gedung, dilengkapi katup searah (clapper/check valve) internal kuningan.',
     specs: [
       { key: 'Tipe Pemasangan', value: 'S-7A Wall Mounted / S-11 Standpipe' },
@@ -284,7 +284,7 @@ export const fallbackProducts = {
     title: 'FIRE HOSE REEL SWING TYPE (VHR-1-R)',
     brand: 'Vinci Firefighting Supplier',
     category: 'hydrant',
-    image: 'images/catalog/products/vinci_hose_reel.jpg',
+    image: '/images/catalog/products/vinci_hose_reel.jpg',
     desc: 'Gulungan selang putar 180 derajat untuk tanggap darurat api awal di dalam gedung. Air dapat langsung dialirkan tanpa harus menggelar seluruh panjang selang.',
     specs: [
       { key: 'Model / Tipe', value: 'VHR-1-R Swing Arm Type' },
@@ -300,7 +300,7 @@ export const fallbackProducts = {
     title: '\'Y\' CONNECTION / DIVIDING BREECHING (AP-25X2)',
     brand: 'Vinci Firefighting Supplier',
     category: 'hydrant',
-    image: 'images/catalog/products/vinci_y_connection.jpg',
+    image: '/images/catalog/products/vinci_y_connection.jpg',
     desc: 'Sambungan cabang dua jalur untuk membagi satu sumber aliran selang pemadam menjadi dua jalur serang terpisah dengan tuas katup mandiri.',
     specs: [
       { key: 'Model / Tipe', value: 'AP-25X2 Two-Way Dividing Breeching' },
@@ -317,7 +317,7 @@ export const fallbackProducts = {
     title: 'FIRE HOSE RACK (ALLOY COMB)',
     brand: 'Vinci Firefighting Supplier',
     category: 'hydrant',
-    image: 'images/catalog/products/vinci_hose_rack.jpg',
+    image: '/images/catalog/products/vinci_hose_rack.jpg',
     desc: 'Rak sisir lipat gantung untuk penataan selang kanvas di dalam kotak hidran gedung agar tersusun rapi dan langsung terurai cepat saat ditarik.',
     specs: [
       { key: 'Ukuran Selang', value: '1.5 Inch & 2.5 Inch' },
@@ -332,7 +332,7 @@ export const fallbackProducts = {
     title: 'HYDRANT LANDING VALVE 10K / 16K',
     brand: 'Vinci Firefighting Supplier',
     category: 'hydrant',
-    image: 'images/catalog/products/vinci_hydrant_valve.jpg',
+    image: '/images/catalog/products/vinci_hydrant_valve.jpg',
     desc: 'Katup penyalur hidran utama berstandar industri dengan roda putar merah ergonomis dan bodi kuningan tahan tekanan tinggi.',
     specs: [
       { key: 'Pilihan Ukuran', value: '1.5 Inch, 2 Inch, 2.5 Inch' },
@@ -348,7 +348,7 @@ export const fallbackProducts = {
     title: 'BRANCHPIPE WITH STRAIGHT NOZZLE',
     brand: 'Vinci Firefighting Supplier',
     category: 'hydrant',
-    image: 'images/catalog/products/vinci_branchpipe_nozzle.jpg',
+    image: '/images/catalog/products/vinci_branchpipe_nozzle.jpg',
     desc: 'Pipa nozel pancar lurus aliran terpusat untuk penetrasi api jarak jauh bertekanan stabil pada operasi pemadaman luar maupun dalam gedung.',
     specs: [
       { key: 'Pilihan Ukuran', value: '1.5 Inch & 2.5 Inch' },
@@ -363,7 +363,7 @@ export const fallbackProducts = {
     title: 'VARIABLE HEAD NOZZLE (FOG / JET)',
     brand: 'Vinci Firefighting Supplier',
     category: 'hydrant',
-    image: 'images/catalog/products/vinci_variable_nozzle.jpg',
+    image: '/images/catalog/products/vinci_variable_nozzle.jpg',
     desc: 'Nozel semprot multi-posisi yang dapat diubah secara instan dari pancaran lurus terpusat ke mode kabut pelindung radiasi panas.',
     specs: [
       { key: 'Pilihan Ukuran', value: '1.5 Inch & 2.5 Inch' },
@@ -378,7 +378,7 @@ export const fallbackProducts = {
     title: 'FIRE HOSE KANVAS 13K (WHITE CANVAS)',
     brand: 'Vinci Firefighting Supplier',
     category: 'hydrant',
-    image: 'images/catalog/products/vinci_fire_hose_kanvas.jpg',
+    image: '/images/catalog/products/vinci_fire_hose_kanvas.jpg',
     desc: 'Selang pemadam kanvas putih rajutan polyester filament berkekuatan tarik tinggi dengan lapisan karet sintetis EPDM di bagian dalam.',
     specs: [
       { key: 'Diameter', value: '1.5 Inch, 2 Inch, 2.5 Inch' },
@@ -394,7 +394,7 @@ export const fallbackProducts = {
     title: 'FIRE HOSE RUBBER NITRILE 20K (HEAVY DUTY)',
     brand: 'Vinci Firefighting Supplier',
     category: 'hydrant',
-    image: 'images/catalog/products/vinci_fire_hose_rubber.jpg',
+    image: '/images/catalog/products/vinci_fire_hose_rubber.jpg',
     desc: 'Selang pemadam karet nitril sintetis merah heavy duty tahan abrasi, gesekan aspal, minyak, zat kimia keras, dan paparan sinar matahari terik.',
     specs: [
       { key: 'Diameter', value: '1.5 Inch, 2 Inch, 2.5 Inch' },
@@ -410,7 +410,7 @@ export const fallbackProducts = {
     title: 'CONVENTIONAL FIRE ALARM PANEL CFP SERIES',
     brand: 'ALERTA Fire Alarm System',
     category: 'alarm',
-    image: 'images/catalog/products/alerta_alarm_panel.jpg',
+    image: '/images/catalog/products/alerta_alarm_panel.jpg',
     desc: 'Panel kontrol master fire alarm konvensional (MCFA) berbasis mikroprosesor modern dengan pilihan 4, 8, 16 hingga 32 zona deteksi gedung.',
     specs: [
       { key: 'Kapasitas Zona', value: 'CFP-704 (4 Zone), 708 (8Z), 716 (16Z), 732 (32Z)' },
@@ -427,7 +427,7 @@ export const fallbackProducts = {
     title: 'PHOTOELECTRIC SMOKE DETECTOR AL-SD601',
     brand: 'ALERTA Fire Alarm System',
     category: 'alarm',
-    image: 'images/catalog/products/alerta_smoke_sd601.jpg',
+    image: '/images/catalog/products/alerta_smoke_sd601.jpg',
     desc: 'Detektor asap optik presisi tinggi dengan ruang deteksi inframerah untuk merespons partikel asap kebakaran tahap awal secara cepat dan minim false alarm.',
     specs: [
       { key: 'Tegangan Operasi', value: '9V - 33V DC Operasional' },
@@ -444,7 +444,7 @@ export const fallbackProducts = {
     title: 'PHOTOELECTRIC SMOKE DETECTOR AL-SD501',
     brand: 'ALERTA Fire Alarm System',
     category: 'alarm',
-    image: 'images/catalog/products/alerta_smoke_sd501.jpg',
+    image: '/images/catalog/products/alerta_smoke_sd501.jpg',
     desc: 'Detektor asap konvensional profil ramping (ultra-slim) dengan jaring pelindung anti serangga dan debu, kompatibel dengan segala MCFA 24V DC.',
     specs: [
       { key: 'Tegangan Kerja', value: '12V - 28V DC' },
@@ -460,7 +460,7 @@ export const fallbackProducts = {
     title: 'SINGLE STATION SMOKE & HEAT DETECTOR D-223',
     brand: 'ALERTA Fire Alarm System',
     category: 'alarm',
-    image: 'images/catalog/products/alerta_detector_d223.jpg',
+    image: '/images/catalog/products/alerta_detector_d223.jpg',
     desc: 'Detektor kombinasi asap optik dan sensor panas mandiri (stand-alone) ditenagai baterai 9V dengan sirine alarm internal 85dB tanpa memerlukan kabel panel.',
     specs: [
       { key: 'Tipe Daya', value: 'Baterai Mandiri 9V DC (Alkaline / Heavy Duty)' },
@@ -475,7 +475,7 @@ export const fallbackProducts = {
     title: 'RATE OF RISE HEAT DETECTOR AL-HD306',
     brand: 'ALERTA Fire Alarm System',
     category: 'alarm',
-    image: 'images/catalog/products/alerta_heat_hd306.jpg',
+    image: '/images/catalog/products/alerta_heat_hd306.jpg',
     desc: 'Detektor panas kombinasi laju kenaikan suhu (Rate of Rise) dan batas suhu mutlak, ideal untuk area dapur, ruang genset, ruang boiler, dan bengkel.',
     specs: [
       { key: 'Respon Laju Panas', value: 'Aktif bila suhu naik ≥ 8°C per menit' },
@@ -491,7 +491,7 @@ export const fallbackProducts = {
     title: 'FIXED TEMPERATURE HEAT DETECTOR AL-HD307',
     brand: 'ALERTA Fire Alarm System',
     category: 'alarm',
-    image: 'images/catalog/products/alerta_heat_hd307.jpg',
+    image: '/images/catalog/products/alerta_heat_hd307.jpg',
     desc: 'Detektor panas suhu tetap yang aktif saat temperatur ruangan mencapai batas 70°C, kebal terhadap perubahan suhu harian yang fluktuatif.',
     specs: [
       { key: 'Titik Suhu Aktif', value: '70°C (158°F) / Opsi 60°C' },
@@ -507,7 +507,7 @@ export const fallbackProducts = {
     title: 'FIRE ALARM BELL 6 INCH AL-FB6',
     brand: 'ALERTA Fire Alarm System',
     category: 'alarm',
-    image: 'images/catalog/products/alerta_alarm_bell_fb6.jpg',
+    image: '/images/catalog/products/alerta_alarm_bell_fb6.jpg',
     desc: 'Bel alarm kebakaran elektrik bodi baja padat dengan suara nyaring tembus dinding 95dB untuk evakuasi darurat gedung bertingkat.',
     specs: [
       { key: 'Diameter Gong', value: '6 Inch (152 mm)' },
@@ -524,7 +524,7 @@ export const fallbackProducts = {
     title: 'LED REMOTE INDICATOR LAMP AL-FL3',
     brand: 'ALERTA Fire Alarm System',
     category: 'alarm',
-    image: 'images/catalog/products/alerta_indicator_lamp_fl3.jpg',
+    image: '/images/catalog/products/alerta_indicator_lamp_fl3.jpg',
     desc: 'Lampu indikator LED eksternal yang dipasang di atas pintu ruangan terkunci untuk menandai detektor kebakaran mana yang sedang aktif di dalam.',
     specs: [
       { key: 'Tegangan Operasi', value: '12V - 28V DC' },
@@ -539,7 +539,7 @@ export const fallbackProducts = {
     title: 'MANUAL PUSH STATION AL-PS1',
     brand: 'ALERTA Fire Alarm System',
     category: 'alarm',
-    image: 'images/catalog/products/alerta_push_station_ps1.jpg',
+    image: '/images/catalog/products/alerta_push_station_ps1.jpg',
     desc: 'Stasiun pemicu alarm darurat manual tipe tekan-tarik dua langkah (dual action) untuk mencegah aktivasi akibat benturan tidak sengaja.',
     specs: [
       { key: 'Mekanisme Aksi', value: 'Dual Action (Push Plate & Pull Down)' },
@@ -554,7 +554,7 @@ export const fallbackProducts = {
     title: 'RESETTABLE MANUAL CALL POINT AL-FP1',
     brand: 'ALERTA Fire Alarm System',
     category: 'alarm',
-    image: 'images/catalog/products/alerta_call_point_fp1.jpg',
+    image: '/images/catalog/products/alerta_call_point_fp1.jpg',
     desc: 'Tombol darurat manual fleksibel yang dapat di-reset kembali menggunakan kunci uji tanpa perlu mengganti kaca pecah setelah aktivasi.',
     specs: [
       { key: 'Tipe Elemen', value: 'Non-Breaking Resettable Plastic Flexi-Element' },
@@ -569,7 +569,7 @@ export const fallbackProducts = {
     title: 'VERTICAL FIXED FOAM BLADDER TANK ALRML',
     brand: 'ALERTA Foam Equipment',
     category: 'foam',
-    image: 'images/catalog/products/alerta_foam_tank_vertical.jpg',
+    image: '/images/catalog/products/alerta_foam_tank_vertical.jpg',
     desc: 'Tangki pencampur konsentrat busa pemadam tipe vertikal bertekanan air (balanced pressure bladder tank) dengan kantung karet sintetis tahan konsentrat AFFF/AR-AFFF.',
     specs: [
       { key: 'Kapasitas Bejana', value: '200L, 300L, 500L, 1000L, 2000L s/d 5000 Liters' },
@@ -586,7 +586,7 @@ export const fallbackProducts = {
     title: 'HORIZONTAL FIXED FOAM BLADDER TANK ALRM',
     brand: 'ALERTA Foam Equipment',
     category: 'foam',
-    image: 'images/catalog/products/alerta_foam_tank_horizontal.jpg',
+    image: '/images/catalog/products/alerta_foam_tank_horizontal.jpg',
     desc: 'Tangki busa horizontal kapasitas besar untuk proteksi kilang minyak, depo bahan bakar, helipad, dan hanggar pesawat dengan stabilitas gravitasi rendah.',
     specs: [
       { key: 'Kapasitas Bejana', value: '1000L, 2000L, 3000L, 5000L, 8000L s/d 10000 Liters' },
@@ -603,7 +603,7 @@ export const fallbackProducts = {
     title: 'PORTABLE INLINE FOAM EDUCTOR AL-SL-28B / 28S',
     brand: 'ALERTA Foam Equipment',
     category: 'foam',
-    image: 'images/catalog/products/alerta_foam_eductor.jpg',
+    image: '/images/catalog/products/alerta_foam_eductor.jpg',
     desc: 'Eductor venturi portabel berbahan kuningan untuk mencampur konsentrat busa secara induksi otomatis dari jerigen ke aliran selang pemadam.',
     specs: [
       { key: 'Ukuran Koneksi', value: '2.5 Inch (AL-SL-28B) & 1.5 Inch (AL-SL-28S)' },
@@ -619,7 +619,7 @@ export const fallbackProducts = {
     title: 'INERT GAS CLEAN AGENT SYSTEM (IG-55 / 100 / 541)',
     brand: 'ALERTA Clean Agent Suppression',
     category: 'cleanagent',
-    image: 'images/catalog/products/alerta_inert_gas_cylinder.jpg',
+    image: '/images/catalog/products/alerta_inert_gas_cylinder.jpg',
     desc: 'Sistem pemadam api gas bersih tanpa residu ramah lingkungan (ODP 0, GWP 0) dengan teknologi 300 bar untuk perlindungan data center, genset, dan arsip berharga.',
     specs: [
       { key: 'Jenis Agen Gas', value: 'IG-55 (50% N₂ + 50% Ar), IG-100 (100% N₂), IG-541' },
@@ -635,7 +635,7 @@ export const fallbackProducts = {
     title: 'EXTINGUISHING CYLINDER GROUP DYMP80/30 & 140/30',
     brand: 'ALERTA Clean Agent Suppression',
     category: 'cleanagent',
-    image: 'images/catalog/products/alerta_inert_gas_system.jpg',
+    image: '/images/catalog/products/alerta_inert_gas_system.jpg',
     desc: 'Kelompok tabung gas bersih baja seamless bertekanan tinggi 300 bar lengkap dengan katup silinder presisi tinggi, manifold, dan selang fleksibel discharge.',
     specs: [
       { key: 'Volume Silinder', value: '80 Liter (DYMP80/30) & 140 Liter (DYMP140/30)' },
@@ -651,7 +651,7 @@ export const fallbackProducts = {
     title: 'CALIBRATED RADIAL DISCHARGE NOZZLE POPC',
     brand: 'ALERTA Clean Agent Suppression',
     category: 'cleanagent',
-    image: 'images/catalog/products/alerta_discharge_nozzle.jpg',
+    image: '/images/catalog/products/alerta_discharge_nozzle.jpg',
     desc: 'Nozel sembur gas bersih terkalibrasi hidrolik yang menyebarkan gas secara merata dalam waktu kurang dari 60 detik tanpa turbulensi berbahaya.',
     specs: [
       { key: 'Ukuran Model', value: 'POPC15 (1/2"), POPC20 (3/4"), POPC25 (1") s/d POPC65 (2-1/2")' },
@@ -666,7 +666,7 @@ export const fallbackProducts = {
     title: 'EXTINGUISHING GAS CONTROL PANEL & ACTUATION',
     brand: 'ALERTA Clean Agent Suppression',
     category: 'cleanagent',
-    image: 'images/catalog/products/alerta_control_panel.jpg',
+    image: '/images/catalog/products/alerta_control_panel.jpg',
     desc: 'Panel pelepasan gas otomatis cross-zoning dengan aktuator solenoid elektro-pneumatik, delay timer countdown, manual release switch, dan abort button.',
     specs: [
       { key: 'Logika Pelepasan', value: 'Cross-Zoning Dual Optical/Heat (Coincidence Logic)' },

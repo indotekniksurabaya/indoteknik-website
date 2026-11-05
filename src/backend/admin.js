@@ -1,6 +1,5 @@
 // PT INDO TEKNIK EMPATBELAS — ADMIN CMS CONTROLLER
 import {
-  clearSupabaseConfig,
   deleteGalleryItem,
   deleteInquiry,
   deleteProduct,
@@ -13,10 +12,10 @@ import {
   isSupabaseConfigured,
   loginAdmin,
   logoutAdmin,
+  normalizeMediaUrl,
   onAuthStateChange,
   saveGalleryItem,
   saveProduct,
-  saveSupabaseConfig,
   standardizeCategory,
   updateCompanyProfile,
   uploadMedia
@@ -396,7 +395,7 @@ function renderProductsRows(filteredItems) {
     <tr class="hover:bg-gray-50 transition-colors">
       <td class="py-3 px-4">
         <div class="w-12 h-12 bg-white border border-[#e5e7eb] p-1 flex items-center justify-center overflow-hidden">
-          <img src="${p.image}" alt="${p.title}" loading="lazy" decoding="async" class="max-w-full max-h-full object-contain" onerror="this.src='../images/Fire-Hydrant-Yellow.png'">
+          <img src="${normalizeMediaUrl(p.image)}" alt="${p.title}" loading="lazy" decoding="async" class="max-w-full max-h-full object-contain" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
         </div>
       </td>
       <td class="py-3 px-4 font-semibold text-[#111827]">
@@ -674,7 +673,7 @@ function renderGalleryGrid(items) {
   grid.innerHTML = pageItems.map(g => `
     <div class="bg-white border border-[#e5e7eb] flex flex-col justify-between overflow-hidden shadow-sm">
       <div class="relative aspect-video bg-gray-100 overflow-hidden">
-        <img src="${g.image_url}" alt="${g.title}" loading="lazy" decoding="async" class="w-full h-full object-cover" onerror="this.src='../images/Fire-Hydrant-Yellow.png'">
+        <img src="${normalizeMediaUrl(g.image_url)}" alt="${g.title}" loading="lazy" decoding="async" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
         <span class="absolute top-2 left-2 px-2 py-0.5 bg-[#093180] text-white text-[10px] font-bold uppercase shadow">
           ${g.category_label || g.category}
         </span>
@@ -1352,62 +1351,6 @@ function setupEventListeners() {
 
   if (adminSearchProduct) adminSearchProduct.addEventListener('input', applyAdminProductFilter);
   if (adminFilterCategory) adminFilterCategory.addEventListener('change', applyAdminProductFilter);
-
-  // Settings modal
-  const openSettingsBtn = document.getElementById('openSettingsBtn');
-  const openSettingsBtnLogin = document.getElementById('openSettingsBtnLogin');
-  const settingsModal = document.getElementById('settingsModal');
-  const closeSettingsModalBtn = document.getElementById('closeSettingsModalBtn');
-  const cancelSettingsBtn = document.getElementById('cancelSettingsBtn');
-  const btnSaveConfig = document.getElementById('btnSaveConfig');
-  const btnClearConfig = document.getElementById('btnClearConfig');
-
-  const openSettings = () => {
-    const { url, anonKey } = getSupabaseCredentials();
-    document.getElementById('cfgUrl').value = url || '';
-    document.getElementById('cfgAnonKey').value = anonKey || '';
-    settingsModal?.classList.remove('hidden');
-  };
-
-  const closeSettings = () => settingsModal?.classList.add('hidden');
-
-  if (openSettingsBtn) openSettingsBtn.addEventListener('click', openSettings);
-  if (openSettingsBtnLogin) openSettingsBtnLogin.addEventListener('click', openSettings);
-  if (closeSettingsModalBtn) closeSettingsModalBtn.addEventListener('click', closeSettings);
-  if (cancelSettingsBtn) cancelSettingsBtn.addEventListener('click', closeSettings);
-
-  if (btnSaveConfig) {
-    btnSaveConfig.addEventListener('click', () => {
-      const url = document.getElementById('cfgUrl')?.value.trim();
-      const key = document.getElementById('cfgAnonKey')?.value.trim();
-      if (!url || !key) {
-        showAdminToast('URL dan Anon Key wajib diisi.', 'warning');
-        return;
-      }
-      saveSupabaseConfig(url, key);
-      showAdminToast('Kredensial Supabase berhasil disimpan!', 'success');
-      closeSettings();
-      window.location.reload();
-    });
-  }
-
-  // Clear config (Custom confirmation modal instead of confirm)
-  if (btnClearConfig) {
-    btnClearConfig.addEventListener('click', () => {
-      openConfirmDialog({
-        title: 'Hapus Kredensial Supabase',
-        message: 'Hapus kredensial Supabase yang tersimpan di browser ini? Halaman akan dimuat ulang.',
-        confirmText: 'Ya, Hapus Kredensial',
-        isDanger: true,
-        onConfirm: () => {
-          clearSupabaseConfig();
-          showAdminToast('Kredensial dihapus.', 'info');
-          closeSettings();
-          window.location.reload();
-        }
-      });
-    });
-  }
 }
 
 // Start
