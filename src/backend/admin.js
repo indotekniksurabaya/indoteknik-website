@@ -17,6 +17,7 @@ import {
   saveGalleryItem,
   saveProduct,
   saveSupabaseConfig,
+  standardizeCategory,
   updateCompanyProfile,
   uploadMedia
 } from '../lib/supabase.js';
@@ -285,6 +286,72 @@ function switchTab(tabId) {
 // 3. CATALOG / PRODUCTS MANAGEMENT (PAGINATION + LAZY LOAD)
 // ==========================================
 
+function syncCategoryOptions() {
+  const filterSel = document.getElementById('adminFilterCategory');
+  const prodCatSel = document.getElementById('prodCategory');
+  const galCatSel = document.getElementById('galCategory');
+
+  // Products
+  const prodMap = new Map();
+  prodMap.set('hydrant', 'Hydrant & Valve');
+  prodMap.set('alarm', 'Fire Alarm System');
+  prodMap.set('foam', 'Foam Bladder System');
+  prodMap.set('cleanagent', 'Clean Agent System');
+
+  allProducts.forEach(p => {
+    if (p.category && !prodMap.has(p.category)) {
+      const std = standardizeCategory(p.category);
+      prodMap.set(p.category, std.label);
+    }
+  });
+
+  if (filterSel) {
+    const prev = filterSel.value;
+    let html = '<option value="all">Semua Kategori</option>';
+    prodMap.forEach((lbl, slug) => {
+      html += `<option value="${slug}">${lbl}</option>`;
+    });
+    filterSel.innerHTML = html;
+    if (prodMap.has(prev) || prev === 'all') filterSel.value = prev;
+  }
+
+  if (prodCatSel) {
+    const prev = prodCatSel.value;
+    let html = '';
+    prodMap.forEach((lbl, slug) => {
+      html += `<option value="${slug}">${lbl}</option>`;
+    });
+    html += '<option value="__new__">+ Tambah Kategori Baru...</option>';
+    prodCatSel.innerHTML = html;
+    if (prodMap.has(prev)) prodCatSel.value = prev;
+  }
+
+  // Gallery
+  const galMap = new Map();
+  galMap.set('hydrant', 'Hydrant & Plambing');
+  galMap.set('pump', 'Fire Pump & Mesin');
+  galMap.set('pipa', 'Perpipaan & Fabrikasi');
+  galMap.set('team', 'Commissioning & Tim');
+
+  allGallery.forEach(g => {
+    if (g.category && !galMap.has(g.category)) {
+      const std = standardizeCategory(g.category);
+      galMap.set(g.category, g.category_label || std.label);
+    }
+  });
+
+  if (galCatSel) {
+    const prev = galCatSel.value;
+    let html = '';
+    galMap.forEach((lbl, slug) => {
+      html += `<option value="${slug}">${lbl}</option>`;
+    });
+    html += '<option value="__new__">+ Tambah Kategori Baru...</option>';
+    galCatSel.innerHTML = html;
+    if (galMap.has(prev)) galCatSel.value = prev;
+  }
+}
+
 async function loadProductsTable() {
   const tbody = document.getElementById('adminProductsTableBody');
   const countEl = document.getElementById('tabCountProducts');
@@ -296,6 +363,7 @@ async function loadProductsTable() {
     allProducts = await getProducts();
     if (countEl) countEl.textContent = allProducts.length;
 
+    syncCategoryOptions();
     catalogPage = 1;
     applyAdminProductFilter();
   } catch (err) {
@@ -390,6 +458,13 @@ function openAddProductModal() {
   document.getElementById('prodId').disabled = false;
   title.textContent = 'Tambah Produk Baru';
 
+  const newCatBox = document.getElementById('prodNewCategoryBox');
+  if (newCatBox) newCatBox.classList.add('hidden');
+  const newCatInput = document.getElementById('prodNewCategoryInput');
+  if (newCatInput) newCatInput.value = '';
+  const newCatPrev = document.getElementById('prodCategoryStandardizedPreview');
+  if (newCatPrev) newCatPrev.classList.add('hidden');
+
   if (specsContainer) {
     specsContainer.innerHTML = '';
     addSpecRow('Dimensi', '');
@@ -414,7 +489,35 @@ function openEditProductModal(id) {
   document.getElementById('prodCode').value = prod.code || '';
   document.getElementById('prodTitle').value = prod.title || '';
   document.getElementById('prodBrand').value = prod.brand || '';
-  document.getElementById('prodCategory').value = prod.category || 'hydrant';
+
+  const newCatBox = document.getElementById('prodNewCategoryBox');
+  if (newCatBox) newCatBox.classList.add('hidden');
+  const newCatInput = document.getElementById('prodNewCategoryInput');
+  if (newCatInput) newCatInput.value = '';
+  const newCatPrev = document.getElementById('prodCategoryStandardizedPreview');
+  if (newCatPrev) newCatPrev.classList.add('hidden');
+
+  const catSelect = document.getElementById('prodCategory');
+  if (catSelect) {
+    let found = false;
+    for (let i = 0; i < catSelect.options.length; i++) {
+      if (catSelect.options[i].value === prod.category) {
+        found = true;
+        break;
+      }
+    }
+    if (!found && prod.category) {
+      const std = standardizeCategory(prod.category);
+      const opt = document.createElement('option');
+      opt.value = std.slug;
+      opt.textContent = std.label;
+      const newOpt = catSelect.querySelector('option[value="__new__"]');
+      if (newOpt) catSelect.insertBefore(opt, newOpt);
+      else catSelect.appendChild(opt);
+    }
+    catSelect.value = prod.category || 'hydrant';
+  }
+
   document.getElementById('prodImageUrl').value = prod.image || '';
   document.getElementById('prodDesc').value = prod.desc || '';
 
@@ -455,9 +558,19 @@ async function handleProductFormSubmit(e) {
   const code = document.getElementById('prodCode').value.trim();
   const title = document.getElementById('prodTitle').value.trim();
   const brand = document.getElementById('prodBrand').value.trim();
-  const category = document.getElementById('prodCategory').value;
+  let category = document.getElementById('prodCategory').value;
   const image = document.getElementById('prodImageUrl').value.trim();
   const desc = document.getElementById('prodDesc').value.trim();
+
+  if (category === '__new__') {
+    const rawCat = document.getElementById('prodNewCategoryInput')?.value.trim();
+    if (!rawCat) {
+      showAdminToast('Silakan ketik nama kategori produk baru.', 'warning');
+      return;
+    }
+    const std = standardizeCategory(rawCat);
+    category = std.slug;
+  }
 
   // Gather specs
   const specs = [];
@@ -529,6 +642,7 @@ async function loadGalleryGrid() {
     allGallery = await getGallery();
     if (countEl) countEl.textContent = allGallery.length;
 
+    syncCategoryOptions();
     galleryPage = 1;
     renderGalleryGrid(allGallery);
   } catch (err) {
@@ -612,6 +726,14 @@ function openAddGalleryModal() {
   form.reset();
   document.getElementById('galId').value = `gal-${Date.now()}`;
   title.textContent = 'Tambah Dokumentasi Proyek';
+
+  const newCatBox = document.getElementById('galNewCategoryBox');
+  if (newCatBox) newCatBox.classList.add('hidden');
+  const newCatInput = document.getElementById('galNewCategoryInput');
+  if (newCatInput) newCatInput.value = '';
+  const newCatPrev = document.getElementById('galCategoryStandardizedPreview');
+  if (newCatPrev) newCatPrev.classList.add('hidden');
+
   modal.classList.remove('hidden');
 }
 
@@ -624,7 +746,35 @@ function openEditGalleryModal(id) {
 
   document.getElementById('galId').value = item.id;
   document.getElementById('galTitle').value = item.title || '';
-  document.getElementById('galCategory').value = item.category || 'hydrant';
+
+  const newCatBox = document.getElementById('galNewCategoryBox');
+  if (newCatBox) newCatBox.classList.add('hidden');
+  const newCatInput = document.getElementById('galNewCategoryInput');
+  if (newCatInput) newCatInput.value = '';
+  const newCatPrev = document.getElementById('galCategoryStandardizedPreview');
+  if (newCatPrev) newCatPrev.classList.add('hidden');
+
+  const catSelect = document.getElementById('galCategory');
+  if (catSelect) {
+    let found = false;
+    for (let i = 0; i < catSelect.options.length; i++) {
+      if (catSelect.options[i].value === item.category) {
+        found = true;
+        break;
+      }
+    }
+    if (!found && item.category) {
+      const std = standardizeCategory(item.category);
+      const opt = document.createElement('option');
+      opt.value = std.slug;
+      opt.textContent = item.category_label || std.label;
+      const newOpt = catSelect.querySelector('option[value="__new__"]');
+      if (newOpt) catSelect.insertBefore(opt, newOpt);
+      else catSelect.appendChild(opt);
+    }
+    catSelect.value = item.category || 'hydrant';
+  }
+
   document.getElementById('galCategoryLabel').value = item.category_label || '';
   document.getElementById('galImageUrl').value = item.image_url || '';
   document.getElementById('galDesc').value = item.description || '';
@@ -638,17 +788,28 @@ async function handleGalleryFormSubmit(e) {
 
   const id = document.getElementById('galId').value;
   const title = document.getElementById('galTitle').value.trim();
-  const category = document.getElementById('galCategory').value;
-  const category_label = document.getElementById('galCategoryLabel').value.trim() || category;
+  let category = document.getElementById('galCategory').value;
+  let category_label = document.getElementById('galCategoryLabel').value.trim();
   const image_url = document.getElementById('galImageUrl').value.trim();
   const description = document.getElementById('galDesc').value.trim();
+
+  if (category === '__new__') {
+    const rawCat = document.getElementById('galNewCategoryInput')?.value.trim();
+    if (!rawCat) {
+      showAdminToast('Silakan ketik nama kategori baru untuk dokumentasi.', 'warning');
+      return;
+    }
+    const std = standardizeCategory(rawCat);
+    category = std.slug;
+    if (!category_label) category_label = std.label;
+  }
 
   if (!title || !image_url) {
     showAdminToast('Judul dan Gambar dokumentasi wajib diisi.', 'warning');
     return;
   }
 
-  const galData = { id, title, category, category_label, image_url, description, order_num: allGallery.length + 1 };
+  const galData = { id, title, category, category_label: category_label || category, image_url, description, order_num: allGallery.length + 1 };
 
   try {
     if (isSupabaseConfigured()) {
@@ -695,7 +856,7 @@ function handleDeleteGallery(id) {
 }
 
 // ==========================================
-// 5. COMPANY PROFILE MANAGEMENT
+// 5. COMPANY PROFILE & ABOUT US MANAGEMENT
 // ==========================================
 
 async function loadCompanyProfile() {
@@ -703,13 +864,60 @@ async function loadCompanyProfile() {
     const cp = await getCompanyProfile();
     if (!cp) return;
 
+    // 1. Identitas & Kontak
     if (document.getElementById('cpName')) document.getElementById('cpName').value = cp.company_name || '';
     if (document.getElementById('cpTagline')) document.getElementById('cpTagline').value = cp.tagline || '';
     if (document.getElementById('cpDesc')) document.getElementById('cpDesc').value = cp.about_desc || '';
-    if (document.getElementById('cpVision')) document.getElementById('cpVision').value = cp.vision || '';
     if (document.getElementById('cpPhone')) document.getElementById('cpPhone').value = cp.phone || '';
     if (document.getElementById('cpEmail')) document.getElementById('cpEmail').value = cp.email || '';
     if (document.getElementById('cpAddress')) document.getElementById('cpAddress').value = cp.address || '';
+
+    const stats = cp.stats || {};
+
+    // 2. About Us 4 Kartu
+    if (document.getElementById('cpVisionTitle')) document.getElementById('cpVisionTitle').value = stats.vision_title || 'VISI PERUSAHAAN';
+    if (document.getElementById('cpVision')) document.getElementById('cpVision').value = cp.vision || '';
+    if (document.getElementById('cpMission')) {
+      document.getElementById('cpMission').value = Array.isArray(cp.mission) ? cp.mission.join('\n') : '';
+    }
+    if (document.getElementById('cpVisionFooter')) document.getElementById('cpVisionFooter').value = stats.vision_footer || 'KOMITMEN PROFESIONALISME';
+
+    if (document.getElementById('cpSafetyTitle')) document.getElementById('cpSafetyTitle').value = stats.safety_title || 'STANDAR MUTU & K3L';
+    if (document.getElementById('cpSafetyDesc')) document.getElementById('cpSafetyDesc').value = stats.safety_desc || '';
+    if (document.getElementById('cpSafetyPoints')) {
+      document.getElementById('cpSafetyPoints').value = Array.isArray(stats.safety_points) ? stats.safety_points.join('\n') : '';
+    }
+    if (document.getElementById('cpSafetyFooter')) document.getElementById('cpSafetyFooter').value = stats.safety_footer || 'KEANDALAN TERUJI';
+
+    if (document.getElementById('cpServiceTitle')) document.getElementById('cpServiceTitle').value = stats.service_title || 'LINGKUP KEAHLIAN';
+    if (document.getElementById('cpServiceDesc')) document.getElementById('cpServiceDesc').value = stats.service_desc || '';
+    if (document.getElementById('cpServicePoints')) {
+      document.getElementById('cpServicePoints').value = Array.isArray(stats.service_points) ? stats.service_points.join('\n') : '';
+    }
+    if (document.getElementById('cpServiceFooter')) document.getElementById('cpServiceFooter').value = stats.service_footer || 'SOLUSI TERINTEGRASI';
+
+    if (document.getElementById('cpStatExp')) document.getElementById('cpStatExp').value = stats.experience_years || '20+';
+    if (document.getElementById('cpStatExpLabel')) document.getElementById('cpStatExpLabel').value = stats.experience_label || 'Tahun Pengalaman';
+    if (document.getElementById('cpStatProj')) document.getElementById('cpStatProj').value = stats.projects_completed || '500+';
+    if (document.getElementById('cpStatProjLabel')) document.getElementById('cpStatProjLabel').value = stats.projects_label || 'Proyek Selesai';
+    if (document.getElementById('cpStatStd')) document.getElementById('cpStatStd').value = stats.standards || 'NFPA & SNI';
+    if (document.getElementById('cpStatStdLabel')) document.getElementById('cpStatStdLabel').value = stats.standards_label || 'Standar Resmi';
+    if (document.getElementById('cpStatEng')) document.getElementById('cpStatEng').value = stats.expert_engineers || '30+';
+    if (document.getElementById('cpStatEngLabel')) document.getElementById('cpStatEngLabel').value = stats.engineers_label || 'Engineer Ahli';
+
+    // 3. Homepage 3 Kartu
+    if (document.getElementById('cpHomeCard1Title')) document.getElementById('cpHomeCard1Title').value = stats.home_card1_title || 'Badan Usaha Resmi';
+    if (document.getElementById('cpHomeCard1Desc')) document.getElementById('cpHomeCard1Desc').value = stats.home_card1_desc || '';
+    if (document.getElementById('cpHomeCard1Footer')) document.getElementById('cpHomeCard1Footer').value = stats.home_card1_footer || 'Integritas & Presisi';
+
+    if (document.getElementById('cpHomeCard2Title')) document.getElementById('cpHomeCard2Title').value = stats.home_card2_title || 'Standar NFPA & SNI';
+    if (document.getElementById('cpHomeCard2Desc')) document.getElementById('cpHomeCard2Desc').value = stats.home_card2_desc || '';
+    if (document.getElementById('cpHomeCard2Footer')) document.getElementById('cpHomeCard2Footer').value = stats.home_card2_footer || 'Standar Teruji';
+
+    if (document.getElementById('cpHomeCard3Title')) document.getElementById('cpHomeCard3Title').value = stats.home_card3_title || 'Solusi Terintegrasi';
+    if (document.getElementById('cpHomeCard3Desc')) document.getElementById('cpHomeCard3Desc').value = stats.home_card3_desc || '';
+    if (document.getElementById('cpHomeCard3Footer')) document.getElementById('cpHomeCard3Footer').value = stats.home_card3_footer || 'End-to-End Service';
+
   } catch (err) {
     console.error('Error loading company profile:', err);
   }
@@ -718,29 +926,63 @@ async function loadCompanyProfile() {
 async function handleCompanyProfileSubmit(e) {
   e.preventDefault();
 
+  const missionText = document.getElementById('cpMission')?.value || '';
+  const missionLines = missionText.split('\n').map(l => l.trim()).filter(Boolean);
+
+  const safetyText = document.getElementById('cpSafetyPoints')?.value || '';
+  const safetyLines = safetyText.split('\n').map(l => l.trim()).filter(Boolean);
+
+  const serviceText = document.getElementById('cpServicePoints')?.value || '';
+  const serviceLines = serviceText.split('\n').map(l => l.trim()).filter(Boolean);
+
   const profile = {
     company_name: document.getElementById('cpName').value.trim(),
     tagline: document.getElementById('cpTagline').value.trim(),
     about_desc: document.getElementById('cpDesc').value.trim(),
     vision: document.getElementById('cpVision').value.trim(),
+    mission: missionLines,
     phone: document.getElementById('cpPhone').value.trim(),
     whatsapp: document.getElementById('cpPhone').value.trim().replace(/[^0-9]/g, ''),
     email: document.getElementById('cpEmail').value.trim(),
     address: document.getElementById('cpAddress').value.trim(),
     stats: {
-      standards: document.getElementById('cpStandards').value.trim(),
-      experience_years: '20+',
-      projects_completed: '500+',
-      expert_engineers: '30+'
+      vision_title: document.getElementById('cpVisionTitle')?.value.trim() || 'VISI PERUSAHAAN',
+      vision_footer: document.getElementById('cpVisionFooter')?.value.trim() || 'KOMITMEN PROFESIONALISME',
+      safety_title: document.getElementById('cpSafetyTitle')?.value.trim() || 'STANDAR MUTU & K3L',
+      safety_desc: document.getElementById('cpSafetyDesc')?.value.trim() || '',
+      safety_points: safetyLines,
+      safety_footer: document.getElementById('cpSafetyFooter')?.value.trim() || 'KEANDALAN TERUJI',
+      service_title: document.getElementById('cpServiceTitle')?.value.trim() || 'LINGKUP KEAHLIAN',
+      service_desc: document.getElementById('cpServiceDesc')?.value.trim() || '',
+      service_points: serviceLines,
+      service_footer: document.getElementById('cpServiceFooter')?.value.trim() || 'SOLUSI TERINTEGRASI',
+      experience_years: document.getElementById('cpStatExp')?.value.trim() || '20+',
+      experience_label: document.getElementById('cpStatExpLabel')?.value.trim() || 'Tahun Pengalaman',
+      projects_completed: document.getElementById('cpStatProj')?.value.trim() || '500+',
+      projects_label: document.getElementById('cpStatProjLabel')?.value.trim() || 'Proyek Selesai',
+      standards: document.getElementById('cpStatStd')?.value.trim() || 'NFPA & SNI',
+      standards_label: document.getElementById('cpStatStdLabel')?.value.trim() || 'Standar Resmi',
+      expert_engineers: document.getElementById('cpStatEng')?.value.trim() || '30+',
+      engineers_label: document.getElementById('cpStatEngLabel')?.value.trim() || 'Engineer Ahli',
+      home_card1_title: document.getElementById('cpHomeCard1Title')?.value.trim() || 'Badan Usaha Resmi',
+      home_card1_desc: document.getElementById('cpHomeCard1Desc')?.value.trim() || '',
+      home_card1_footer: document.getElementById('cpHomeCard1Footer')?.value.trim() || 'Integritas & Presisi',
+      home_card2_title: document.getElementById('cpHomeCard2Title')?.value.trim() || 'Standar NFPA & SNI',
+      home_card2_desc: document.getElementById('cpHomeCard2Desc')?.value.trim() || '',
+      home_card2_footer: document.getElementById('cpHomeCard2Footer')?.value.trim() || 'Standar Teruji',
+      home_card3_title: document.getElementById('cpHomeCard3Title')?.value.trim() || 'Solusi Terintegrasi',
+      home_card3_desc: document.getElementById('cpHomeCard3Desc')?.value.trim() || '',
+      home_card3_footer: document.getElementById('cpHomeCard3Footer')?.value.trim() || 'End-to-End Service'
     }
   };
 
   try {
     if (isSupabaseConfigured()) {
       await updateCompanyProfile(profile);
-      showAdminToast('Profil perusahaan berhasil diperbarui di Supabase!', 'success');
+      showAdminToast('Profil & Konten Tentang Kami berhasil diperbarui di Supabase!', 'success');
     } else {
-      showAdminToast('Profil perusahaan diperbarui di memori browser.', 'info');
+      await updateCompanyProfile(profile);
+      showAdminToast('Profil & Konten Tentang Kami diperbarui di penyimpanan lokal.', 'info');
     }
   } catch (err) {
     console.error('Update company error:', err);
@@ -933,6 +1175,146 @@ function setupEventListeners() {
   document.querySelectorAll('.admin-tab').forEach(tab => {
     tab.addEventListener('click', () => switchTab(tab.getAttribute('data-tab')));
   });
+
+  // Category addition & auto-standardization listeners: Product
+  const prodCategorySelect = document.getElementById('prodCategory');
+  const prodNewCatBox = document.getElementById('prodNewCategoryBox');
+  const prodNewCatInput = document.getElementById('prodNewCategoryInput');
+  const prodCatPreview = document.getElementById('prodCategoryStandardizedPreview');
+  const prodCatPrevLabel = document.getElementById('prodCategoryPreviewLabel');
+  const prodCatPrevSlug = document.getElementById('prodCategoryPreviewSlug');
+
+  if (prodCategorySelect) {
+    prodCategorySelect.addEventListener('change', (e) => {
+      if (e.target.value === '__new__') {
+        if (prodNewCatBox) prodNewCatBox.classList.remove('hidden');
+        if (prodNewCatInput) {
+          prodNewCatInput.focus();
+          prodNewCatInput.required = true;
+        }
+      } else {
+        if (prodNewCatBox) prodNewCatBox.classList.add('hidden');
+        if (prodNewCatInput) {
+          prodNewCatInput.required = false;
+          prodNewCatInput.value = '';
+        }
+        if (prodCatPreview) prodCatPreview.classList.add('hidden');
+      }
+    });
+  }
+
+  if (prodNewCatInput) {
+    prodNewCatInput.addEventListener('input', (e) => {
+      const val = e.target.value;
+      if (val.trim()) {
+        const std = standardizeCategory(val);
+        if (prodCatPrevLabel) prodCatPrevLabel.textContent = std.label;
+        if (prodCatPrevSlug) prodCatPrevSlug.textContent = std.slug;
+        if (prodCatPreview) prodCatPreview.classList.remove('hidden');
+      } else {
+        if (prodCatPreview) prodCatPreview.classList.add('hidden');
+      }
+    });
+  }
+
+  // Category addition & auto-standardization listeners: Gallery
+  const galCategorySelect = document.getElementById('galCategory');
+  const galNewCatBox = document.getElementById('galNewCategoryBox');
+  const galNewCatInput = document.getElementById('galNewCategoryInput');
+  const galCatPreview = document.getElementById('galCategoryStandardizedPreview');
+  const galCatPrevLabel = document.getElementById('galCategoryPreviewLabel');
+  const galCatPrevSlug = document.getElementById('galCategoryPreviewSlug');
+  const galCategoryLabelInput = document.getElementById('galCategoryLabel');
+
+  if (galCategorySelect) {
+    galCategorySelect.addEventListener('change', (e) => {
+      if (e.target.value === '__new__') {
+        if (galNewCatBox) galNewCatBox.classList.remove('hidden');
+        if (galNewCatInput) {
+          galNewCatInput.focus();
+          galNewCatInput.required = true;
+        }
+      } else {
+        if (galNewCatBox) galNewCatBox.classList.add('hidden');
+        if (galNewCatInput) {
+          galNewCatInput.required = false;
+          galNewCatInput.value = '';
+        }
+        if (galCatPreview) galCatPreview.classList.add('hidden');
+      }
+    });
+  }
+
+  if (galNewCatInput) {
+    galNewCatInput.addEventListener('input', (e) => {
+      const val = e.target.value;
+      if (val.trim()) {
+        const std = standardizeCategory(val);
+        if (galCatPrevLabel) galCatPrevLabel.textContent = std.label;
+        if (galCatPrevSlug) galCatPrevSlug.textContent = std.slug;
+        if (galCatPreview) galCatPreview.classList.remove('hidden');
+        if (galCategoryLabelInput) galCategoryLabelInput.value = std.label;
+      } else {
+        if (galCatPreview) galCatPreview.classList.add('hidden');
+      }
+    });
+  }
+
+  // Product image file upload
+  const prodFileEl = document.getElementById('prodImageFile');
+  if (prodFileEl) {
+    prodFileEl.addEventListener('change', async (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const statusEl = document.getElementById('prodUploadStatus');
+      if (statusEl) statusEl.classList.remove('hidden');
+      try {
+        if (isSupabaseConfigured()) {
+          const url = await uploadMedia(file, 'products');
+          document.getElementById('prodImageUrl').value = url;
+          showAdminToast('Gambar berhasil diunggah ke Supabase!', 'success');
+        } else {
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            document.getElementById('prodImageUrl').value = ev.target.result;
+            showAdminToast('Gambar dimuat (Mode Demo).', 'info');
+          };
+          reader.readAsDataURL(file);
+        }
+      } catch (err) {
+        console.error('Upload error:', err);
+        showAdminToast(`Gagal mengupload gambar: ${err.message}`, 'error');
+      } finally {
+        if (statusEl) statusEl.classList.add('hidden');
+      }
+    });
+  }
+
+  // Gallery image file upload
+  const galFileEl = document.getElementById('galImageFile');
+  if (galFileEl) {
+    galFileEl.addEventListener('change', async (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      try {
+        if (isSupabaseConfigured()) {
+          const url = await uploadMedia(file, 'gallery');
+          document.getElementById('galImageUrl').value = url;
+          showAdminToast('Foto dokumentasi berhasil diunggah!', 'success');
+        } else {
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            document.getElementById('galImageUrl').value = ev.target.result;
+            showAdminToast('Foto dimuat (Mode Demo).', 'info');
+          };
+          reader.readAsDataURL(file);
+        }
+      } catch (err) {
+        console.error('Gallery upload error:', err);
+        showAdminToast(`Gagal mengupload foto: ${err.message}`, 'error');
+      }
+    });
+  }
 
   // Product modal triggers
   document.getElementById('btnOpenAddProduct')?.addEventListener('click', openAddProductModal);

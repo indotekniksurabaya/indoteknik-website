@@ -222,13 +222,63 @@ export async function deleteGalleryItem(id) {
 }
 
 // ==========================================
+// CATEGORY STANDARDIZATION HELPER
+// ==========================================
+
+export function standardizeCategory(input) {
+  if (!input || typeof input !== 'string') return { slug: 'umum', label: 'Umum' };
+  
+  // Clean whitespace & dashes
+  const trimmed = input.trim().replace(/[-_]+/g, ' ').replace(/\s+/g, ' ');
+  if (!trimmed) return { slug: 'umum', label: 'Umum' };
+
+  // Slug: lowercase kebab-case (a-z0-9-)
+  const slug = trimmed
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, '')
+    .trim()
+    .replace(/\s+/g, '-');
+
+  // Label: Title Case (e.g. "Fire Hydrant System", "Pipa & Fitting")
+  const label = trimmed
+    .split(' ')
+    .map(w => {
+      const lower = w.toLowerCase();
+      if (lower === '&' || lower === 'dan' || lower === 'and') return '&';
+      return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+    })
+    .join(' ');
+
+  return { slug: slug || 'umum', label: label || 'Umum' };
+}
+
+// ==========================================
 // 3. COMPANY PROFILE API
 // ==========================================
 
+const LOCAL_PROFILE_KEY = 'indoteknik_company_profile';
+
 export async function getCompanyProfile() {
+  const getLocalProfile = () => {
+    if (typeof window !== 'undefined') {
+      try {
+        const cached = localStorage.getItem(LOCAL_PROFILE_KEY);
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          return {
+            ...fallbackCompanyProfile,
+            ...parsed,
+            stats: { ...fallbackCompanyProfile.stats, ...(parsed.stats || {}) }
+          };
+        }
+      } catch (_) {}
+    }
+    return fallbackCompanyProfile;
+  };
+
   const client = getSupabaseClient();
   if (!client) {
-    return fallbackCompanyProfile;
+    return getLocalProfile();
   }
 
   try {
@@ -239,24 +289,48 @@ export async function getCompanyProfile() {
       .single();
 
     if (error || !data) {
-      return fallbackCompanyProfile;
+      return getLocalProfile();
     }
 
-    return data;
+    const merged = {
+      ...fallbackCompanyProfile,
+      ...data,
+      stats: { ...fallbackCompanyProfile.stats, ...(data.stats || {}) }
+    };
+
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem(LOCAL_PROFILE_KEY, JSON.stringify(merged));
+      } catch (_) {}
+    }
+
+    return merged;
   } catch (err) {
-    return fallbackCompanyProfile;
+    return getLocalProfile();
   }
 }
 
 export async function updateCompanyProfile(profile) {
-  const client = getSupabaseClient();
-  if (!client) throw new Error('Supabase client belum dikonfigurasi.');
-
   const dataToSave = {
+    ...fallbackCompanyProfile,
     ...profile,
     id: 'main',
+    stats: {
+      ...fallbackCompanyProfile.stats,
+      ...(profile.stats || {})
+    },
     updated_at: new Date().toISOString()
   };
+
+  // Cache locally immediately
+  if (typeof window !== 'undefined') {
+    try {
+      localStorage.setItem(LOCAL_PROFILE_KEY, JSON.stringify(dataToSave));
+    } catch (_) {}
+  }
+
+  const client = getSupabaseClient();
+  if (!client) return dataToSave;
 
   const { data, error } = await client
     .from('company_profile')
@@ -264,7 +338,10 @@ export async function updateCompanyProfile(profile) {
     .select()
     .single();
 
-  if (error) throw error;
+  if (error) {
+    console.warn('Supabase upsert company_profile failed, cached locally:', error);
+    return dataToSave;
+  }
   return data;
 }
 

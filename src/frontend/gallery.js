@@ -1,16 +1,16 @@
 // Frontend Dynamic Gallery Controller
-import { getGallery } from '../lib/supabase.js';
+import { getGallery, standardizeCategory } from '../lib/supabase.js';
 
 export async function initGallery() {
   const grid = document.getElementById('galleryGrid');
   const pagContainer = document.getElementById('galleryPagination');
   const homeGrid = document.getElementById('homeGalleryGrid');
-  const filterBtns = document.querySelectorAll('.gallery-filter-btn');
   const modal = document.getElementById('galleryModal');
   const modalImg = document.getElementById('galleryModalImg');
   const modalTitle = document.getElementById('galleryModalTitle');
   const modalDesc = document.getElementById('galleryModalDesc');
   const closeBtn = document.getElementById('closeGalleryModalBtn');
+  const filterContainer = document.getElementById('galleryFilterContainer') || document.querySelector('.gallery-filter-btn')?.parentElement;
 
   let galleryItems = [];
   let currentFiltered = [];
@@ -171,7 +171,7 @@ export async function initGallery() {
     const topItems = items.slice(0, 4);
 
     homeGrid.innerHTML = topItems.map(item => `
-      <a href="gallery.html" class="scroll-reveal group bg-white border border-[#e5e7eb] overflow-hidden hover:shadow-lg transition-all flex flex-col justify-between">
+      <a href="gallery.html" class="group bg-white border border-[#e5e7eb] overflow-hidden hover:shadow-lg transition-all flex flex-col justify-between">
         <div class="aspect-[4/3] overflow-hidden bg-gray-100 relative">
           <img src="${item.image_url}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" onerror="this.src='images/Fire-Hydrant-Yellow.png'">
           <div class="absolute top-2 left-2">
@@ -198,10 +198,68 @@ export async function initGallery() {
     `).join('');
   };
 
+  // Build category filter buttons dynamically on gallery.html
+  const buildCategoryTabs = (items) => {
+    if (!filterContainer) return;
+
+    const catMap = new Map();
+    // Default categories
+    catMap.set('hydrant', 'HYDRANT & PLAMBING');
+    catMap.set('pump', 'FIRE PUMP & MESIN');
+    catMap.set('pipa', 'PERPIPAAN & FABRIKASI');
+    catMap.set('team', 'COMMISSIONING & TIM');
+
+    // Add any custom categories present in items
+    items.forEach(item => {
+      if (item.category && item.category !== 'all' && !catMap.has(item.category)) {
+        const std = standardizeCategory(item.category);
+        catMap.set(item.category, (item.category_label || std.label).toUpperCase());
+      }
+    });
+
+    let html = `
+      <button class="gallery-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-[#093180] text-white transition-colors cursor-pointer" data-filter="all">
+        SEMUA DOKUMENTASI
+      </button>
+    `;
+
+    catMap.forEach((label, slug) => {
+      html += `
+        <button class="gallery-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-white text-[#111827] border border-[#e5e7eb] hover:bg-[#e6ecf5] hover:text-[#093180] transition-colors cursor-pointer" data-filter="${slug}">
+          ${label}
+        </button>
+      `;
+    });
+
+    filterContainer.innerHTML = html;
+
+    filterContainer.querySelectorAll('.gallery-filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+
+        filterContainer.querySelectorAll('.gallery-filter-btn').forEach(b => {
+          b.classList.remove('bg-[#093180]', 'text-white');
+          b.classList.add('bg-white', 'text-[#111827]');
+        });
+        btn.classList.remove('bg-white', 'text-[#111827]');
+        btn.classList.add('bg-[#093180]', 'text-white');
+
+        currentPage = 1;
+        if (filter === 'all') {
+          renderGallery(galleryItems);
+        } else {
+          const filtered = galleryItems.filter(item => item.category === filter);
+          renderGallery(filtered);
+        }
+      });
+    });
+  };
+
   // Load gallery items
   try {
     galleryItems = await getGallery();
     if (grid) {
+      buildCategoryTabs(galleryItems);
       currentPage = 1;
       renderGallery(galleryItems);
     }
@@ -211,26 +269,4 @@ export async function initGallery() {
   } catch (err) {
     console.error('Error loading gallery:', err);
   }
-
-  // Filter buttons logic
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const filter = btn.getAttribute('data-filter');
-
-      filterBtns.forEach(b => {
-        b.classList.remove('bg-[#093180]', 'text-white');
-        b.classList.add('bg-white', 'text-[#111827]');
-      });
-      btn.classList.remove('bg-white', 'text-[#111827]');
-      btn.classList.add('bg-[#093180]', 'text-white');
-
-      currentPage = 1;
-      if (filter === 'all') {
-        renderGallery(galleryItems);
-      } else {
-        const filtered = galleryItems.filter(item => item.category === filter);
-        renderGallery(filtered);
-      }
-    });
-  });
 }

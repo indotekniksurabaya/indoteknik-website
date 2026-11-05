@@ -70,14 +70,28 @@ export function initScroll() {
         }
       });
     }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -40px 0px'
+      threshold: 0.05,
+      rootMargin: '0px 0px -20px 0px'
     });
+
+    window.__scrollObserver = observer;
 
     maskElements.forEach(el => observer.observe(el));
     revealElements.forEach(el => observer.observe(el));
   } else {
     maskElements.forEach(el => el.classList.add('is-visible'));
     revealElements.forEach(el => el.classList.add('is-visible'));
+  }
+}
+
+export function refreshScrollReveal(root = document) {
+  if (typeof window === 'undefined') return;
+  if ('IntersectionObserver' in window && window.__scrollObserver) {
+    const reveals = root.querySelectorAll ? root.querySelectorAll('.scroll-reveal:not(.is-visible)') : [];
+    const masks = root.querySelectorAll ? root.querySelectorAll('.mask-reveal:not(.is-visible)') : [];
+    reveals.forEach(el => window.__scrollObserver.observe(el));
+    masks.forEach(el => window.__scrollObserver.observe(el));
+  } else {
+    root.querySelectorAll?.('.scroll-reveal, .mask-reveal').forEach(el => el.classList.add('is-visible'));
   }
 }

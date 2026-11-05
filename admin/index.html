@@ -226,57 +226,236 @@
         <div id="adminGalleryPagination" class="flex flex-col sm:flex-row items-center justify-between p-4 bg-white border border-[#e5e7eb] text-xs gap-3"></div>
       </section>
 
-      <!-- ==================== TAB 3: COMPANY PROFILE ==================== -->
+      <!-- ==================== TAB 3: COMPANY PROFILE & ABOUT US ==================== -->
       <section id="tabContentCompany" class="admin-tab-content hidden space-y-6">
         <div class="bg-white p-6 border border-[#e5e7eb]">
-          <h2 class="text-base sm:text-lg font-bold text-[#111827] uppercase tracking-tight mb-1">Pengaturan Profil Perusahaan</h2>
-          <p class="text-xs text-[#6b7280] mb-6">Informasi ini tampil pada halaman Tentang Kami, Footer, dan kontak resmi.</p>
-
-          <form id="companyProfileForm" class="space-y-5 max-w-3xl">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Nama Perusahaan</label>
-                <input type="text" id="cpName" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none focus:border-[#093180]" required>
-              </div>
-              <div>
-                <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Tagline Layanan</label>
-                <input type="text" id="cpTagline" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none focus:border-[#093180]" required>
-              </div>
-            </div>
-
+          <div class="pb-4 mb-6 border-b border-[#e5e7eb] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Deskripsi Singkat Profil</label>
-              <textarea id="cpDesc" rows="3" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none focus:border-[#093180]" required></textarea>
+              <h2 class="text-base sm:text-lg font-bold text-[#111827] uppercase tracking-tight mb-1">Pengaturan Konten Profil & About Us</h2>
+              <p class="text-xs text-[#6b7280]">Seluruh teks pada halaman Tentang Kami, Beranda (About), Footer, dan Kontak dapat diedit di sini.</p>
             </div>
+            <button form="companyProfileForm" type="submit" class="btn-primary text-xs font-bold uppercase tracking-wider py-2.5 px-5 self-start sm:self-auto shrink-0 shadow-sm">
+              Simpan Semua Perubahan
+            </button>
+          </div>
 
-            <div>
-              <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Visi Perusahaan</label>
-              <textarea id="cpVision" rows="2" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none focus:border-[#093180]"></textarea>
-            </div>
+          <form id="companyProfileForm" class="space-y-8 max-w-4xl">
 
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div>
-                <label class="block text-xs font-bold uppercase text-[#374151] mb-1">No. WhatsApp</label>
-                <input type="text" id="cpPhone" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none focus:border-[#093180]" placeholder="+62 813-9063-0360">
+            <!-- BAGIAN 1: IDENTITAS & KONTAK -->
+            <div class="p-5 bg-[#f9fafb] border border-[#e5e7eb] space-y-4">
+              <div class="flex items-center gap-2 pb-2 border-b border-[#e5e7eb]">
+                <span class="w-2.5 h-2.5 bg-[#093180]"></span>
+                <h3 class="text-xs font-extrabold uppercase tracking-wider text-[#093180]">1. Identitas & Kontak Perusahaan</h3>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Nama Perusahaan Resmi</label>
+                  <input type="text" id="cpName" class="w-full text-xs p-2.5 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" required>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Tagline Layanan</label>
+                  <input type="text" id="cpTagline" class="w-full text-xs p-2.5 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" required>
+                </div>
               </div>
               <div>
-                <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Email Resmi</label>
-                <input type="email" id="cpEmail" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none focus:border-[#093180]" placeholder="info@indoteknik14.com">
+                <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Deskripsi Singkat Profil Perusahaan</label>
+                <textarea id="cpDesc" rows="2" class="w-full text-xs p-2.5 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" required></textarea>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold uppercase text-[#374151] mb-1">No. WhatsApp / Telepon Resmi</label>
+                  <input type="text" id="cpPhone" class="w-full text-xs p-2.5 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" placeholder="+62 813-9063-0360">
+                </div>
+                <div>
+                  <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Email Resmi</label>
+                  <input type="email" id="cpEmail" class="w-full text-xs p-2.5 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" placeholder="info@indoteknik14.com">
+                </div>
               </div>
               <div>
-                <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Standar Kepatuhan</label>
-                <input type="text" id="cpStandards" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none focus:border-[#093180]" value="NFPA & SNI">
+                <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Alamat Kantor & Workshop</label>
+                <textarea id="cpAddress" rows="2" class="w-full text-xs p-2.5 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]"></textarea>
               </div>
             </div>
 
-            <div>
-              <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Alamat Kantor & Workshop</label>
-              <textarea id="cpAddress" rows="2" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none focus:border-[#093180]"></textarea>
+            <!-- BAGIAN 2: HALAMAN ABOUT US (4 KARTU) -->
+            <div class="p-5 bg-white border-2 border-[#093180] space-y-6">
+              <div class="flex items-center justify-between pb-3 border-b border-[#e5e7eb]">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 bg-[#ffc107]"></span>
+                  <h3 class="text-xs font-extrabold uppercase tracking-wider text-[#111827]">2. Halaman Tentang Kami (About Us - 4 Kartu)</h3>
+                </div>
+                <span class="text-[10px] bg-[#e6ecf5] text-[#093180] font-bold px-2 py-0.5">about.html</span>
+              </div>
+
+              <!-- Kartu 1: Profil & Visi -->
+              <div class="p-4 bg-gray-50 border border-[#e5e7eb] space-y-3">
+                <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block">Kartu 01 / Profil & Visi</span>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-[11px] font-bold uppercase text-[#374151] mb-1">Judul Visi</label>
+                    <input type="text" id="cpVisionTitle" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" value="VISI PERUSAHAAN">
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold uppercase text-[#374151] mb-1">Badge Bawah (Footer Kartu)</label>
+                    <input type="text" id="cpVisionFooter" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" value="KOMITMEN PROFESIONALISME">
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold uppercase text-[#374151] mb-1">Teks Visi Perusahaan</label>
+                  <textarea id="cpVision" rows="2" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]"></textarea>
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold uppercase text-[#374151] mb-1">Poin-Poin Misi Utama (Pisahkan Tiap Poin dengan Baris Baru / Enter)</label>
+                  <textarea id="cpMission" rows="3" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" placeholder="Baris 1&#10;Baris 2&#10;Baris 3"></textarea>
+                </div>
+              </div>
+
+              <!-- Kartu 2: Keselamatan -->
+              <div class="p-4 bg-gray-50 border border-[#e5e7eb] space-y-3">
+                <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block">Kartu 02 / Keselamatan (Mutu & K3L)</span>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-[11px] font-bold uppercase text-[#374151] mb-1">Judul Seksi Keselamatan</label>
+                    <input type="text" id="cpSafetyTitle" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" value="STANDAR MUTU & K3L">
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold uppercase text-[#374151] mb-1">Badge Bawah (Footer Kartu)</label>
+                    <input type="text" id="cpSafetyFooter" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" value="KEANDALAN TERUJI">
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold uppercase text-[#374151] mb-1">Deskripsi Keselamatan</label>
+                  <textarea id="cpSafetyDesc" rows="2" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]"></textarea>
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold uppercase text-[#374151] mb-1">Poin-Poin Standar Mutu & K3L (1 Baris per Poin)</label>
+                  <textarea id="cpSafetyPoints" rows="3" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" placeholder="Penerapan Ketat Budaya Zero Accident K3L&#10;Kepatuhan Standar NFPA & Regulasi SNI&#10;Pengujian Hydrotest & Kelaikan Operasional"></textarea>
+                </div>
+              </div>
+
+              <!-- Kartu 3: Layanan -->
+              <div class="p-4 bg-gray-50 border border-[#e5e7eb] space-y-3">
+                <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block">Kartu 03 / Layanan (Lingkup Keahlian)</span>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-[11px] font-bold uppercase text-[#374151] mb-1">Judul Seksi Layanan</label>
+                    <input type="text" id="cpServiceTitle" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" value="LINGKUP KEAHLIAN">
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold uppercase text-[#374151] mb-1">Badge Bawah (Footer Kartu)</label>
+                    <input type="text" id="cpServiceFooter" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" value="SOLUSI TERINTEGRASI">
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold uppercase text-[#374151] mb-1">Deskripsi Lingkup Keahlian</label>
+                  <textarea id="cpServiceDesc" rows="2" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]"></textarea>
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold uppercase text-[#374151] mb-1">Poin-Poin Keahlian Layanan (1 Baris per Poin)</label>
+                  <textarea id="cpServicePoints" rows="3" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" placeholder="Fire Hydrant & Automatic Sprinkler&#10;Fire Pump Room NFPA 20 & Diesel Engine&#10;Clean Agent FM-200 & Fire Alarm Addressable"></textarea>
+                </div>
+              </div>
+
+              <!-- Kartu 4: Rekam Jejak & Kapabilitas (Statistik) -->
+              <div class="p-4 bg-gray-50 border border-[#e5e7eb] space-y-3">
+                <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block">Kartu 04 / Rekam Jejak & Angka Statistik</span>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  <div>
+                    <label class="block text-[10px] font-bold uppercase text-[#374151] mb-1">Angka Pengalaman</label>
+                    <input type="text" id="cpStatExp" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" value="20+">
+                    <input type="text" id="cpStatExpLabel" class="w-full text-[11px] p-1.5 mt-1 bg-white border border-[#e5e7eb] outline-none" value="Tahun Pengalaman">
+                  </div>
+                  <div>
+                    <label class="block text-[10px] font-bold uppercase text-[#374151] mb-1">Angka Proyek</label>
+                    <input type="text" id="cpStatProj" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" value="500+">
+                    <input type="text" id="cpStatProjLabel" class="w-full text-[11px] p-1.5 mt-1 bg-white border border-[#e5e7eb] outline-none" value="Proyek Selesai">
+                  </div>
+                  <div>
+                    <label class="block text-[10px] font-bold uppercase text-[#374151] mb-1">Standar Resmi</label>
+                    <input type="text" id="cpStatStd" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" value="NFPA & SNI">
+                    <input type="text" id="cpStatStdLabel" class="w-full text-[11px] p-1.5 mt-1 bg-white border border-[#e5e7eb] outline-none" value="Standar Resmi">
+                  </div>
+                  <div>
+                    <label class="block text-[10px] font-bold uppercase text-[#374151] mb-1">Engineer Ahli</label>
+                    <input type="text" id="cpStatEng" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" value="30+">
+                    <input type="text" id="cpStatEngLabel" class="w-full text-[11px] p-1.5 mt-1 bg-white border border-[#e5e7eb] outline-none" value="Engineer Ahli">
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div class="pt-4 border-t border-[#e5e7eb]">
-              <button type="submit" class="btn-primary text-xs font-bold uppercase tracking-wider py-3 px-6">
-                Simpan Profil Perusahaan
+            <!-- BAGIAN 3: SEKSI TENTANG DI BERANDA (HOMEPAGE 3 KARTU) -->
+            <div class="p-5 bg-white border border-[#e5e7eb] space-y-4">
+              <div class="flex items-center justify-between pb-3 border-b border-[#e5e7eb]">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 bg-[#093180]"></span>
+                  <h3 class="text-xs font-extrabold uppercase tracking-wider text-[#111827]">3. Seksi Tentang di Beranda (Homepage - 3 Kartu)</h3>
+                </div>
+                <span class="text-[10px] bg-[#e6ecf5] text-[#093180] font-bold px-2 py-0.5">index.html (#tentang)</span>
+              </div>
+
+              <!-- Home Card 1 -->
+              <div class="p-3 bg-gray-50 border border-[#e5e7eb] space-y-2">
+                <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block">Kartu 01 (Profil)</span>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-[10px] font-bold uppercase text-[#374151] mb-1">Judul Kartu 1</label>
+                    <input type="text" id="cpHomeCard1Title" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" value="Badan Usaha Resmi">
+                  </div>
+                  <div>
+                    <label class="block text-[10px] font-bold uppercase text-[#374151] mb-1">Badge Bawah</label>
+                    <input type="text" id="cpHomeCard1Footer" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" value="Integritas & Presisi">
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold uppercase text-[#374151] mb-1">Teks Deskripsi</label>
+                  <textarea id="cpHomeCard1Desc" rows="2" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]"></textarea>
+                </div>
+              </div>
+
+              <!-- Home Card 2 -->
+              <div class="p-3 bg-gray-50 border border-[#e5e7eb] space-y-2">
+                <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block">Kartu 02 (Keselamatan)</span>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-[10px] font-bold uppercase text-[#374151] mb-1">Judul Kartu 2</label>
+                    <input type="text" id="cpHomeCard2Title" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" value="Standar NFPA & SNI">
+                  </div>
+                  <div>
+                    <label class="block text-[10px] font-bold uppercase text-[#374151] mb-1">Badge Bawah</label>
+                    <input type="text" id="cpHomeCard2Footer" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" value="Standar Teruji">
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold uppercase text-[#374151] mb-1">Teks Deskripsi</label>
+                  <textarea id="cpHomeCard2Desc" rows="2" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]"></textarea>
+                </div>
+              </div>
+
+              <!-- Home Card 3 -->
+              <div class="p-3 bg-gray-50 border border-[#e5e7eb] space-y-2">
+                <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block">Kartu 03 (Layanan)</span>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-[10px] font-bold uppercase text-[#374151] mb-1">Judul Kartu 3</label>
+                    <input type="text" id="cpHomeCard3Title" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" value="Solusi Terintegrasi">
+                  </div>
+                  <div>
+                    <label class="block text-[10px] font-bold uppercase text-[#374151] mb-1">Badge Bawah</label>
+                    <input type="text" id="cpHomeCard3Footer" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" value="End-to-End Service">
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold uppercase text-[#374151] mb-1">Teks Deskripsi</label>
+                  <textarea id="cpHomeCard3Desc" rows="2" class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-[#e5e7eb] flex items-center justify-between">
+              <span class="text-xs text-[#6b7280]">Perubahan langsung disinkronkan ke Supabase & penyimpanan lokal.</span>
+              <button type="submit" class="btn-primary text-xs font-bold uppercase tracking-wider py-3 px-8 shadow">
+                Simpan Profil & About Us
               </button>
             </div>
           </form>
@@ -357,7 +536,15 @@
               <option value="alarm">Fire Alarm System</option>
               <option value="foam">Foam Bladder System</option>
               <option value="cleanagent">Clean Agent System</option>
+              <option value="__new__">+ Tambah Kategori Baru...</option>
             </select>
+            <div id="prodNewCategoryBox" class="hidden mt-2 p-2.5 bg-[#f9fafb] border border-[#e5e7eb]">
+              <label class="block text-[10px] font-bold uppercase text-[#093180] mb-1">Nama Kategori Baru</label>
+              <input type="text" id="prodNewCategoryInput" placeholder="Ketik kategori baru (cth: Pemadam Portable)..." class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]">
+              <div id="prodCategoryStandardizedPreview" class="text-[10px] text-[#093180] font-semibold mt-1.5 hidden">
+                Format Otomatis: <span class="font-bold text-[#111827]" id="prodCategoryPreviewLabel"></span> (Slug: <span class="font-mono text-gray-500" id="prodCategoryPreviewSlug"></span>)
+              </div>
+            </div>
           </div>
           <div>
             <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Brand / Pabrikan</label>
@@ -368,7 +555,7 @@
         <div>
           <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Gambar Produk</label>
           <div class="space-y-2">
-            <input type="text" id="prodImage" placeholder="Path: images/catalog/products/nama.jpg atau URL Supabase" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none">
+            <input type="text" id="prodImageUrl" placeholder="Path: images/catalog/products/nama.jpg atau URL Supabase" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none">
             <div class="flex items-center gap-2">
               <input type="file" id="prodImageFile" accept="image/*" class="text-xs text-[#6b7280]">
               <span id="prodUploadStatus" class="text-[11px] text-[#093180] font-semibold hidden">Mengupload...</span>
@@ -427,7 +614,15 @@
               <option value="pump">Fire Pump & Mesin</option>
               <option value="pipa">Perpipaan & Fabrikasi</option>
               <option value="team">Commissioning & Tim</option>
+              <option value="__new__">+ Tambah Kategori Baru...</option>
             </select>
+            <div id="galNewCategoryBox" class="hidden mt-2 p-2.5 bg-[#f9fafb] border border-[#e5e7eb]">
+              <label class="block text-[10px] font-bold uppercase text-[#093180] mb-1">Nama Kategori Baru</label>
+              <input type="text" id="galNewCategoryInput" placeholder="Ketik kategori baru (cth: Inspeksi K3L)..." class="w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]">
+              <div id="galCategoryStandardizedPreview" class="text-[10px] text-[#093180] font-semibold mt-1.5 hidden">
+                Format Otomatis: <span class="font-bold text-[#111827]" id="galCategoryPreviewLabel"></span> (Slug: <span class="font-mono text-gray-500" id="galCategoryPreviewSlug"></span>)
+              </div>
+            </div>
           </div>
           <div>
             <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Badge Label</label>

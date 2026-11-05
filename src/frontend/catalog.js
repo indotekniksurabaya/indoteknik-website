@@ -1,35 +1,34 @@
 // Frontend Dynamic Catalog Controller
-import { getCompanyProfile, getProducts } from '../lib/supabase.js';
+import { getCompanyProfile, getProducts, standardizeCategory } from '../lib/supabase.js';
 
 export async function initKatalog() {
   const grid = document.getElementById('catalogGrid');
   const pagContainer = document.getElementById('catalogPagination');
   const homeFeatured = document.getElementById('homeFeaturedContainer');
-  const modal = document.getElementById('hydrantDetailModal');
-  const closeBtn = document.getElementById('closeHydrantModalBtn');
-  const tabs = document.querySelectorAll('.catalog-tab');
+  const tabsContainer = document.getElementById('catalogTabsContainer') || document.querySelector('.catalog-tab')?.parentElement;
   const searchInput = document.getElementById('catalogSearchInput');
+  const modal = document.getElementById('productDetailModal');
+  const closeBtn = document.getElementById('closeModalBtn');
 
   let products = [];
-  let companyWa = '6281390630360';
-
+  let currentFiltered = [];
   let currentPage = 1;
   const PER_PAGE = 12;
-  let currentFiltered = [];
 
-  // Get active WhatsApp number from company profile
+  // Active filter state
+  let currentCategory = 'all';
+  let currentSearch = '';
+
+  // Company WhatsApp number for inquiry fallback
+  let companyWa = '6281390630360';
   try {
-    const profile = await getCompanyProfile();
-    if (profile) {
-      const raw = profile.phone || profile.whatsapp || '6281390630360';
-      let clean = raw.replace(/[^0-9]/g, '');
-      if (clean.startsWith('0')) clean = '62' + clean.slice(1);
-      else if (!clean.startsWith('62')) clean = '62' + clean;
-      companyWa = clean;
+    const cp = await getCompanyProfile();
+    if (cp && cp.phone) {
+      companyWa = cp.phone.replace(/[^0-9]/g, '');
+      if (companyWa.startsWith('0')) companyWa = '62' + companyWa.slice(1);
     }
   } catch (_) {}
 
-  // Function to render product cards with pagination (for catalog.html)
   const renderProducts = (items) => {
     if (!grid) return;
     currentFiltered = items;
@@ -37,7 +36,7 @@ export async function initKatalog() {
     if (items.length === 0) {
       grid.innerHTML = `
         <div class="col-span-full py-16 text-center border border-dashed border-[#e5e7eb] p-8">
-          <p class="text-sm font-semibold text-[#4b5563]">Tidak ada produk yang sesuai dengan kategori atau pencarian.</p>
+          <p class="text-sm font-semibold text-[#4b5563]">Tidak ada produk yang sesuai kriteria pencarian.</p>
         </div>
       `;
       if (pagContainer) pagContainer.innerHTML = '';
@@ -51,37 +50,48 @@ export async function initKatalog() {
     const startIdx = (currentPage - 1) * PER_PAGE;
     const pageItems = items.slice(startIdx, startIdx + PER_PAGE);
 
-    grid.innerHTML = pageItems.map(prod => `
-      <button data-product-id="${prod.id}" data-category="${prod.category}" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
-        <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
-          <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy" decoding="async" onerror="this.src='images/Fire-Hydrant-Yellow.png'">
+    grid.innerHTML = pageItems.map(p => `
+      <div class="product-card group bg-white border border-[#e5e7eb] p-4 flex flex-col justify-between hover:shadow-lg transition-all" data-category="${p.category}" data-id="${p.id}">
+        <div>
+          <div class="aspect-square bg-white flex items-center justify-center p-3 mb-4 overflow-hidden border border-[#f3f4f6]">
+            <img src="${p.image}" alt="${p.title}" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" onerror="this.src='images/Fire-Hydrant-Yellow.png'">
+          </div>
+          <span class="text-[10px] font-bold text-[#093180] tracking-wider uppercase block mb-1">
+            ${p.code}
+          </span>
+          <h3 class="product-card-title text-xs font-bold text-[#111827] line-clamp-2 mb-2 group-hover:text-[#093180] transition-colors">
+            ${p.title}
+          </h3>
+          <p class="text-[11px] text-[#6b7280] line-clamp-2 mb-3 leading-relaxed">
+            ${p.desc || ''}
+          </p>
         </div>
-        <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">${prod.code}</span>
-        <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
-          ${prod.title}
-        </h3>
-        <div class="mt-auto w-full pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#6b7280] uppercase font-semibold">
-          <span>Lihat Detail</span>
-          <svg class="w-3.5 h-3.5 text-[#093180] transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        <div class="pt-3 border-t border-[#e5e7eb] flex items-center justify-between">
+          <span class="text-[10px] font-bold text-[#4b5563] uppercase">
+            ${p.brand || 'Vinci'}
+          </span>
+          <button class="btn-detail text-xs font-bold text-[#093180] flex items-center gap-1 group-hover:translate-x-0.5 transition-transform cursor-pointer">
+            <span>Rincian</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
         </div>
-      </button>
+      </div>
     `).join('');
 
-    // Re-attach card click events
-    grid.querySelectorAll('.catalog-card').forEach(card => {
+    grid.querySelectorAll('.product-card').forEach(card => {
       card.addEventListener('click', () => {
-        const id = card.getAttribute('data-product-id');
+        const id = card.getAttribute('data-id');
         const prod = products.find(p => p.id === id);
         if (prod) openProductModal(prod);
       });
     });
 
-    // Render pagination controls
+    // Pagination controls
     if (pagContainer) {
       if (items.length <= PER_PAGE) {
         pagContainer.innerHTML = `
           <div class="text-xs text-[#6b7280]">
-            Total <span class="font-bold text-[#111827]">${items.length}</span> produk
+            Total <span class="font-bold text-[#111827]">${items.length}</span> produk terdaftar
           </div>
           <div class="text-[11px] text-[#9ca3af]">Halaman 1 dari 1</div>
         `;
@@ -148,7 +158,7 @@ export async function initKatalog() {
     if (!featured) return;
 
     homeFeatured.innerHTML = `
-      <button id="openHydrantModalBtn" class="scroll-reveal group flex flex-col items-center bg-white p-6 max-w-sm w-full focus:outline-none transition-all duration-300 hover:opacity-90 cursor-pointer border border-[#e5e7eb] hover:border-[#093180] shadow-sm hover:shadow-xl">
+      <button id="openHydrantModalBtn" class="group flex flex-col items-center bg-white p-6 max-w-sm w-full focus:outline-none transition-all duration-300 hover:opacity-90 cursor-pointer border border-[#e5e7eb] hover:border-[#093180] shadow-sm hover:shadow-xl">
         <div class="w-full aspect-[3/4] bg-white flex items-center justify-center overflow-hidden mb-6 p-4">
           <img src="${featured.image}" alt="${featured.title}" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async" onerror="this.src='images/Fire-Hydrant-Yellow.png'">
         </div>
@@ -232,24 +242,6 @@ export async function initKatalog() {
     }
   });
 
-  // Load products dynamically
-  try {
-    products = await getProducts();
-    if (grid) {
-      currentPage = 1;
-      renderProducts(products);
-    }
-    if (homeFeatured) {
-      renderHomeFeatured(products);
-    }
-  } catch (err) {
-    console.error('Error initializing products:', err);
-  }
-
-  // Active filter state
-  let currentCategory = 'all';
-  let currentSearch = '';
-
   const applyFilters = () => {
     const filtered = products.filter(p => {
       const matchesCategory = currentCategory === 'all' || p.category === currentCategory;
@@ -263,22 +255,57 @@ export async function initKatalog() {
     renderProducts(filtered);
   };
 
-  // Tabs filtering
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      currentCategory = tab.getAttribute('data-category');
+  // Build category filter tabs dynamically on catalog.html
+  const buildCategoryTabs = (items) => {
+    if (!tabsContainer) return;
 
-      tabs.forEach(t => {
-        t.classList.remove('bg-[#093180]', 'text-white', 'border-[#093180]');
-        t.classList.add('bg-white', 'text-[#4b5563]', 'border-[#e5e7eb]', 'hover:border-[#093180]');
-      });
+    const catMap = new Map();
+    // Default preset categories
+    catMap.set('hydrant', 'Hydrant & Perpipaan');
+    catMap.set('alarm', 'Fire Alarm System');
+    catMap.set('foam', 'Foam Suppression');
+    catMap.set('cleanagent', 'Clean Agent');
 
-      tab.classList.remove('bg-white', 'text-[#4b5563]', 'border-[#e5e7eb]', 'hover:border-[#093180]');
-      tab.classList.add('bg-[#093180]', 'text-white', 'border-[#093180]');
-
-      applyFilters();
+    // Add any custom categories present in items
+    items.forEach(p => {
+      if (p.category && p.category !== 'all' && !catMap.has(p.category)) {
+        const std = standardizeCategory(p.category);
+        catMap.set(p.category, std.label);
+      }
     });
-  });
+
+    let html = `
+      <button data-category="all" class="catalog-tab px-4 py-2 text-xs font-bold uppercase tracking-wider border border-[#093180] bg-[#093180] text-white transition-all cursor-pointer">
+        Semua Produk
+      </button>
+    `;
+
+    catMap.forEach((label, slug) => {
+      html += `
+        <button data-category="${slug}" class="catalog-tab px-4 py-2 text-xs font-bold uppercase tracking-wider border border-[#e5e7eb] bg-white text-[#4b5563] hover:border-[#093180] transition-all cursor-pointer">
+          ${label}
+        </button>
+      `;
+    });
+
+    tabsContainer.innerHTML = html;
+
+    tabsContainer.querySelectorAll('.catalog-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        currentCategory = tab.getAttribute('data-category');
+
+        tabsContainer.querySelectorAll('.catalog-tab').forEach(t => {
+          t.classList.remove('bg-[#093180]', 'text-white', 'border-[#093180]');
+          t.classList.add('bg-white', 'text-[#4b5563]', 'border-[#e5e7eb]', 'hover:border-[#093180]');
+        });
+
+        tab.classList.remove('bg-white', 'text-[#4b5563]', 'border-[#e5e7eb]', 'hover:border-[#093180]');
+        tab.classList.add('bg-[#093180]', 'text-white', 'border-[#093180]');
+
+        applyFilters();
+      });
+    });
+  };
 
   // Search input filtering
   if (searchInput) {
@@ -286,5 +313,20 @@ export async function initKatalog() {
       currentSearch = e.target.value.trim().toLowerCase();
       applyFilters();
     });
+  }
+
+  // Load products dynamically
+  try {
+    products = await getProducts();
+    if (grid) {
+      buildCategoryTabs(products);
+      currentPage = 1;
+      renderProducts(products);
+    }
+    if (homeFeatured) {
+      renderHomeFeatured(products);
+    }
+  } catch (err) {
+    console.error('Error initializing products:', err);
   }
 }

@@ -15,9 +15,44 @@ export const fallbackCompanyProfile = {
   ],
   stats: {
     experience_years: '20+',
+    experience_label: 'Tahun Pengalaman',
     projects_completed: '500+',
+    projects_label: 'Proyek Selesai',
     standards: 'NFPA & SNI',
-    expert_engineers: '30+'
+    standards_label: 'Standar Resmi',
+    expert_engineers: '30+',
+    engineers_label: 'Engineer Ahli',
+    // Seksi 1 About: Profil & Visi
+    vision_title: 'VISI PERUSAHAAN',
+    vision_footer: 'Komitmen Profesionalisme',
+    // Seksi 2 About: Keselamatan
+    safety_title: 'Standar Mutu & K3L',
+    safety_desc: 'Setiap instalasi dikerjakan dengan kepatuhan penuh terhadap standar keselamatan kerja, regulasi teknis Standar Nasional Indonesia (SNI), dan acuan National Fire Protection Association (NFPA).',
+    safety_points: [
+      'Penerapan Ketat Budaya Zero Accident K3L',
+      'Kepatuhan Standar NFPA & Regulasi SNI',
+      'Pengujian Hydrotest & Kelaikan Operasional'
+    ],
+    safety_footer: 'Keandalan Teruji',
+    // Seksi 3 About: Layanan
+    service_title: 'Lingkup Keahlian',
+    service_desc: 'Menyediakan pengadaan material bersertifikat, fabrikasi pipa, instalasi lapangan terpadu, hingga komisioning pengujian sistem pemadam dan pompa bertekanan tinggi.',
+    service_points: [
+      'Fire Hydrant & Automatic Sprinkler',
+      'Fire Pump Room NFPA 20 & Diesel Engine',
+      'Clean Agent FM-200 & Fire Alarm Addressable'
+    ],
+    service_footer: 'Solusi Terintegrasi',
+    // Homepage 3 Kartu (01 / Tentang Perusahaan)
+    home_card1_title: 'Badan Usaha Resmi',
+    home_card1_desc: 'Mitra kontraktor berbadan hukum dengan keahlian teknis khusus pada sistem proteksi kebakaran, perpipaan, dan mekanikal elektrikal gedung industri.',
+    home_card1_footer: 'Integritas & Presisi',
+    home_card2_title: 'Standar NFPA & SNI',
+    home_card2_desc: 'Kepatuhan mutlak pada regulasi keselamatan kerja K3L Zero Accident, standar internasional NFPA, serta pengujian kelayakan teknis hydrotest.',
+    home_card2_footer: 'Standar Teruji',
+    home_card3_title: 'Solusi Terintegrasi',
+    home_card3_desc: 'Layanan menyeluruh meliputi instalasi fire hydrant, sprinkler, clean agent suppression, perakitan fire pump room, hingga maintenance berkala.',
+    home_card3_footer: 'End-to-End Service'
   },
   phone: '+62 813-9063-0360',
   whatsapp: '6281390630360',
