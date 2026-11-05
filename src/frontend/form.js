@@ -1,5 +1,5 @@
 // Frontend RFQ Contact Form Handler
-import { submitInquiry } from '../lib/supabase.js';
+import { getCompanyProfile, submitInquiry } from '../lib/supabase.js';
 import { showToast } from './toast.js';
 
 export function initContactForm() {
@@ -48,9 +48,21 @@ export function initContactForm() {
       showToast('Terima kasih! Permintaan penawaran Anda telah tersimpan di sistem.', 'success');
 
       // 2. Opsi forward ke WhatsApp engineer
-      setTimeout(() => {
+      setTimeout(async () => {
         const waConfirm = confirm('Permintaan berhasil dicatat! Teruskan rincian proyek langsung ke WhatsApp Senior Engineer kami sekarang?');
         if (waConfirm) {
+          let companyWa = '6281390630360';
+          try {
+            const profile = await getCompanyProfile();
+            if (profile) {
+              const raw = profile.phone || profile.whatsapp || '6281390630360';
+              let clean = raw.replace(/[^0-9]/g, '');
+              if (clean.startsWith('0')) clean = '62' + clean.slice(1);
+              else if (!clean.startsWith('62')) clean = '62' + clean;
+              companyWa = clean;
+            }
+          } catch (_) {}
+
           const text = encodeURIComponent(
             `Halo PT INDO TEKNIK EMPATBELAS,\nSaya telah mengajukan form penawaran di website:\n\n` +
             `• Nama: ${name}\n` +
@@ -60,7 +72,7 @@ export function initContactForm() {
             `• Rincian Proyek: ${message}\n\n` +
             `Mohon informasi lebih lanjut.`
           );
-          window.open(`https://wa.me/6281390630360?text=${text}`, '_blank');
+          window.open(`https://wa.me/${companyWa}?text=${text}`, '_blank');
         }
       }, 300);
 

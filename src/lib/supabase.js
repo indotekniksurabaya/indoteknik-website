@@ -81,7 +81,7 @@ export async function getProducts() {
     const { data, error } = await client
       .from('products')
       .select('*')
-      .order('created_at', { ascending: false });
+      .order('updated_at', { ascending: false });
 
     if (error || !data || data.length === 0) {
       console.info('Supabase products empty or error, using fallback:', error?.message);

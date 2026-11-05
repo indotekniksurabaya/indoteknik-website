@@ -3,6 +3,7 @@ import { getGallery } from '../lib/supabase.js';
 
 export async function initGallery() {
   const grid = document.getElementById('galleryGrid');
+  const homeGrid = document.getElementById('homeGalleryGrid');
   const filterBtns = document.querySelectorAll('.gallery-filter-btn');
   const modal = document.getElementById('galleryModal');
   const modalImg = document.getElementById('galleryModalImg');
@@ -87,31 +88,70 @@ export async function initGallery() {
     });
   };
 
+  // Render top 4 items for Homepage
+  const renderHomeGallery = (items) => {
+    if (!homeGrid) return;
+    const topItems = items.slice(0, 4);
+
+    homeGrid.innerHTML = topItems.map(item => `
+      <a href="gallery.html" class="scroll-reveal group bg-white border border-[#e5e7eb] overflow-hidden hover:shadow-lg transition-all flex flex-col justify-between">
+        <div class="aspect-[4/3] overflow-hidden bg-gray-100 relative">
+          <img src="${item.image_url}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" onerror="this.src='images/Fire-Hydrant-Yellow.png'">
+          <div class="absolute top-2 left-2">
+            <span class="px-2 py-0.5 bg-[#093180] text-white text-[9px] font-bold uppercase tracking-wider">
+              ${item.category_label || item.category}
+            </span>
+          </div>
+        </div>
+        <div class="p-4 border-t border-[#e5e7eb] flex-1 flex flex-col justify-between">
+          <div>
+            <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block mb-1">
+              ${item.category_label || 'Dokumentasi'}
+            </span>
+            <h3 class="text-xs font-bold text-[#111827] group-hover:text-[#093180] line-clamp-2 transition-colors">
+              ${item.title}
+            </h3>
+          </div>
+          <div class="mt-3 pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#093180] font-semibold">
+            <span>Lihat Foto</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </a>
+    `).join('');
+  };
+
   // Load gallery items
   try {
     galleryItems = await getGallery();
     if (grid) {
       renderGallery(galleryItems);
     }
+    if (homeGrid) {
+      renderHomeGallery(galleryItems);
+    }
   } catch (err) {
     console.error('Error loading gallery:', err);
   }
 
   // Filter buttons logic
-  if (filterBtns.length > 0) {
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => {
-          b.classList.remove('bg-[#093180]', 'text-white');
-          b.classList.add('bg-white', 'text-[#111827]');
-        });
-        btn.classList.remove('bg-white', 'text-[#111827]');
-        btn.classList.add('bg-[#093180]', 'text-white');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
 
-        const filter = btn.getAttribute('data-filter');
-        const filtered = filter === 'all' ? galleryItems : galleryItems.filter(item => item.category === filter);
-        renderGallery(filtered);
+      filterBtns.forEach(b => {
+        b.classList.remove('bg-[#093180]', 'text-white');
+        b.classList.add('bg-white', 'text-[#111827]');
       });
+      btn.classList.remove('bg-white', 'text-[#111827]');
+      btn.classList.add('bg-[#093180]', 'text-white');
+
+      if (filter === 'all') {
+        renderGallery(galleryItems);
+      } else {
+        const filtered = galleryItems.filter(item => item.category === filter);
+        renderGallery(filtered);
+      }
     });
-  }
+  });
 }

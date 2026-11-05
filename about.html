@@ -111,7 +111,7 @@
         </nav>
       </div>
       <div class="pt-6 border-t border-[#e5e7eb]">
-        <a href="https://wa.me/6281390630360" target="_blank" class="w-full btn-secondary text-center block">Chat WhatsApp: +62 813-9063-0360</a>
+        <a data-company-wa href="https://wa.me/6281390630360" target="_blank" class="w-full btn-secondary text-center block">Chat WhatsApp: <span data-company-phone>+62 813-9063-0360</span></a>
       </div>
     </div>
   </div>
@@ -124,11 +124,11 @@
           <span class="text-[11px] font-bold tracking-[0.25em] text-[#093180] uppercase block mb-2">01 / Profil & Integritas</span>
         </div>
         <div class="mask-reveal mask-delay-100">
-          <h1 class="text-3xl sm:text-4xl font-extrabold text-[#111827] tracking-tight uppercase mb-3">
+          <h1 id="aboutPageTitle" class="text-3xl sm:text-4xl font-extrabold text-[#111827] tracking-tight uppercase mb-3" data-company-name>
             PT INDO TEKNIK EMPATBELAS
           </h1>
         </div>
-        <p class="text-xs sm:text-sm text-[#4b5563] max-w-2xl leading-relaxed">
+        <p id="aboutPageDesc" class="text-xs sm:text-sm text-[#4b5563] max-w-2xl leading-relaxed">
           Mitra kontraktor spesialis sistem proteksi kebakaran, instalasi perpipaan hidran, sprinkler, dan mekanikal elektrikal berskala komersial maupun fasilitas industri di seluruh Indonesia.
         </p>
       </div>
@@ -137,32 +137,35 @@
     <section class="w-full py-20 bg-white section-layered">
       <div class="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-16">
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch mb-16">
 
           <div class="scroll-reveal scroll-stagger-1 h-full flex flex-col justify-between p-6 sm:p-7 lg:p-8 bg-white border border-[#e5e7eb]">
             <div class="space-y-5">
               <div class="pb-3 border-b border-[#e5e7eb] flex items-center justify-between">
-                <span class="text-[11px] font-bold text-[#093180] tracking-widest uppercase">01 / PROFIL</span>
+                <span class="text-[11px] font-bold text-[#093180] tracking-widest uppercase">01 / PROFIL & VISI</span>
                 <span class="w-2 h-2 bg-[#ffc107]"></span>
               </div>
               <h2 class="text-base font-bold text-[#111827] uppercase tracking-wide">
-                Profil & Identitas
+                Visi Perusahaan
               </h2>
-              <p class="text-xs text-[#4b5563] leading-relaxed">
-                PT INDO TEKNIK EMPATBELAS adalah badan usaha resmi berbadan hukum yang berfokus pada pekerjaan teknik proteksi kebakaran dan instalasi perpipaan mekanikal elektrikal berkualitas tinggi.
+              <p id="aboutVisionText" class="text-xs text-[#4b5563] leading-relaxed">
+                Menjadi kontraktor proteksi kebakaran dan mekanikal elektrikal terdepan di Indonesia dengan mengutamakan standar keselamatan tertinggi (NFPA & SNI).
               </p>
-              <div class="space-y-2 pt-3 border-t border-[#e5e7eb] text-xs text-[#4b5563]">
-                <div class="flex items-center gap-2">
-                  <span class="w-1.5 h-1.5 bg-[#093180]"></span>
-                  <span>Badan Usaha Resmi Berbadan Hukum</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="w-1.5 h-1.5 bg-[#093180]"></span>
-                  <span>Spesialisasi Proteksi Kebakaran & Plambing</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="w-1.5 h-1.5 bg-[#093180]"></span>
-                  <span>Didukung Tenaga Ahli Berpengalaman</span>
+              <div class="pt-3 border-t border-[#e5e7eb]">
+                <span class="text-[10px] font-bold text-[#093180] tracking-wider uppercase block mb-2">Misi Utama:</span>
+                <div id="aboutMissionList" class="space-y-2">
+                  <div class="flex items-start gap-2 text-xs text-[#4b5563]">
+                    <span class="w-1.5 h-1.5 bg-[#093180] mt-1.5 shrink-0"></span>
+                    <span>Memberikan solusi rekayasa proteksi kebakaran terintegrasi dengan standar internasional.</span>
+                  </div>
+                  <div class="flex items-start gap-2 text-xs text-[#4b5563]">
+                    <span class="w-1.5 h-1.5 bg-[#093180] mt-1.5 shrink-0"></span>
+                    <span>Menyediakan produk berkualitas tinggi, bersertifikasi, dan teruji keandalannya.</span>
+                  </div>
+                  <div class="flex items-start gap-2 text-xs text-[#4b5563]">
+                    <span class="w-1.5 h-1.5 bg-[#093180] mt-1.5 shrink-0"></span>
+                    <span>Memberikan pelayanan profesional, tepat waktu, dan berorientasi pada keselamatan jiwa.</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -240,6 +243,32 @@
 
         </div>
 
+        <!-- Dynamic Company Stats -->
+        <div class="p-8 bg-white border border-[#e5e7eb] mb-16">
+          <div class="mb-6 pb-3 border-b border-[#e5e7eb] flex items-center justify-between">
+            <span class="text-[11px] font-bold text-[#093180] tracking-widest uppercase">04 / REKAM JEJAK & KAPABILITAS</span>
+            <span class="w-2 h-2 bg-[#ffc107]"></span>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div class="p-4 border-r border-[#f3f4f6] last:border-r-0">
+              <div id="companyStatExp" class="text-3xl sm:text-4xl font-extrabold text-[#093180] mb-1">20+</div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-[#4b5563]">Tahun Pengalaman</span>
+            </div>
+            <div class="p-4 border-r border-[#f3f4f6] last:border-r-0">
+              <div id="companyStatProj" class="text-3xl sm:text-4xl font-extrabold text-[#093180] mb-1">500+</div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-[#4b5563]">Proyek Selesai</span>
+            </div>
+            <div class="p-4 border-r border-[#f3f4f6] last:border-r-0">
+              <div id="companyStatStd" class="text-2xl sm:text-3xl font-extrabold text-[#093180] mb-1">NFPA & SNI</div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-[#4b5563]">Standar Resmi</span>
+            </div>
+            <div class="p-4">
+              <div id="companyStatEng" class="text-3xl sm:text-4xl font-extrabold text-[#093180] mb-1">30+</div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-[#4b5563]">Engineer Ahli</span>
+            </div>
+          </div>
+        </div>
+
         <div class="mt-16 pt-12 border-t border-[#e5e7eb] flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
             <h3 class="text-base font-bold text-[#111827]">Butuh Konsultasi Teknis atau Penawaran Proyek?</h3>
@@ -280,7 +309,7 @@
 
       <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 gap-4">
         <div>
-          &copy; 2026 PT INDO TEKNIK EMPATBELAS. Dusun Pekojo, Tunggalpager, Pungging, Mojokerto, Jawa Timur.
+          &copy; 2026 <span data-company-name>PT INDO TEKNIK EMPATBELAS</span>. <span data-company-address>Dusun Pekojo, Tunggalpager, Pungging, Mojokerto, Jawa Timur.</span>
         </div>
         <div class="flex items-center gap-4">
           <a href="admin/" class="text-gray-400 hover:text-white transition-colors">Portal Admin CMS</a>

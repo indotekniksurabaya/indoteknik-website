@@ -1,16 +1,30 @@
 // Frontend Dynamic Catalog Controller
-import { getProducts } from '../lib/supabase.js';
+import { getCompanyProfile, getProducts } from '../lib/supabase.js';
 
 export async function initKatalog() {
   const grid = document.getElementById('catalogGrid');
+  const homeFeatured = document.getElementById('homeFeaturedContainer');
   const modal = document.getElementById('hydrantDetailModal');
   const closeBtn = document.getElementById('closeHydrantModalBtn');
   const tabs = document.querySelectorAll('.catalog-tab');
   const searchInput = document.getElementById('catalogSearchInput');
 
   let products = [];
+  let companyWa = '6281390630360';
 
-  // Function to render product cards into grid
+  // Get active WhatsApp number from company profile
+  try {
+    const profile = await getCompanyProfile();
+    if (profile) {
+      const raw = profile.phone || profile.whatsapp || '6281390630360';
+      let clean = raw.replace(/[^0-9]/g, '');
+      if (clean.startsWith('0')) clean = '62' + clean.slice(1);
+      else if (!clean.startsWith('62')) clean = '62' + clean;
+      companyWa = clean;
+    }
+  } catch (_) {}
+
+  // Function to render product cards into grid (for catalog.html)
   const renderProducts = (items) => {
     if (!grid) return;
 
@@ -39,7 +53,7 @@ export async function initKatalog() {
       </button>
     `).join('');
 
-    // Re-attach card click events
+    // Attach card click events
     grid.querySelectorAll('.catalog-card').forEach(card => {
       card.addEventListener('click', () => {
         const id = card.getAttribute('data-product-id');
@@ -47,6 +61,35 @@ export async function initKatalog() {
         if (prod) openProductModal(prod);
       });
     });
+  };
+
+  // Render featured product for Homepage (index.html)
+  const renderHomeFeatured = (items) => {
+    if (!homeFeatured) return;
+    // Prefer VINCI-HP-14A or first item
+    const featured = items.find(p => p.id === 'vinci-hp-14a') || items[0];
+    if (!featured) return;
+
+    homeFeatured.innerHTML = `
+      <button id="openHydrantModalBtn" class="scroll-reveal group flex flex-col items-center bg-white p-6 max-w-sm w-full focus:outline-none transition-all duration-300 hover:opacity-90 cursor-pointer border border-[#e5e7eb] hover:border-[#093180] shadow-sm hover:shadow-xl">
+        <div class="w-full aspect-[3/4] bg-white flex items-center justify-center overflow-hidden mb-6 p-4">
+          <img src="${featured.image}" alt="${featured.title}" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" loading="lazy" onerror="this.src='images/Fire-Hydrant-Yellow.png'">
+        </div>
+        <div class="text-center w-full">
+          <span class="text-xs font-bold tracking-[0.2em] text-[#093180] uppercase block mb-1">${featured.code}</span>
+          <span class="text-[11px] font-bold tracking-wider text-[#111827] uppercase block mb-3 line-clamp-1">${featured.title}</span>
+          <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#093180] group-hover:underline">
+            <span>Klik untuk Detail Spesifikasi</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </span>
+        </div>
+      </button>
+    `;
+
+    const btn = document.getElementById('openHydrantModalBtn');
+    if (btn) {
+      btn.addEventListener('click', () => openProductModal(featured));
+    }
   };
 
   const openProductModal = (prod) => {
@@ -86,7 +129,7 @@ export async function initKatalog() {
 
     if (waEl) {
       const msg = encodeURIComponent(`Halo PT INDO TEKNIK EMPATBELAS, saya ingin menanyakan penawaran harga untuk produk ${prod.code} - ${prod.title}.`);
-      waEl.href = `https://wa.me/6281390630360?text=${msg}`;
+      waEl.href = `https://wa.me/${companyWa}?text=${msg}`;
     }
 
     modal.classList.remove('hidden');
@@ -117,6 +160,9 @@ export async function initKatalog() {
     products = await getProducts();
     if (grid) {
       renderProducts(products);
+    }
+    if (homeFeatured) {
+      renderHomeFeatured(products);
     }
   } catch (err) {
     console.error('Error initializing products:', err);

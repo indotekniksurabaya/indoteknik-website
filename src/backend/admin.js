@@ -542,6 +542,7 @@ async function handleCompanyProfileSubmit(e) {
     about_desc: document.getElementById('cpDesc').value.trim(),
     vision: document.getElementById('cpVision').value.trim(),
     phone: document.getElementById('cpPhone').value.trim(),
+    whatsapp: document.getElementById('cpPhone').value.trim().replace(/[^0-9]/g, ''),
     email: document.getElementById('cpEmail').value.trim(),
     address: document.getElementById('cpAddress').value.trim(),
     stats: {
