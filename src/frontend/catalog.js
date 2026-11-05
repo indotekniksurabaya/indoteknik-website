@@ -3,6 +3,7 @@ import { getCompanyProfile, getProducts } from '../lib/supabase.js';
 
 export async function initKatalog() {
   const grid = document.getElementById('catalogGrid');
+  const pagContainer = document.getElementById('catalogPagination');
   const homeFeatured = document.getElementById('homeFeaturedContainer');
   const modal = document.getElementById('hydrantDetailModal');
   const closeBtn = document.getElementById('closeHydrantModalBtn');
@@ -11,6 +12,10 @@ export async function initKatalog() {
 
   let products = [];
   let companyWa = '6281390630360';
+
+  let currentPage = 1;
+  const PER_PAGE = 12;
+  let currentFiltered = [];
 
   // Get active WhatsApp number from company profile
   try {
@@ -24,9 +29,10 @@ export async function initKatalog() {
     }
   } catch (_) {}
 
-  // Function to render product cards into grid (for catalog.html)
+  // Function to render product cards with pagination (for catalog.html)
   const renderProducts = (items) => {
     if (!grid) return;
+    currentFiltered = items;
 
     if (items.length === 0) {
       grid.innerHTML = `
@@ -34,13 +40,21 @@ export async function initKatalog() {
           <p class="text-sm font-semibold text-[#4b5563]">Tidak ada produk yang sesuai dengan kategori atau pencarian.</p>
         </div>
       `;
+      if (pagContainer) pagContainer.innerHTML = '';
       return;
     }
 
-    grid.innerHTML = items.map(prod => `
+    const totalPages = Math.ceil(items.length / PER_PAGE) || 1;
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+
+    const startIdx = (currentPage - 1) * PER_PAGE;
+    const pageItems = items.slice(startIdx, startIdx + PER_PAGE);
+
+    grid.innerHTML = pageItems.map(prod => `
       <button data-product-id="${prod.id}" data-category="${prod.category}" class="catalog-card group flex flex-col bg-white p-4 sm:p-5 border border-[#e5e7eb] hover:border-[#093180] hover:shadow-lg transition-all duration-300 focus:outline-none cursor-pointer text-left">
         <div class="w-full aspect-square bg-white flex items-center justify-center overflow-hidden mb-4 p-2">
-          <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy" onerror="this.src='images/Fire-Hydrant-Yellow.png'">
+          <img src="${prod.image}" alt="${prod.title}" class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105" loading="lazy" decoding="async" onerror="this.src='images/Fire-Hydrant-Yellow.png'">
         </div>
         <span class="text-[10px] font-bold tracking-widest text-[#093180] uppercase block mb-1">${prod.code}</span>
         <h3 class="text-xs sm:text-sm font-bold text-[#111827] uppercase tracking-tight line-clamp-2 mb-3 group-hover:text-[#093180] transition-colors">
@@ -53,7 +67,7 @@ export async function initKatalog() {
       </button>
     `).join('');
 
-    // Attach card click events
+    // Re-attach card click events
     grid.querySelectorAll('.catalog-card').forEach(card => {
       card.addEventListener('click', () => {
         const id = card.getAttribute('data-product-id');
@@ -61,19 +75,82 @@ export async function initKatalog() {
         if (prod) openProductModal(prod);
       });
     });
+
+    // Render pagination controls
+    if (pagContainer) {
+      if (items.length <= PER_PAGE) {
+        pagContainer.innerHTML = `
+          <div class="text-xs text-[#6b7280]">
+            Total <span class="font-bold text-[#111827]">${items.length}</span> produk
+          </div>
+          <div class="text-[11px] text-[#9ca3af]">Halaman 1 dari 1</div>
+        `;
+      } else {
+        const startItem = startIdx + 1;
+        const endItem = Math.min(startIdx + PER_PAGE, items.length);
+
+        let pageBtnsHtml = '';
+        for (let i = 1; i <= totalPages; i++) {
+          if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+            const active = i === currentPage ? 'bg-[#093180] text-white font-bold border-[#093180]' : 'bg-white text-[#374151] border-[#e5e7eb] hover:bg-gray-100';
+            pageBtnsHtml += `<button class="px-3 py-1.5 text-xs border ${active} transition-colors cursor-pointer cat-pg-btn" data-page="${i}">${i}</button>`;
+          } else if (i === currentPage - 2 || i === currentPage + 2) {
+            pageBtnsHtml += `<span class="px-1 text-gray-400 text-xs select-none">...</span>`;
+          }
+        }
+
+        pagContainer.innerHTML = `
+          <div class="text-xs text-[#6b7280]">
+            Menampilkan <span class="font-bold text-[#111827]">${startItem}</span> - <span class="font-bold text-[#111827]">${endItem}</span> dari <span class="font-bold text-[#111827]">${items.length}</span> produk
+          </div>
+          <div class="flex items-center gap-1.5">
+            <button class="cat-pg-prev px-3 py-1.5 text-xs font-semibold bg-white border border-[#e5e7eb] text-[#374151] hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer" ${currentPage === 1 ? 'disabled' : ''}>
+              ← Sebelumnya
+            </button>
+            <div class="flex items-center gap-1">${pageBtnsHtml}</div>
+            <button class="cat-pg-next px-3 py-1.5 text-xs font-semibold bg-white border border-[#e5e7eb] text-[#374151] hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer" ${currentPage === totalPages ? 'disabled' : ''}>
+              Berikutnya →
+            </button>
+          </div>
+        `;
+
+        pagContainer.querySelectorAll('.cat-pg-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            currentPage = parseInt(btn.getAttribute('data-page'), 10);
+            renderProducts(currentFiltered);
+            grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        });
+
+        pagContainer.querySelector('.cat-pg-prev')?.addEventListener('click', () => {
+          if (currentPage > 1) {
+            currentPage--;
+            renderProducts(currentFiltered);
+            grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+
+        pagContainer.querySelector('.cat-pg-next')?.addEventListener('click', () => {
+          if (currentPage < totalPages) {
+            currentPage++;
+            renderProducts(currentFiltered);
+            grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      }
+    }
   };
 
   // Render featured product for Homepage (index.html)
   const renderHomeFeatured = (items) => {
     if (!homeFeatured) return;
-    // Prefer VINCI-HP-14A or first item
     const featured = items.find(p => p.id === 'vinci-hp-14a') || items[0];
     if (!featured) return;
 
     homeFeatured.innerHTML = `
       <button id="openHydrantModalBtn" class="scroll-reveal group flex flex-col items-center bg-white p-6 max-w-sm w-full focus:outline-none transition-all duration-300 hover:opacity-90 cursor-pointer border border-[#e5e7eb] hover:border-[#093180] shadow-sm hover:shadow-xl">
         <div class="w-full aspect-[3/4] bg-white flex items-center justify-center overflow-hidden mb-6 p-4">
-          <img src="${featured.image}" alt="${featured.title}" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" loading="lazy" onerror="this.src='images/Fire-Hydrant-Yellow.png'">
+          <img src="${featured.image}" alt="${featured.title}" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async" onerror="this.src='images/Fire-Hydrant-Yellow.png'">
         </div>
         <div class="text-center w-full">
           <span class="text-xs font-bold tracking-[0.2em] text-[#093180] uppercase block mb-1">${featured.code}</span>
@@ -159,6 +236,7 @@ export async function initKatalog() {
   try {
     products = await getProducts();
     if (grid) {
+      currentPage = 1;
       renderProducts(products);
     }
     if (homeFeatured) {
@@ -181,6 +259,7 @@ export async function initKatalog() {
         (p.desc && p.desc.toLowerCase().includes(currentSearch));
       return matchesCategory && matchesSearch;
     });
+    currentPage = 1;
     renderProducts(filtered);
   };
 

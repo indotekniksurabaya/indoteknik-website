@@ -105,11 +105,6 @@
               <span class="text-[10px] text-[#093180] font-semibold tracking-wider uppercase">Content Management System</span>
             </div>
           </a>
-          <span class="text-[#d1d5db]">|</span>
-          <div id="statusBadge" class="flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-bold uppercase bg-emerald-50 text-emerald-700 border border-emerald-200">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span id="statusBadgeText">Supabase Online</span>
-          </div>
         </div>
 
         <div class="flex items-center gap-3">
@@ -133,21 +128,24 @@
       <!-- Navigation Tabs -->
       <div class="bg-white border-t border-[#f3f4f6]">
         <div class="max-w-[1440px] mx-auto px-4 sm:px-6 flex overflow-x-auto gap-1">
-          <button data-tab="catalog" class="admin-tab active py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#093180] border-b-2 border-[#093180] flex items-center gap-2 whitespace-nowrap">
+          <button data-tab="catalog" class="admin-tab active py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#093180] border-b-2 border-[#093180] flex items-center gap-1.5 whitespace-nowrap">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-            Katalog Produk (<span id="tabCountProducts">0</span>)
+            <span>Katalog Produk</span>
+            <span id="tabCountProducts" class="ml-1 px-2 py-0.5 text-[10px] font-bold bg-[#e6ecf5] text-[#093180] border border-[#093180]/20">0</span>
           </button>
-          <button data-tab="gallery" class="admin-tab py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#6b7280] hover:text-[#093180] border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap">
+          <button data-tab="gallery" class="admin-tab py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#6b7280] hover:text-[#093180] border-b-2 border-transparent flex items-center gap-1.5 whitespace-nowrap">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            Dokumentasi Galeri (<span id="tabCountGallery">0</span>)
+            <span>Dokumentasi Galeri</span>
+            <span id="tabCountGallery" class="ml-1 px-2 py-0.5 text-[10px] font-bold bg-gray-100 text-[#4b5563] border border-gray-200">0</span>
           </button>
-          <button data-tab="company" class="admin-tab py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#6b7280] hover:text-[#093180] border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap">
+          <button data-tab="company" class="admin-tab py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#6b7280] hover:text-[#093180] border-b-2 border-transparent flex items-center gap-1.5 whitespace-nowrap">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-            Profil Perusahaan
+            <span>Profil Perusahaan</span>
           </button>
-          <button data-tab="inquiries" class="admin-tab py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#6b7280] hover:text-[#093180] border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap">
+          <button data-tab="inquiries" class="admin-tab py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#6b7280] hover:text-[#093180] border-b-2 border-transparent flex items-center gap-1.5 whitespace-nowrap">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            Pesan Masuk RFQ (<span id="tabCountInquiries">0</span>)
+            <span>Pesan Masuk RFQ</span>
+            <span id="tabCountInquiries" class="ml-1 px-2 py-0.5 text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">0</span>
           </button>
         </div>
       </div>
@@ -205,6 +203,7 @@
               <!-- Dynamically populated -->
             </tbody>
           </table>
+          <div id="adminProductsPagination" class="flex flex-col sm:flex-row items-center justify-between p-4 bg-white border-t border-[#e5e7eb] text-xs gap-3"></div>
         </div>
       </section>
 
@@ -224,6 +223,7 @@
         <div id="adminGalleryGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <!-- Dynamically populated -->
         </div>
+        <div id="adminGalleryPagination" class="flex flex-col sm:flex-row items-center justify-between p-4 bg-white border border-[#e5e7eb] text-xs gap-3"></div>
       </section>
 
       <!-- ==================== TAB 3: COMPANY PROFILE ==================== -->
@@ -312,6 +312,7 @@
               <!-- Dynamically populated -->
             </tbody>
           </table>
+          <div id="adminInquiriesPagination" class="flex flex-col sm:flex-row items-center justify-between p-4 bg-white border-t border-[#e5e7eb] text-xs gap-3"></div>
         </div>
       </section>
 

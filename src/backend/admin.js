@@ -27,7 +27,6 @@ const dashboardView = document.getElementById('dashboardView');
 const adminLoginForm = document.getElementById('adminLoginForm');
 const adminLogoutBtn = document.getElementById('adminLogoutBtn');
 const supabaseWarningBadge = document.getElementById('supabaseWarningBadge');
-const statusBadgeText = document.getElementById('statusBadgeText');
 
 // Toast notification helper
 function showAdminToast(message, type = 'info') {
@@ -45,7 +44,7 @@ function showAdminToast(message, type = 'info') {
   toast.className = `${bgColors[type] || bgColors.info} p-4 border border-black/10 shadow-xl text-xs font-bold flex items-center justify-between gap-3 transition-all duration-300 transform translate-y-4 opacity-0`;
   toast.innerHTML = `
     <span>${message}</span>
-    <button class="text-current opacity-75 hover:opacity-100" onclick="this.parentElement.remove()">✕</button>
+    <button class="text-current opacity-75 hover:opacity-100 cursor-pointer" onclick="this.parentElement.remove()">✕</button>
   `;
 
   container.appendChild(toast);
@@ -60,10 +59,146 @@ function showAdminToast(message, type = 'info') {
   }, 4000);
 }
 
+// ==========================================
+// CUSTOM CONFIRMATION MODAL (NO BROWSER POPUPS)
+// ==========================================
+function openConfirmDialog({ title, message, confirmText = 'Ya, Hapus', isDanger = true, onConfirm }) {
+  let modal = document.getElementById('adminCustomConfirmModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'adminCustomConfirmModal';
+    modal.className = 'fixed inset-0 z-[120] bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 transition-all duration-200';
+    document.body.appendChild(modal);
+  }
+
+  const btnTheme = isDanger 
+    ? 'bg-rose-600 hover:bg-rose-700 text-white' 
+    : 'bg-[#093180] hover:bg-[#062460] text-white';
+
+  modal.innerHTML = `
+    <div class="relative bg-white border-2 border-[#093180] max-w-sm w-full shadow-2xl p-6 transform transition-all duration-200">
+      <div class="flex items-center gap-3 pb-3 mb-4 border-b border-[#e5e7eb]">
+        <div class="w-9 h-9 ${isDanger ? 'bg-rose-100 text-rose-600' : 'bg-blue-100 text-[#093180]'} flex items-center justify-center font-bold text-base shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        </div>
+        <div>
+          <span class="text-[10px] font-bold tracking-widest text-[#6b7280] uppercase block">Konfirmasi Tindakan</span>
+          <h3 class="text-sm font-extrabold text-[#111827] uppercase tracking-tight">${title || 'Perhatian'}</h3>
+        </div>
+      </div>
+      <p class="text-xs text-[#4b5563] leading-relaxed mb-6">${message}</p>
+      <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-[#f3f4f6]">
+        <button id="btnCancelConfirmAction" class="px-4 py-2 text-xs font-semibold bg-white border border-[#e5e7eb] hover:bg-gray-100 text-[#374151] transition-colors cursor-pointer">
+          Batal
+        </button>
+        <button id="btnProceedConfirmAction" class="px-4 py-2 text-xs font-bold uppercase tracking-wider ${btnTheme} transition-colors cursor-pointer shadow-sm">
+          ${confirmText}
+        </button>
+      </div>
+    </div>
+  `;
+
+  modal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+
+  const close = () => {
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
+  };
+
+  document.getElementById('btnCancelConfirmAction')?.addEventListener('click', close);
+  document.getElementById('btnProceedConfirmAction')?.addEventListener('click', () => {
+    close();
+    if (typeof onConfirm === 'function') onConfirm();
+  });
+
+  modal.onclick = (e) => {
+    if (e.target === modal) close();
+  };
+}
+
+// ==========================================
+// REUSABLE PAGINATION CONTROLS RENDERER
+// ==========================================
+function renderPaginationControls({ containerId, currentPage, totalItems, perPage, onPageChange }) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  const totalPages = Math.ceil(totalItems / perPage) || 1;
+  if (totalItems <= perPage) {
+    container.innerHTML = `
+      <div class="text-xs text-[#6b7280]">
+        Total <span class="font-bold text-[#111827]">${totalItems}</span> data
+      </div>
+      <div class="text-[11px] text-[#9ca3af]">Halaman 1 dari 1</div>
+    `;
+    return;
+  }
+
+  const startItem = (currentPage - 1) * perPage + 1;
+  const endItem = Math.min(currentPage * perPage, totalItems);
+
+  let pageButtonsHtml = '';
+  for (let i = 1; i <= totalPages; i++) {
+    if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+      const activeClass = i === currentPage 
+        ? 'bg-[#093180] text-white font-bold border-[#093180]' 
+        : 'bg-white text-[#374151] border-[#e5e7eb] hover:bg-gray-100';
+      pageButtonsHtml += `
+        <button class="pg-btn px-3 py-1.5 text-xs border ${activeClass} transition-colors cursor-pointer" data-page="${i}">
+          ${i}
+        </button>
+      `;
+    } else if (i === currentPage - 2 || i === currentPage + 2) {
+      pageButtonsHtml += `<span class="px-1 text-gray-400 text-xs select-none">...</span>`;
+    }
+  }
+
+  container.innerHTML = `
+    <div class="text-xs text-[#6b7280]">
+      Menampilkan <span class="font-bold text-[#111827]">${startItem}</span> - <span class="font-bold text-[#111827]">${endItem}</span> dari <span class="font-bold text-[#111827]">${totalItems}</span> data
+    </div>
+    <div class="flex items-center gap-1.5">
+      <button class="pg-prev px-3 py-1.5 text-xs font-semibold bg-white border border-[#e5e7eb] text-[#374151] hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer" ${currentPage === 1 ? 'disabled' : ''}>
+        ← Sebelumnya
+      </button>
+      <div class="flex items-center gap-1">${pageButtonsHtml}</div>
+      <button class="pg-next px-3 py-1.5 text-xs font-semibold bg-white border border-[#e5e7eb] text-[#374151] hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer" ${currentPage === totalPages ? 'disabled' : ''}>
+        Berikutnya →
+      </button>
+    </div>
+  `;
+
+  container.querySelectorAll('.pg-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const p = parseInt(btn.getAttribute('data-page'), 10);
+      if (p !== currentPage) onPageChange(p);
+    });
+  });
+
+  container.querySelector('.pg-prev')?.addEventListener('click', () => {
+    if (currentPage > 1) onPageChange(currentPage - 1);
+  });
+
+  container.querySelector('.pg-next')?.addEventListener('click', () => {
+    if (currentPage < totalPages) onPageChange(currentPage + 1);
+  });
+}
+
 // State
 let allProducts = [];
 let allGallery = [];
+let allInquiries = [];
 let currentTab = 'catalog';
+
+let catalogPage = 1;
+const CATALOG_PER_PAGE = 8;
+
+let galleryPage = 1;
+const GALLERY_PER_PAGE = 6;
+
+let inquiriesPage = 1;
+const INQUIRIES_PER_PAGE = 8;
 
 // ==========================================
 // 1. INITIALIZATION & AUTHENTICATION
@@ -73,7 +208,6 @@ async function initAdmin() {
   const configured = isSupabaseConfigured();
   if (!configured && supabaseWarningBadge) {
     supabaseWarningBadge.classList.remove('hidden');
-    if (statusBadgeText) statusBadgeText.textContent = 'Mode Offline (Demo)';
   }
 
   // Check existing session or demo login
@@ -148,7 +282,7 @@ function switchTab(tabId) {
 }
 
 // ==========================================
-// 3. CATALOG / PRODUCTS MANAGEMENT
+// 3. CATALOG / PRODUCTS MANAGEMENT (PAGINATION + LAZY LOAD)
 // ==========================================
 
 async function loadProductsTable() {
@@ -162,27 +296,39 @@ async function loadProductsTable() {
     allProducts = await getProducts();
     if (countEl) countEl.textContent = allProducts.length;
 
-    renderProductsRows(allProducts);
+    catalogPage = 1;
+    applyAdminProductFilter();
   } catch (err) {
     console.error('Failed to load products:', err);
     tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-rose-500">Gagal memuat produk.</td></tr>`;
   }
 }
 
-function renderProductsRows(items) {
+function renderProductsRows(filteredItems) {
   const tbody = document.getElementById('adminProductsTableBody');
   if (!tbody) return;
 
-  if (items.length === 0) {
+  if (filteredItems.length === 0) {
     tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-gray-500">Tidak ada produk yang cocok.</td></tr>`;
+    const pag = document.getElementById('adminProductsPagination');
+    if (pag) pag.innerHTML = '';
     return;
   }
 
-  tbody.innerHTML = items.map(p => `
+  // Pagination slice
+  const totalItems = filteredItems.length;
+  const totalPages = Math.ceil(totalItems / CATALOG_PER_PAGE) || 1;
+  if (catalogPage > totalPages) catalogPage = totalPages;
+  if (catalogPage < 1) catalogPage = 1;
+
+  const startIdx = (catalogPage - 1) * CATALOG_PER_PAGE;
+  const pageItems = filteredItems.slice(startIdx, startIdx + CATALOG_PER_PAGE);
+
+  tbody.innerHTML = pageItems.map(p => `
     <tr class="hover:bg-gray-50 transition-colors">
       <td class="py-3 px-4">
         <div class="w-12 h-12 bg-white border border-[#e5e7eb] p-1 flex items-center justify-center overflow-hidden">
-          <img src="${p.image}" alt="${p.title}" class="max-w-full max-h-full object-contain" onerror="this.src='../images/Fire-Hydrant-Yellow.png'">
+          <img src="${p.image}" alt="${p.title}" loading="lazy" decoding="async" class="max-w-full max-h-full object-contain" onerror="this.src='../images/Fire-Hydrant-Yellow.png'">
         </div>
       </td>
       <td class="py-3 px-4 font-semibold text-[#111827]">
@@ -199,10 +345,10 @@ function renderProductsRows(items) {
         ${Array.isArray(p.specs) ? `${p.specs.length} Parameter` : '0 Parameter'}
       </td>
       <td class="py-3 px-4 text-right whitespace-nowrap">
-        <button class="btn-edit-prod px-2.5 py-1 text-xs font-semibold bg-[#e6ecf5] text-[#093180] hover:bg-[#093180] hover:text-white transition-colors mr-1" data-id="${p.id}">
+        <button class="btn-edit-prod px-2.5 py-1 text-xs font-semibold bg-[#e6ecf5] text-[#093180] hover:bg-[#093180] hover:text-white transition-colors mr-1 cursor-pointer" data-id="${p.id}">
           Edit
         </button>
-        <button class="btn-del-prod px-2.5 py-1 text-xs font-semibold bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-colors" data-id="${p.id}">
+        <button class="btn-del-prod px-2.5 py-1 text-xs font-semibold bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-colors cursor-pointer" data-id="${p.id}">
           Hapus
         </button>
       </td>
@@ -215,6 +361,19 @@ function renderProductsRows(items) {
   });
   tbody.querySelectorAll('.btn-del-prod').forEach(b => {
     b.addEventListener('click', () => handleDeleteProduct(b.getAttribute('data-id')));
+  });
+
+  // Render pagination controls
+  renderPaginationControls({
+    containerId: 'adminProductsPagination',
+    currentPage: catalogPage,
+    totalItems: totalItems,
+    perPage: CATALOG_PER_PAGE,
+    onPageChange: (newPage) => {
+      catalogPage = newPage;
+      renderProductsRows(filteredItems);
+      tbody.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   });
 }
 
@@ -250,24 +409,22 @@ function openEditProductModal(id) {
   const specsContainer = document.getElementById('specsContainer');
 
   document.getElementById('prodEditMode').value = 'edit';
-  const idInput = document.getElementById('prodId');
-  idInput.value = prod.id;
-  idInput.disabled = true;
-
+  document.getElementById('prodId').value = prod.id;
+  document.getElementById('prodId').disabled = true;
   document.getElementById('prodCode').value = prod.code || '';
   document.getElementById('prodTitle').value = prod.title || '';
+  document.getElementById('prodBrand').value = prod.brand || '';
   document.getElementById('prodCategory').value = prod.category || 'hydrant';
-  document.getElementById('prodBrand').value = prod.brand || 'Vinci Firefighting Supplier';
-  document.getElementById('prodImage').value = prod.image || '';
+  document.getElementById('prodImageUrl').value = prod.image || '';
   document.getElementById('prodDesc').value = prod.desc || '';
 
   if (specsContainer) {
     specsContainer.innerHTML = '';
-    const specs = Array.isArray(prod.specs) ? prod.specs : [];
-    if (specs.length > 0) {
-      specs.forEach(s => addSpecRow(s.key, s.value));
+    if (Array.isArray(prod.specs) && prod.specs.length > 0) {
+      prod.specs.forEach(s => addSpecRow(s.key, s.value));
     } else {
       addSpecRow('Dimensi', '');
+      addSpecRow('Material', '');
     }
   }
 
@@ -280,11 +437,11 @@ function addSpecRow(key = '', val = '') {
   if (!container) return;
 
   const row = document.createElement('div');
-  row.className = 'spec-row flex items-center gap-2';
+  row.className = 'flex items-center gap-2 spec-row';
   row.innerHTML = `
-    <input type="text" placeholder="Parameter (cth: Dimensi)" value="${key}" class="spec-key w-1/3 text-xs p-2 border border-[#e5e7eb] outline-none">
-    <input type="text" placeholder="Nilai (cth: 66 x 52 cm)" value="${val}" class="spec-val flex-1 text-xs p-2 border border-[#e5e7eb] outline-none">
-    <button type="button" class="btn-remove-spec p-2 text-rose-500 hover:text-rose-700" title="Hapus baris">✕</button>
+    <input type="text" placeholder="Parameter (cth: Dimensi)" value="${key}" class="spec-key w-1/3 text-xs p-2 border border-[#e5e7eb] outline-none focus:border-[#093180]">
+    <input type="text" placeholder="Nilai (cth: 1250 x 800 mm)" value="${val}" class="spec-val flex-1 text-xs p-2 border border-[#e5e7eb] outline-none focus:border-[#093180]">
+    <button type="button" class="btn-remove-spec p-2 text-rose-500 hover:text-rose-700 cursor-pointer" title="Hapus">✕</button>
   `;
 
   row.querySelector('.btn-remove-spec').addEventListener('click', () => row.remove());
@@ -294,44 +451,34 @@ function addSpecRow(key = '', val = '') {
 async function handleProductFormSubmit(e) {
   e.preventDefault();
 
-  const mode = document.getElementById('prodEditMode').value;
   const id = document.getElementById('prodId').value.trim();
   const code = document.getElementById('prodCode').value.trim();
   const title = document.getElementById('prodTitle').value.trim();
-  const category = document.getElementById('prodCategory').value;
   const brand = document.getElementById('prodBrand').value.trim();
-  let image = document.getElementById('prodImage').value.trim();
+  const category = document.getElementById('prodCategory').value;
+  const image = document.getElementById('prodImageUrl').value.trim();
   const desc = document.getElementById('prodDesc').value.trim();
 
-  // Specs array
+  // Gather specs
   const specs = [];
-  document.querySelectorAll('.spec-row').forEach(row => {
+  document.querySelectorAll('#specsContainer .spec-row').forEach(row => {
     const k = row.querySelector('.spec-key')?.value.trim();
     const v = row.querySelector('.spec-val')?.value.trim();
     if (k && v) specs.push({ key: k, value: v });
   });
 
-  if (!id || !code || !title) {
-    showAdminToast('ID, Kode, dan Nama Produk wajib diisi.', 'warning');
-    return;
-  }
-
-  if (!image) {
-    image = 'images/catalog/products/vinci_hydrant_box_a1.jpg';
-  }
-
-  const productData = { id, code, title, category, brand, image, desc, specs };
+  const productData = { id, code, title, brand, category, image, desc, specs };
 
   try {
     if (isSupabaseConfigured()) {
       await saveProduct(productData);
       showAdminToast(`Produk ${code} berhasil disimpan ke Supabase!`, 'success');
     } else {
-      // Offline mode update
+      // Demo update
       const existingIdx = allProducts.findIndex(p => p.id === id);
       if (existingIdx >= 0) allProducts[existingIdx] = productData;
       else allProducts.unshift(productData);
-      showAdminToast(`Produk ${code} tersimpan di memori (Mode Offline).`, 'info');
+      showAdminToast(`Produk ${code} tersimpan (Mode Demo).`, 'info');
     }
 
     document.getElementById('productModal').classList.add('hidden');
@@ -342,28 +489,33 @@ async function handleProductFormSubmit(e) {
   }
 }
 
-async function handleDeleteProduct(id) {
+function handleDeleteProduct(id) {
   const prod = allProducts.find(p => p.id === id);
-  const confirmDel = confirm(`Apakah Anda yakin ingin menghapus produk "${prod?.title || id}"?`);
-  if (!confirmDel) return;
-
-  try {
-    if (isSupabaseConfigured()) {
-      await deleteProduct(id);
-      showAdminToast(`Produk berhasil dihapus dari Supabase.`, 'success');
-    } else {
-      allProducts = allProducts.filter(p => p.id !== id);
-      showAdminToast(`Produk dihapus (Mode Offline).`, 'info');
+  openConfirmDialog({
+    title: 'Hapus Produk',
+    message: `Apakah Anda yakin ingin menghapus produk "${prod?.title || id}" (${prod?.code || ''}) dari katalog?`,
+    confirmText: 'Ya, Hapus Produk',
+    isDanger: true,
+    onConfirm: async () => {
+      try {
+        if (isSupabaseConfigured()) {
+          await deleteProduct(id);
+          showAdminToast(`Produk berhasil dihapus dari Supabase.`, 'success');
+        } else {
+          allProducts = allProducts.filter(p => p.id !== id);
+          showAdminToast(`Produk dihapus (Mode Offline).`, 'info');
+        }
+        loadProductsTable();
+      } catch (err) {
+        console.error('Delete error:', err);
+        showAdminToast(`Gagal menghapus produk: ${err.message}`, 'error');
+      }
     }
-    loadProductsTable();
-  } catch (err) {
-    console.error('Delete error:', err);
-    showAdminToast(`Gagal menghapus produk: ${err.message}`, 'error');
-  }
+  });
 }
 
 // ==========================================
-// 4. GALLERY MANAGEMENT
+// 4. GALLERY MANAGEMENT (PAGINATION + LAZY LOAD)
 // ==========================================
 
 async function loadGalleryGrid() {
@@ -371,12 +523,13 @@ async function loadGalleryGrid() {
   const countEl = document.getElementById('tabCountGallery');
   if (!grid) return;
 
-  grid.innerHTML = `<div class="col-span-full p-8 text-center text-gray-500">Memuat galeri dokumentasi...</div>`;
+  grid.innerHTML = `<div class="col-span-full p-8 text-center text-gray-500">Memuat dokumentasi proyek...</div>`;
 
   try {
     allGallery = await getGallery();
     if (countEl) countEl.textContent = allGallery.length;
 
+    galleryPage = 1;
     renderGalleryGrid(allGallery);
   } catch (err) {
     console.error('Load gallery error:', err);
@@ -390,14 +543,25 @@ function renderGalleryGrid(items) {
 
   if (items.length === 0) {
     grid.innerHTML = `<div class="col-span-full p-8 text-center text-gray-500">Belum ada foto dokumentasi.</div>`;
+    const pag = document.getElementById('adminGalleryPagination');
+    if (pag) pag.innerHTML = '';
     return;
   }
 
-  grid.innerHTML = items.map(g => `
-    <div class="bg-white border border-[#e5e7eb] flex flex-col justify-between overflow-hidden">
+  // Pagination slice
+  const totalItems = items.length;
+  const totalPages = Math.ceil(totalItems / GALLERY_PER_PAGE) || 1;
+  if (galleryPage > totalPages) galleryPage = totalPages;
+  if (galleryPage < 1) galleryPage = 1;
+
+  const startIdx = (galleryPage - 1) * GALLERY_PER_PAGE;
+  const pageItems = items.slice(startIdx, startIdx + GALLERY_PER_PAGE);
+
+  grid.innerHTML = pageItems.map(g => `
+    <div class="bg-white border border-[#e5e7eb] flex flex-col justify-between overflow-hidden shadow-sm">
       <div class="relative aspect-video bg-gray-100 overflow-hidden">
-        <img src="${g.image_url}" alt="${g.title}" class="w-full h-full object-cover" onerror="this.src='../images/Fire-Hydrant-Yellow.png'">
-        <span class="absolute top-2 left-2 px-2 py-0.5 bg-[#093180] text-white text-[10px] font-bold uppercase">
+        <img src="${g.image_url}" alt="${g.title}" loading="lazy" decoding="async" class="w-full h-full object-cover" onerror="this.src='../images/Fire-Hydrant-Yellow.png'">
+        <span class="absolute top-2 left-2 px-2 py-0.5 bg-[#093180] text-white text-[10px] font-bold uppercase shadow">
           ${g.category_label || g.category}
         </span>
       </div>
@@ -409,9 +573,9 @@ function renderGalleryGrid(items) {
         <div class="mt-4 pt-3 border-t border-[#f3f4f6] flex items-center justify-between">
           <span class="text-[10px] text-[#9ca3af]">Urutan: #${g.order_num || 0}</span>
           <div class="flex items-center gap-2">
-            <button class="btn-edit-gal text-xs font-semibold text-[#093180] hover:underline" data-id="${g.id}">Edit</button>
+            <button class="btn-edit-gal text-xs font-semibold text-[#093180] hover:underline cursor-pointer" data-id="${g.id}">Edit</button>
             <span class="text-gray-300">|</span>
-            <button class="btn-del-gal text-xs font-semibold text-rose-600 hover:underline" data-id="${g.id}">Hapus</button>
+            <button class="btn-del-gal text-xs font-semibold text-rose-600 hover:underline cursor-pointer" data-id="${g.id}">Hapus</button>
           </div>
         </div>
       </div>
@@ -423,6 +587,19 @@ function renderGalleryGrid(items) {
   });
   grid.querySelectorAll('.btn-del-gal').forEach(b => {
     b.addEventListener('click', () => handleDeleteGallery(b.getAttribute('data-id')));
+  });
+
+  // Render pagination controls
+  renderPaginationControls({
+    containerId: 'adminGalleryPagination',
+    currentPage: galleryPage,
+    totalItems: totalItems,
+    perPage: GALLERY_PER_PAGE,
+    onPageChange: (newPage) => {
+      galleryPage = newPage;
+      renderGalleryGrid(items);
+      grid.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   });
 }
 
@@ -481,7 +658,7 @@ async function handleGalleryFormSubmit(e) {
       const idx = allGallery.findIndex(g => g.id === id);
       if (idx >= 0) allGallery[idx] = galData;
       else allGallery.unshift(galData);
-      showAdminToast('Dokumentasi tersimpan (Mode Offline).', 'info');
+      showAdminToast('Dokumentasi tersimpan (Mode Demo).', 'info');
     }
 
     document.getElementById('galleryModal').classList.add('hidden');
@@ -492,23 +669,29 @@ async function handleGalleryFormSubmit(e) {
   }
 }
 
-async function handleDeleteGallery(id) {
-  const confirmDel = confirm('Hapus dokumentasi proyek ini?');
-  if (!confirmDel) return;
-
-  try {
-    if (isSupabaseConfigured()) {
-      await deleteGalleryItem(id);
-      showAdminToast('Dokumentasi berhasil dihapus.', 'success');
-    } else {
-      allGallery = allGallery.filter(g => g.id !== id);
-      showAdminToast('Dokumentasi dihapus (Mode Offline).', 'info');
+function handleDeleteGallery(id) {
+  const item = allGallery.find(g => g.id === id);
+  openConfirmDialog({
+    title: 'Hapus Dokumentasi',
+    message: `Apakah Anda yakin ingin menghapus foto dokumentasi "${item?.title || id}"?`,
+    confirmText: 'Ya, Hapus Dokumentasi',
+    isDanger: true,
+    onConfirm: async () => {
+      try {
+        if (isSupabaseConfigured()) {
+          await deleteGalleryItem(id);
+          showAdminToast('Dokumentasi berhasil dihapus.', 'success');
+        } else {
+          allGallery = allGallery.filter(g => g.id !== id);
+          showAdminToast('Dokumentasi dihapus (Mode Offline).', 'info');
+        }
+        loadGalleryGrid();
+      } catch (err) {
+        console.error('Delete gallery error:', err);
+        showAdminToast(`Gagal menghapus: ${err.message}`, 'error');
+      }
     }
-    loadGalleryGrid();
-  } catch (err) {
-    console.error('Delete gallery error:', err);
-    showAdminToast(`Gagal menghapus: ${err.message}`, 'error');
-  }
+  });
 }
 
 // ==========================================
@@ -526,7 +709,6 @@ async function loadCompanyProfile() {
     if (document.getElementById('cpVision')) document.getElementById('cpVision').value = cp.vision || '';
     if (document.getElementById('cpPhone')) document.getElementById('cpPhone').value = cp.phone || '';
     if (document.getElementById('cpEmail')) document.getElementById('cpEmail').value = cp.email || '';
-    if (document.getElementById('cpStandards')) document.getElementById('cpStandards').value = cp.stats?.standards || 'NFPA & SNI';
     if (document.getElementById('cpAddress')) document.getElementById('cpAddress').value = cp.address || '';
   } catch (err) {
     console.error('Error loading company profile:', err);
@@ -567,7 +749,7 @@ async function handleCompanyProfileSubmit(e) {
 }
 
 // ==========================================
-// 6. INQUIRIES / RFQ MESSAGES MANAGEMENT
+// 6. INQUIRIES / RFQ MESSAGES MANAGEMENT (PAGINATION)
 // ==========================================
 
 async function loadInquiriesTable() {
@@ -578,68 +760,122 @@ async function loadInquiriesTable() {
   tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-gray-500">Memuat pesan masuk...</td></tr>`;
 
   try {
-    const list = await getInquiries();
-    if (countEl) countEl.textContent = list.length;
+    allInquiries = await getInquiries();
+    if (countEl) countEl.textContent = allInquiries.length;
 
-    if (list.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-gray-500">Belum ada pesan RFQ masuk. Formulir kontak dari website akan otomatis tercatat di sini.</td></tr>`;
-      return;
-    }
+    inquiriesPage = 1;
+    renderInquiriesRows();
+  } catch (err) {
+    console.error('Error loading inquiries:', err);
+    tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-gray-500">Tabel RFQ belum terhubung atau kosong.</td></tr>`;
+  }
+}
 
-    tbody.innerHTML = list.map(item => {
-      const dateStr = item.created_at ? new Date(item.created_at).toLocaleString('id-ID') : '-';
-      const cleanPhone = (item.phone || '').replace(/[^0-9]/g, '');
-      const waNumber = cleanPhone.startsWith('0') ? '62' + cleanPhone.substring(1) : cleanPhone;
-      const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(`Halo Bapak/Ibu ${item.name}, terima kasih telah menghubungi PT INDO TEKNIK EMPATBELAS mengenai penawaran proteksi kebakaran.`)}`;
+function renderInquiriesRows() {
+  const tbody = document.getElementById('adminInquiriesTableBody');
+  if (!tbody) return;
 
-      return `
-        <tr class="hover:bg-gray-50 transition-colors">
-          <td class="py-3 px-4 text-[#6b7280] text-[11px] whitespace-nowrap">${dateStr}</td>
-          <td class="py-3 px-4 font-bold text-[#111827]">
-            <div>${item.name}</div>
-            <div class="text-[11px] text-[#093180] font-medium">${item.company || 'Perorangan'}</div>
-          </td>
-          <td class="py-3 px-4 text-xs font-semibold text-[#111827]">${item.phone}</td>
-          <td class="py-3 px-4">
-            <span class="px-2 py-0.5 text-[10px] font-bold uppercase bg-[#e6ecf5] text-[#093180]">
-              ${item.service || 'Umum'}
-            </span>
-          </td>
-          <td class="py-3 px-4 text-xs text-[#4b5563] max-w-xs leading-relaxed">
-            ${item.message}
-          </td>
-          <td class="py-3 px-4 text-right whitespace-nowrap">
-            <a href="${waUrl}" target="_blank" class="px-2.5 py-1 text-xs font-semibold bg-emerald-600 text-white hover:bg-emerald-700 transition-colors mr-1 inline-flex items-center gap-1">
-              <span>WhatsApp</span>
-            </a>
-            <button class="btn-del-inquiry px-2 py-1 text-xs font-semibold bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-colors" data-id="${item.id}">
-              Hapus
-            </button>
-          </td>
-        </tr>
-      `;
-    }).join('');
+  if (allInquiries.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-gray-500">Belum ada pesan RFQ masuk. Formulir kontak dari website akan otomatis tercatat di sini.</td></tr>`;
+    const pag = document.getElementById('adminInquiriesPagination');
+    if (pag) pag.innerHTML = '';
+    return;
+  }
 
-    tbody.querySelectorAll('.btn-del-inquiry').forEach(b => {
-      b.addEventListener('click', async () => {
-        const id = b.getAttribute('data-id');
-        if (confirm('Hapus riwayat pesan penawaran ini?')) {
+  const totalItems = allInquiries.length;
+  const totalPages = Math.ceil(totalItems / INQUIRIES_PER_PAGE) || 1;
+  if (inquiriesPage > totalPages) inquiriesPage = totalPages;
+  if (inquiriesPage < 1) inquiriesPage = 1;
+
+  const startIdx = (inquiriesPage - 1) * INQUIRIES_PER_PAGE;
+  const pageItems = allInquiries.slice(startIdx, startIdx + INQUIRIES_PER_PAGE);
+
+  tbody.innerHTML = pageItems.map(item => {
+    const dateStr = item.created_at ? new Date(item.created_at).toLocaleString('id-ID') : '-';
+    const cleanPhone = (item.phone || '').replace(/[^0-9]/g, '');
+    const waNumber = cleanPhone.startsWith('0') ? '62' + cleanPhone.substring(1) : cleanPhone;
+    const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(`Halo Bapak/Ibu ${item.name}, terima kasih telah menghubungi PT INDO TEKNIK EMPATBELAS mengenai penawaran proteksi kebakaran.`)}`;
+
+    return `
+      <tr class="hover:bg-gray-50 transition-colors">
+        <td class="py-3 px-4 text-[#6b7280] text-[11px] whitespace-nowrap">${dateStr}</td>
+        <td class="py-3 px-4 font-bold text-[#111827]">
+          <div>${item.name}</div>
+          <div class="text-[11px] text-[#093180] font-medium">${item.company || 'Perorangan'}</div>
+        </td>
+        <td class="py-3 px-4 text-xs font-semibold text-[#111827]">${item.phone}</td>
+        <td class="py-3 px-4">
+          <span class="px-2 py-0.5 text-[10px] font-bold uppercase bg-[#e6ecf5] text-[#093180]">
+            ${item.service || 'Umum'}
+          </span>
+        </td>
+        <td class="py-3 px-4 text-xs text-[#4b5563] max-w-xs leading-relaxed">
+          ${item.message}
+        </td>
+        <td class="py-3 px-4 text-right whitespace-nowrap">
+          <a href="${waUrl}" target="_blank" class="px-2.5 py-1 text-xs font-semibold bg-emerald-600 text-white hover:bg-emerald-700 transition-colors mr-1 inline-flex items-center gap-1 cursor-pointer">
+            <span>WhatsApp</span>
+          </a>
+          <button class="btn-del-inquiry px-2 py-1 text-xs font-semibold bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-colors cursor-pointer" data-id="${item.id}">
+            Hapus
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+
+  tbody.querySelectorAll('.btn-del-inquiry').forEach(b => {
+    b.addEventListener('click', () => {
+      const id = b.getAttribute('data-id');
+      const item = allInquiries.find(i => i.id === id);
+      openConfirmDialog({
+        title: 'Hapus Pesan Masuk',
+        message: `Hapus pesan penawaran dari "${item?.name || 'Klien'}" (${item?.phone || ''})? Tindakan ini tidak dapat dibatalkan.`,
+        confirmText: 'Ya, Hapus Pesan',
+        isDanger: true,
+        onConfirm: async () => {
           await deleteInquiry(id);
-          showAdminToast('Pesan dihapus.', 'info');
-          loadInquiriesTable();
+          showAdminToast('Pesan berhasil dihapus.', 'info');
+          allInquiries = allInquiries.filter(i => i.id !== id);
+          const countEl = document.getElementById('tabCountInquiries');
+          if (countEl) countEl.textContent = allInquiries.length;
+          renderInquiriesRows();
         }
       });
     });
+  });
 
-  } catch (err) {
-    console.error('Error loading inquiries:', err);
-    tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-gray-500">Supabase offline: Tabel RFQ belum terhubung.</td></tr>`;
-  }
+  // Render pagination controls
+  renderPaginationControls({
+    containerId: 'adminInquiriesPagination',
+    currentPage: inquiriesPage,
+    totalItems: totalItems,
+    perPage: INQUIRIES_PER_PAGE,
+    onPageChange: (newPage) => {
+      inquiriesPage = newPage;
+      renderInquiriesRows();
+      tbody.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  });
 }
 
 // ==========================================
 // 7. EVENT LISTENERS SETUP
 // ==========================================
+
+function applyAdminProductFilter() {
+  const cat = document.getElementById('adminFilterCategory')?.value || 'all';
+  const q = document.getElementById('adminSearchProduct')?.value.trim().toLowerCase() || '';
+
+  const filtered = allProducts.filter(p => {
+    const matchCat = cat === 'all' || p.category === cat;
+    const matchQuery = !q || p.title.toLowerCase().includes(q) || p.code.toLowerCase().includes(q);
+    return matchCat && matchQuery;
+  });
+
+  catalogPage = 1;
+  renderProductsRows(filtered);
+}
 
 function setupEventListeners() {
   // Login form
@@ -659,7 +895,6 @@ function setupEventListeners() {
           await loginAdmin(email, password);
           showAdminToast('Login berhasil!', 'success');
         } else {
-          // Demo bypass
           sessionStorage.setItem('indoteknik_admin_demo', 'true');
           showAdminToast('Masuk dalam Mode Demo CMS (Supabase belum di-link).', 'warning');
           showDashboard(email);
@@ -674,127 +909,64 @@ function setupEventListeners() {
     });
   }
 
-  // Logout button
+  // Logout button (Custom confirmation modal)
   if (adminLogoutBtn) {
-    adminLogoutBtn.addEventListener('click', async () => {
-      sessionStorage.removeItem('indoteknik_admin_demo');
-      try {
-        await logoutAdmin();
-      } catch (e) {}
-      showAdminToast('Anda telah keluar dari CMS.', 'info');
-      showLogin();
+    adminLogoutBtn.addEventListener('click', () => {
+      openConfirmDialog({
+        title: 'Keluar dari CMS',
+        message: 'Apakah Anda yakin ingin keluar dari panel admin PT INDO TEKNIK EMPATBELAS?',
+        confirmText: 'Ya, Keluar',
+        isDanger: false,
+        onConfirm: async () => {
+          sessionStorage.removeItem('indoteknik_admin_demo');
+          try {
+            await logoutAdmin();
+          } catch (e) {}
+          showAdminToast('Anda telah keluar dari CMS.', 'info');
+          showLogin();
+        }
+      });
     });
   }
 
   // Tab navigation
   document.querySelectorAll('.admin-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      const tabId = tab.getAttribute('data-tab');
-      if (tabId) switchTab(tabId);
-    });
+    tab.addEventListener('click', () => switchTab(tab.getAttribute('data-tab')));
   });
 
   // Product modal triggers
-  const btnOpenAddProduct = document.getElementById('btnOpenAddProduct');
-  if (btnOpenAddProduct) btnOpenAddProduct.addEventListener('click', openAddProductModal);
-
-  const closeProductModalBtn = document.getElementById('closeProductModalBtn');
-  const cancelProductBtn = document.getElementById('cancelProductBtn');
-  const closeProductModal = () => document.getElementById('productModal')?.classList.add('hidden');
-  if (closeProductModalBtn) closeProductModalBtn.addEventListener('click', closeProductModal);
-  if (cancelProductBtn) cancelProductBtn.addEventListener('click', closeProductModal);
-
-  const btnAddSpecRow = document.getElementById('btnAddSpecRow');
-  if (btnAddSpecRow) btnAddSpecRow.addEventListener('click', () => addSpecRow('', ''));
-
-  const productForm = document.getElementById('productForm');
-  if (productForm) productForm.addEventListener('submit', handleProductFormSubmit);
-
-  // Product image file upload to Supabase Storage
-  const prodImageFile = document.getElementById('prodImageFile');
-  if (prodImageFile) {
-    prodImageFile.addEventListener('change', async (e) => {
-      const file = e.target.files?.[0];
-      if (!file) return;
-
-      const uploadStatus = document.getElementById('prodUploadStatus');
-      if (uploadStatus) uploadStatus.classList.remove('hidden');
-
-      try {
-        if (isSupabaseConfigured()) {
-          const publicUrl = await uploadMedia(file, 'products');
-          document.getElementById('prodImage').value = publicUrl;
-          showAdminToast('Gambar berhasil diupload ke Supabase Storage!', 'success');
-        } else {
-          showAdminToast('Upload storage memerlukan Supabase URL & Anon Key aktif.', 'warning');
-        }
-      } catch (err) {
-        console.error('Upload failed:', err);
-        showAdminToast(`Upload gagal: ${err.message}`, 'error');
-      } finally {
-        if (uploadStatus) uploadStatus.classList.add('hidden');
-      }
-    });
-  }
+  document.getElementById('btnOpenAddProduct')?.addEventListener('click', openAddProductModal);
+  document.getElementById('closeProductModalBtn')?.addEventListener('click', () => {
+    document.getElementById('productModal')?.classList.add('hidden');
+  });
+  document.getElementById('cancelProductBtn')?.addEventListener('click', () => {
+    document.getElementById('productModal')?.classList.add('hidden');
+  });
+  document.getElementById('btnAddSpecRow')?.addEventListener('click', () => addSpecRow());
+  document.getElementById('productForm')?.addEventListener('submit', handleProductFormSubmit);
 
   // Gallery modal triggers
-  const btnOpenAddGallery = document.getElementById('btnOpenAddGallery');
-  if (btnOpenAddGallery) btnOpenAddGallery.addEventListener('click', openAddGalleryModal);
+  document.getElementById('btnOpenAddGallery')?.addEventListener('click', openAddGalleryModal);
+  document.getElementById('closeGalleryModalBtn')?.addEventListener('click', () => {
+    document.getElementById('galleryModal')?.classList.add('hidden');
+  });
+  document.getElementById('cancelGalleryBtn')?.addEventListener('click', () => {
+    document.getElementById('galleryModal')?.classList.add('hidden');
+  });
+  document.getElementById('galleryForm')?.addEventListener('submit', handleGalleryFormSubmit);
 
-  const closeGalleryModalBtn = document.getElementById('closeGalleryModalBtn');
-  const cancelGalleryBtn = document.getElementById('cancelGalleryBtn');
-  const closeGalleryModal = () => document.getElementById('galleryModal')?.classList.add('hidden');
-  if (closeGalleryModalBtn) closeGalleryModalBtn.addEventListener('click', closeGalleryModal);
-  if (cancelGalleryBtn) cancelGalleryBtn.addEventListener('click', closeGalleryModal);
+  // Company Profile submit
+  document.getElementById('companyProfileForm')?.addEventListener('submit', handleCompanyProfileSubmit);
 
-  const galleryForm = document.getElementById('galleryForm');
-  if (galleryForm) galleryForm.addEventListener('submit', handleGalleryFormSubmit);
+  // Refresh Inquiries
+  document.getElementById('btnRefreshInquiries')?.addEventListener('click', () => {
+    loadInquiriesTable();
+    showAdminToast('Memuat ulang pesan masuk...', 'info');
+  });
 
-  // Gallery image file upload
-  const galImageFile = document.getElementById('galImageFile');
-  if (galImageFile) {
-    galImageFile.addEventListener('change', async (e) => {
-      const file = e.target.files?.[0];
-      if (!file) return;
-
-      try {
-        if (isSupabaseConfigured()) {
-          const publicUrl = await uploadMedia(file, 'gallery');
-          document.getElementById('galImageUrl').value = publicUrl;
-          showAdminToast('Foto dokumentasi berhasil diupload ke Supabase Storage!', 'success');
-        } else {
-          showAdminToast('Upload storage memerlukan Supabase URL & Anon Key aktif.', 'warning');
-        }
-      } catch (err) {
-        showAdminToast(`Upload gagal: ${err.message}`, 'error');
-      }
-    });
-  }
-
-  // Company profile form
-  const companyProfileForm = document.getElementById('companyProfileForm');
-  if (companyProfileForm) companyProfileForm.addEventListener('submit', handleCompanyProfileSubmit);
-
-  // Refresh Inquiries button
-  const btnRefreshInquiries = document.getElementById('btnRefreshInquiries');
-  if (btnRefreshInquiries) btnRefreshInquiries.addEventListener('click', loadInquiriesTable);
-
-  // Search & Filter in Catalog
+  // Filters & search with debounce/instant
   const adminSearchProduct = document.getElementById('adminSearchProduct');
   const adminFilterCategory = document.getElementById('adminFilterCategory');
-
-  const applyAdminProductFilter = () => {
-    const q = adminSearchProduct?.value.trim().toLowerCase() || '';
-    const cat = adminFilterCategory?.value || 'all';
-
-    const filtered = allProducts.filter(p => {
-      const matchCat = cat === 'all' || p.category === cat;
-      const matchQuery = !q || p.title.toLowerCase().includes(q) || p.code.toLowerCase().includes(q);
-      return matchCat && matchQuery;
-    });
-
-    renderProductsRows(filtered);
-  };
 
   if (adminSearchProduct) adminSearchProduct.addEventListener('input', applyAdminProductFilter);
   if (adminFilterCategory) adminFilterCategory.addEventListener('change', applyAdminProductFilter);
@@ -837,14 +1009,21 @@ function setupEventListeners() {
     });
   }
 
+  // Clear config (Custom confirmation modal instead of confirm)
   if (btnClearConfig) {
     btnClearConfig.addEventListener('click', () => {
-      if (confirm('Hapus kredensial Supabase yang tersimpan di browser ini?')) {
-        clearSupabaseConfig();
-        showAdminToast('Kredensial dihapus.', 'info');
-        closeSettings();
-        window.location.reload();
-      }
+      openConfirmDialog({
+        title: 'Hapus Kredensial Supabase',
+        message: 'Hapus kredensial Supabase yang tersimpan di browser ini? Halaman akan dimuat ulang.',
+        confirmText: 'Ya, Hapus Kredensial',
+        isDanger: true,
+        onConfirm: () => {
+          clearSupabaseConfig();
+          showAdminToast('Kredensial dihapus.', 'info');
+          closeSettings();
+          window.location.reload();
+        }
+      });
     });
   }
 }

@@ -3,6 +3,7 @@ import { getGallery } from '../lib/supabase.js';
 
 export async function initGallery() {
   const grid = document.getElementById('galleryGrid');
+  const pagContainer = document.getElementById('galleryPagination');
   const homeGrid = document.getElementById('homeGalleryGrid');
   const filterBtns = document.querySelectorAll('.gallery-filter-btn');
   const modal = document.getElementById('galleryModal');
@@ -12,6 +13,9 @@ export async function initGallery() {
   const closeBtn = document.getElementById('closeGalleryModalBtn');
 
   let galleryItems = [];
+  let currentFiltered = [];
+  let currentPage = 1;
+  const PER_PAGE = 6;
 
   const openModal = (item) => {
     if (!modal) return;
@@ -44,6 +48,7 @@ export async function initGallery() {
 
   const renderGallery = (items) => {
     if (!grid) return;
+    currentFiltered = items;
 
     if (items.length === 0) {
       grid.innerHTML = `
@@ -51,13 +56,21 @@ export async function initGallery() {
           <p class="text-sm font-semibold text-[#4b5563]">Belum ada dokumentasi untuk kategori ini.</p>
         </div>
       `;
+      if (pagContainer) pagContainer.innerHTML = '';
       return;
     }
 
-    grid.innerHTML = items.map(item => `
+    const totalPages = Math.ceil(items.length / PER_PAGE) || 1;
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+
+    const startIdx = (currentPage - 1) * PER_PAGE;
+    const pageItems = items.slice(startIdx, startIdx + PER_PAGE);
+
+    grid.innerHTML = pageItems.map(item => `
       <div class="gallery-item group bg-white border border-[#e5e7eb] overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300" data-category="${item.category}" data-id="${item.id}">
         <div class="relative overflow-hidden aspect-[4/3] bg-gray-100">
-          <img src="${item.image_url}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" onerror="this.src='images/Fire-Hydrant-Yellow.png'">
+          <img src="${item.image_url}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async" onerror="this.src='images/Fire-Hydrant-Yellow.png'">
           <div class="absolute top-3 left-3">
             <span class="px-2.5 py-0.5 bg-[#093180] text-white text-[10px] font-bold uppercase tracking-wider shadow">
               ${item.category_label || item.category}
@@ -86,6 +99,70 @@ export async function initGallery() {
         if (item) openModal(item);
       });
     });
+
+    // Pagination controls
+    if (pagContainer) {
+      if (items.length <= PER_PAGE) {
+        pagContainer.innerHTML = `
+          <div class="text-xs text-[#6b7280]">
+            Total <span class="font-bold text-[#111827]">${items.length}</span> dokumentasi
+          </div>
+          <div class="text-[11px] text-[#9ca3af]">Halaman 1 dari 1</div>
+        `;
+      } else {
+        const startItem = startIdx + 1;
+        const endItem = Math.min(startIdx + PER_PAGE, items.length);
+
+        let pageBtnsHtml = '';
+        for (let i = 1; i <= totalPages; i++) {
+          if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
+            const active = i === currentPage ? 'bg-[#093180] text-white font-bold border-[#093180]' : 'bg-white text-[#374151] border-[#e5e7eb] hover:bg-gray-100';
+            pageBtnsHtml += `<button class="px-3 py-1.5 text-xs border ${active} transition-colors cursor-pointer gal-pg-btn" data-page="${i}">${i}</button>`;
+          } else if (i === currentPage - 2 || i === currentPage + 2) {
+            pageBtnsHtml += `<span class="px-1 text-gray-400 text-xs select-none">...</span>`;
+          }
+        }
+
+        pagContainer.innerHTML = `
+          <div class="text-xs text-[#6b7280]">
+            Menampilkan <span class="font-bold text-[#111827]">${startItem}</span> - <span class="font-bold text-[#111827]">${endItem}</span> dari <span class="font-bold text-[#111827]">${items.length}</span> dokumentasi
+          </div>
+          <div class="flex items-center gap-1.5">
+            <button class="gal-pg-prev px-3 py-1.5 text-xs font-semibold bg-white border border-[#e5e7eb] text-[#374151] hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer" ${currentPage === 1 ? 'disabled' : ''}>
+              ← Sebelumnya
+            </button>
+            <div class="flex items-center gap-1">${pageBtnsHtml}</div>
+            <button class="gal-pg-next px-3 py-1.5 text-xs font-semibold bg-white border border-[#e5e7eb] text-[#374151] hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed transition-colors cursor-pointer" ${currentPage === totalPages ? 'disabled' : ''}>
+              Berikutnya →
+            </button>
+          </div>
+        `;
+
+        pagContainer.querySelectorAll('.gal-pg-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            currentPage = parseInt(btn.getAttribute('data-page'), 10);
+            renderGallery(currentFiltered);
+            grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        });
+
+        pagContainer.querySelector('.gal-pg-prev')?.addEventListener('click', () => {
+          if (currentPage > 1) {
+            currentPage--;
+            renderGallery(currentFiltered);
+            grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+
+        pagContainer.querySelector('.gal-pg-next')?.addEventListener('click', () => {
+          if (currentPage < totalPages) {
+            currentPage++;
+            renderGallery(currentFiltered);
+            grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      }
+    }
   };
 
   // Render top 4 items for Homepage
@@ -96,7 +173,7 @@ export async function initGallery() {
     homeGrid.innerHTML = topItems.map(item => `
       <a href="gallery.html" class="scroll-reveal group bg-white border border-[#e5e7eb] overflow-hidden hover:shadow-lg transition-all flex flex-col justify-between">
         <div class="aspect-[4/3] overflow-hidden bg-gray-100 relative">
-          <img src="${item.image_url}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" onerror="this.src='images/Fire-Hydrant-Yellow.png'">
+          <img src="${item.image_url}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" onerror="this.src='images/Fire-Hydrant-Yellow.png'">
           <div class="absolute top-2 left-2">
             <span class="px-2 py-0.5 bg-[#093180] text-white text-[9px] font-bold uppercase tracking-wider">
               ${item.category_label || item.category}
@@ -125,6 +202,7 @@ export async function initGallery() {
   try {
     galleryItems = await getGallery();
     if (grid) {
+      currentPage = 1;
       renderGallery(galleryItems);
     }
     if (homeGrid) {
@@ -146,6 +224,7 @@ export async function initGallery() {
       btn.classList.remove('bg-white', 'text-[#111827]');
       btn.classList.add('bg-[#093180]', 'text-white');
 
+      currentPage = 1;
       if (filter === 'all') {
         renderGallery(galleryItems);
       } else {
