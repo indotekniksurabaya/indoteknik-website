@@ -1,0 +1,15 @@
+# 301 Permanent Redirects from old Indonesian paths to new English paths
+/tentang.html        /about.html        301
+/tentang             /about.html        301
+/portofolio.html     /portfolio.html    301
+/portofolio          /portfolio.html    301
+/galeri.html         /gallery.html      301
+/galeri              /gallery.html      301
+/katalog.html        /catalog.html      301
+/katalog             /catalog.html      301
+/kontak.html         /contact.html      301
+/kontak              /contact.html      301
+
+# Admin Portal Routing
+/admin               /admin/index.html  200
+/admin/*             /admin/index.html  200

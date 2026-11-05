@@ -1,3 +1,4 @@
+// Frontend Modal Dialogs
 import { showToast } from './toast.js';
 
 export function initModal() {
@@ -24,6 +25,12 @@ export function initModal() {
 
   modal.addEventListener('click', (e) => {
     if (e.target === modal) {
+      closeModalHandler();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
       closeModalHandler();
     }
   });

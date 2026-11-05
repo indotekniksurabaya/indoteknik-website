@@ -1,13 +1,14 @@
+// Frontend Navbar Controller
 export function initNavbar() {
   const navbar = document.getElementById('navbar');
 
   if (navbar) {
     const handleNavbarStyle = () => {
       if (window.scrollY > 10) {
-        navbar.classList.add('shadow-sm', 'bg-white/90');
+        navbar.classList.add('shadow-sm', 'bg-white/95');
         navbar.classList.remove('bg-white/80');
       } else {
-        navbar.classList.remove('shadow-sm', 'bg-white/90');
+        navbar.classList.remove('shadow-sm', 'bg-white/95');
         navbar.classList.add('bg-white/80');
       }
     };

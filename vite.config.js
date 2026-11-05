@@ -9,11 +9,12 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        tentang: resolve(__dirname, 'tentang.html'),
-        portofolio: resolve(__dirname, 'portofolio.html'),
-        galeri: resolve(__dirname, 'galeri.html'),
-        katalog: resolve(__dirname, 'katalog.html'),
-        kontak: resolve(__dirname, 'kontak.html')
+        about: resolve(__dirname, 'about.html'),
+        portfolio: resolve(__dirname, 'portfolio.html'),
+        gallery: resolve(__dirname, 'gallery.html'),
+        catalog: resolve(__dirname, 'catalog.html'),
+        contact: resolve(__dirname, 'contact.html'),
+        admin: resolve(__dirname, 'admin/index.html')
       }
     }
   }

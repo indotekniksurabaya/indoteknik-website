@@ -12,6 +12,7 @@
     "vite": "^6.2.0"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.119.0",
     "pdf-export-images": "^1.2.0",
     "pngjs": "^7.0.0",
     "sharp": "^0.35.5"

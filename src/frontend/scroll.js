@@ -1,3 +1,4 @@
+// Frontend Scroll, Progress Bar & Parallax
 export function initScroll() {
   const fab = document.getElementById('fabScrollTop');
   const scrollProgress = document.getElementById('scrollProgress');

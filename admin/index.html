@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMS Portal Admin | PT INDO TEKNIK EMPATBELAS</title>
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23093180'/><polygon points='50,15 85,80 15,80' fill='%23ffc107'/><path d='M50 35 L70 75 L30 75 Z' fill='%23093180'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#093180',
+              hover: '#062460',
+              subtle: '#e6ecf5'
+            },
+            secondary: {
+              DEFAULT: '#ffc107',
+              hover: '#e0a800'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  
+  <link rel="stylesheet" href="../src/css/style.css">
+  <style>
+    * { border-radius: 0 !important; }
+  </style>
+</head>
+<body class="bg-[#f9fafb] text-[#111827] font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- ==================== LOGIN VIEW ==================== -->
+  <div id="loginView" class="flex-1 flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-white border border-[#e5e7eb] shadow-xl p-8">
+      <div class="flex items-center gap-3 mb-6 pb-4 border-b border-[#e5e7eb]">
+        <div class="w-10 h-10 bg-[#093180] flex items-center justify-center font-bold text-white text-lg border border-[#093180]">
+          <span class="text-[#ffc107]">14</span>
+        </div>
+        <div>
+          <h1 class="text-base font-bold text-[#111827] uppercase leading-tight">CMS Portal Admin</h1>
+          <p class="text-xs text-[#6b7280]">PT INDO TEKNIK EMPATBELAS</p>
+        </div>
+      </div>
+
+      <div id="supabaseWarningBadge" class="hidden mb-4 p-3 bg-amber-50 border border-amber-200 text-amber-800 text-xs">
+        <div class="font-bold mb-1 flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          Supabase Belum Dikonfigurasi
+        </div>
+        <span>Silakan masukkan kredensial Supabase Anda di pengaturan atau gunakan mode demo offline.</span>
+      </div>
+
+      <form id="adminLoginForm" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-[#374151] mb-1.5">Email Admin</label>
+          <input type="email" id="loginEmail" required placeholder="admin@indoteknik14.com" class="w-full px-3.5 py-2.5 text-xs bg-white border border-[#e5e7eb] focus:border-[#093180] focus:ring-1 focus:ring-[#093180] outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-[#374151] mb-1.5">Password</label>
+          <input type="password" id="loginPassword" required placeholder="••••••••" class="w-full px-3.5 py-2.5 text-xs bg-white border border-[#e5e7eb] focus:border-[#093180] focus:ring-1 focus:ring-[#093180] outline-none">
+        </div>
+
+        <button type="submit" id="loginSubmitBtn" class="w-full btn-primary text-xs font-bold tracking-wider py-3 mt-2 flex items-center justify-center gap-2">
+          <span>MASUK KE DASHBOARD CMS</span>
+        </button>
+
+        <div class="pt-4 border-t border-[#e5e7eb] flex items-center justify-between text-xs">
+          <a href="../index.html" class="text-[#093180] hover:underline font-semibold flex items-center gap-1">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+            Kembali ke Website
+          </a>
+          <button type="button" id="openSettingsBtnLogin" class="text-[#6b7280] hover:text-[#093180] font-semibold underline">
+            Setting Supabase
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== DASHBOARD VIEW ==================== -->
+  <div id="dashboardView" class="hidden flex-1 flex flex-col">
+    
+    <!-- Top Header -->
+    <header class="bg-white border-b border-[#e5e7eb] sticky top-0 z-40">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <a href="../index.html" class="flex items-center gap-2.5 group">
+            <div class="w-8 h-8 bg-[#093180] flex items-center justify-center font-bold text-white text-sm">
+              <span class="text-[#ffc107]">14</span>
+            </div>
+            <div class="hidden sm:block">
+              <span class="text-sm font-bold text-[#111827] uppercase tracking-tight block leading-none">INDO TEKNIK CMS</span>
+              <span class="text-[10px] text-[#093180] font-semibold tracking-wider uppercase">Content Management System</span>
+            </div>
+          </a>
+          <span class="text-[#d1d5db]">|</span>
+          <div id="statusBadge" class="flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-bold uppercase bg-emerald-50 text-emerald-700 border border-emerald-200">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span id="statusBadgeText">Supabase Online</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button id="openSettingsBtn" title="Konfigurasi Supabase" class="px-3 py-1.5 text-xs font-semibold border border-[#e5e7eb] text-[#374151] hover:bg-[#f3f4f6] flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-[#6b7280]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span class="hidden sm:inline">Settings</span>
+          </button>
+          
+          <a href="../index.html" target="_blank" class="px-3 py-1.5 text-xs font-semibold border border-[#e5e7eb] text-[#093180] hover:bg-[#e6ecf5] flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            <span class="hidden sm:inline">Lihat Web</span>
+          </a>
+
+          <button id="adminLogoutBtn" class="px-3 py-1.5 text-xs font-semibold bg-rose-600 text-white hover:bg-rose-700 flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+            <span>Keluar</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="bg-white border-t border-[#f3f4f6]">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-6 flex overflow-x-auto gap-1">
+          <button data-tab="catalog" class="admin-tab active py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#093180] border-b-2 border-[#093180] flex items-center gap-2 whitespace-nowrap">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+            Katalog Produk (<span id="tabCountProducts">0</span>)
+          </button>
+          <button data-tab="gallery" class="admin-tab py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#6b7280] hover:text-[#093180] border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            Dokumentasi Galeri (<span id="tabCountGallery">0</span>)
+          </button>
+          <button data-tab="company" class="admin-tab py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#6b7280] hover:text-[#093180] border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+            Profil Perusahaan
+          </button>
+          <button data-tab="inquiries" class="admin-tab py-3 px-4 text-xs font-bold uppercase tracking-wider text-[#6b7280] hover:text-[#093180] border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            Pesan Masuk RFQ (<span id="tabCountInquiries">0</span>)
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-[1440px] w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+      <!-- ==================== TAB 1: CATALOG ==================== -->
+      <section id="tabContentCatalog" class="admin-tab-content space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 sm:p-6 border border-[#e5e7eb]">
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-[#111827] uppercase tracking-tight">Katalog Peralatan Pemadam</h2>
+            <p class="text-xs text-[#6b7280]">Tambah, edit spesifikasi teknis, atau hapus item dari katalog website.</p>
+          </div>
+          <button id="btnOpenAddProduct" class="btn-primary text-xs font-bold uppercase tracking-wider py-2.5 px-4 flex items-center gap-2 shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>Tambah Produk Baru</span>
+          </button>
+        </div>
+
+        <!-- Filter & Search Bar -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-4 border border-[#e5e7eb]">
+          <div class="flex items-center gap-2 flex-1 max-w-md border border-[#e5e7eb] px-3 py-1.5 bg-white">
+            <svg class="w-4 h-4 text-[#9ca3af]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input type="text" id="adminSearchProduct" placeholder="Cari kode atau nama produk..." class="w-full text-xs outline-none bg-transparent">
+          </div>
+
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-[#6b7280] uppercase">Kategori:</span>
+            <select id="adminFilterCategory" class="text-xs border border-[#e5e7eb] px-3 py-2 bg-white outline-none font-medium">
+              <option value="all">Semua Kategori</option>
+              <option value="hydrant">Hydrant & Valve</option>
+              <option value="alarm">Fire Alarm System</option>
+              <option value="foam">Foam Bladder System</option>
+              <option value="cleanagent">Clean Agent System</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Products Table -->
+        <div class="bg-white border border-[#e5e7eb] overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-[#f9fafb] border-b border-[#e5e7eb] text-[11px] font-bold uppercase tracking-wider text-[#4b5563]">
+                <th class="py-3 px-4 w-16">Foto</th>
+                <th class="py-3 px-4">Kode & Nama Produk</th>
+                <th class="py-3 px-4">Kategori</th>
+                <th class="py-3 px-4">Brand</th>
+                <th class="py-3 px-4">Spesifikasi</th>
+                <th class="py-3 px-4 text-right">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="adminProductsTableBody" class="divide-y divide-[#e5e7eb]">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== TAB 2: GALLERY ==================== -->
+      <section id="tabContentGallery" class="admin-tab-content hidden space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 sm:p-6 border border-[#e5e7eb]">
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-[#111827] uppercase tracking-tight">Dokumentasi Proyek Lapangan</h2>
+            <p class="text-xs text-[#6b7280]">Kelola foto instalasi, perpipaan, fire pump, dan kegiatan tim teknisi.</p>
+          </div>
+          <button id="btnOpenAddGallery" class="btn-primary text-xs font-bold uppercase tracking-wider py-2.5 px-4 flex items-center gap-2 shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>Tambah Dokumentasi Baru</span>
+          </button>
+        </div>
+
+        <div id="adminGalleryGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Dynamically populated -->
+        </div>
+      </section>
+
+      <!-- ==================== TAB 3: COMPANY PROFILE ==================== -->
+      <section id="tabContentCompany" class="admin-tab-content hidden space-y-6">
+        <div class="bg-white p-6 border border-[#e5e7eb]">
+          <h2 class="text-base sm:text-lg font-bold text-[#111827] uppercase tracking-tight mb-1">Pengaturan Profil Perusahaan</h2>
+          <p class="text-xs text-[#6b7280] mb-6">Informasi ini tampil pada halaman Tentang Kami, Footer, dan kontak resmi.</p>
+
+          <form id="companyProfileForm" class="space-y-5 max-w-3xl">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Nama Perusahaan</label>
+                <input type="text" id="cpName" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none focus:border-[#093180]" required>
+              </div>
+              <div>
+                <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Tagline Layanan</label>
+                <input type="text" id="cpTagline" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none focus:border-[#093180]" required>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Deskripsi Singkat Profil</label>
+              <textarea id="cpDesc" rows="3" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none focus:border-[#093180]" required></textarea>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Visi Perusahaan</label>
+              <textarea id="cpVision" rows="2" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none focus:border-[#093180]"></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-xs font-bold uppercase text-[#374151] mb-1">No. WhatsApp</label>
+                <input type="text" id="cpPhone" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none focus:border-[#093180]" placeholder="+62 813-9063-0360">
+              </div>
+              <div>
+                <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Email Resmi</label>
+                <input type="email" id="cpEmail" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none focus:border-[#093180]" placeholder="info@indoteknik14.com">
+              </div>
+              <div>
+                <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Standar Kepatuhan</label>
+                <input type="text" id="cpStandards" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none focus:border-[#093180]" value="NFPA & SNI">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Alamat Kantor & Workshop</label>
+              <textarea id="cpAddress" rows="2" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none focus:border-[#093180]"></textarea>
+            </div>
+
+            <div class="pt-4 border-t border-[#e5e7eb]">
+              <button type="submit" class="btn-primary text-xs font-bold uppercase tracking-wider py-3 px-6">
+                Simpan Profil Perusahaan
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ==================== TAB 4: INQUIRIES ==================== -->
+      <section id="tabContentInquiries" class="admin-tab-content hidden space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 sm:p-6 border border-[#e5e7eb]">
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-[#111827] uppercase tracking-tight">Pesan Masuk Permintaan Penawaran (RFQ)</h2>
+            <p class="text-xs text-[#6b7280]">Daftar calon klien yang mengajukan formulir di website. Hubungi langsung via WhatsApp atau telepon.</p>
+          </div>
+          <button id="btnRefreshInquiries" class="px-3.5 py-2 text-xs font-bold border border-[#e5e7eb] text-[#374151] hover:bg-[#f3f4f6] flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-[#093180]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            <span>Muat Ulang Pesan</span>
+          </button>
+        </div>
+
+        <div class="bg-white border border-[#e5e7eb] overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-[#f9fafb] border-b border-[#e5e7eb] text-[11px] font-bold uppercase tracking-wider text-[#4b5563]">
+                <th class="py-3 px-4">Waktu</th>
+                <th class="py-3 px-4">Klien / Perusahaan</th>
+                <th class="py-3 px-4">No. Telepon</th>
+                <th class="py-3 px-4">Layanan</th>
+                <th class="py-3 px-4">Rincian Proyek</th>
+                <th class="py-3 px-4 text-right">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="adminInquiriesTableBody" class="divide-y divide-[#e5e7eb]">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ==================== MODAL: ADD / EDIT PRODUCT ==================== -->
+  <div id="productModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="w-full max-w-2xl bg-white border border-[#e5e7eb] shadow-2xl p-6 my-8 max-h-[90vh] flex flex-col">
+      <div class="flex items-center justify-between pb-4 border-b border-[#e5e7eb]">
+        <h3 id="productModalTitle" class="text-sm sm:text-base font-bold text-[#111827] uppercase">Tambah Produk Baru</h3>
+        <button id="closeProductModalBtn" class="text-[#6b7280] hover:text-[#111827] p-1">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="productForm" class="flex-1 overflow-y-auto py-4 space-y-4 pr-1">
+        <input type="hidden" id="prodEditMode" value="create">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase text-[#374151] mb-1">ID Slug Unik</label>
+            <input type="text" id="prodId" required placeholder="cth: vinci-box-a1" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none focus:border-[#093180]">
+            <span class="text-[10px] text-[#9ca3af]">Gunakan huruf kecil & strip (-) tanpa spasi.</span>
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Kode Produk Resmi</label>
+            <input type="text" id="prodCode" required placeholder="cth: VINCI-BOX-A1" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none focus:border-[#093180]">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Nama Produk</label>
+          <input type="text" id="prodTitle" required placeholder="cth: HYDRANT BOX TYPE A1 (INDOOR)" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none focus:border-[#093180]">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Kategori</label>
+            <select id="prodCategory" class="w-full text-xs p-2.5 border border-[#e5e7eb] bg-white outline-none">
+              <option value="hydrant">Hydrant & Valve</option>
+              <option value="alarm">Fire Alarm System</option>
+              <option value="foam">Foam Bladder System</option>
+              <option value="cleanagent">Clean Agent System</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Brand / Pabrikan</label>
+            <input type="text" id="prodBrand" required value="Vinci Firefighting Supplier" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Gambar Produk</label>
+          <div class="space-y-2">
+            <input type="text" id="prodImage" placeholder="Path: images/catalog/products/nama.jpg atau URL Supabase" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none">
+            <div class="flex items-center gap-2">
+              <input type="file" id="prodImageFile" accept="image/*" class="text-xs text-[#6b7280]">
+              <span id="prodUploadStatus" class="text-[11px] text-[#093180] font-semibold hidden">Mengupload...</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Deskripsi Produk</label>
+          <textarea id="prodDesc" rows="3" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none"></textarea>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <label class="block text-xs font-bold uppercase text-[#374151]">Spesifikasi Teknis (Key - Value)</label>
+            <button type="button" id="btnAddSpecRow" class="text-xs font-bold text-[#093180] hover:underline flex items-center gap-1">
+              + Tambah Baris Spek
+            </button>
+          </div>
+          <div id="specsContainer" class="space-y-2">
+            <!-- Dynamically populated spec rows -->
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-[#e5e7eb] flex items-center justify-end gap-3">
+          <button type="button" id="cancelProductBtn" class="px-4 py-2 text-xs font-semibold border border-[#e5e7eb] text-[#374151] hover:bg-[#f3f4f6]">Batal</button>
+          <button type="submit" class="btn-primary text-xs font-bold uppercase py-2.5 px-6">Simpan Produk</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: ADD / EDIT GALLERY ==================== -->
+  <div id="galleryModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="w-full max-w-lg bg-white border border-[#e5e7eb] shadow-2xl p-6 my-8">
+      <div class="flex items-center justify-between pb-4 border-b border-[#e5e7eb]">
+        <h3 id="galleryModalTitle" class="text-sm sm:text-base font-bold text-[#111827] uppercase">Tambah Dokumentasi Proyek</h3>
+        <button id="closeGalleryModalBtn" class="text-[#6b7280] hover:text-[#111827] p-1">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="galleryForm" class="py-4 space-y-4">
+        <input type="hidden" id="galId" value="">
+        
+        <div>
+          <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Judul Dokumentasi</label>
+          <input type="text" id="galTitle" required placeholder="cth: Instalasi Fire Pump Room Lengkap" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Kategori</label>
+            <select id="galCategory" class="w-full text-xs p-2.5 border border-[#e5e7eb] bg-white outline-none">
+              <option value="hydrant">Hydrant & Plambing</option>
+              <option value="pump">Fire Pump & Mesin</option>
+              <option value="pipa">Perpipaan & Fabrikasi</option>
+              <option value="team">Commissioning & Tim</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Badge Label</label>
+            <input type="text" id="galCategoryLabel" placeholder="cth: Fire Pump NFPA 20" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Foto Dokumentasi</label>
+          <input type="text" id="galImageUrl" required placeholder="Path: images/fire-pump-room.jpg atau URL Supabase" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none mb-2">
+          <input type="file" id="galImageFile" accept="image/*" class="text-xs text-[#6b7280]">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Keterangan Singkat</label>
+          <textarea id="galDesc" rows="3" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none"></textarea>
+        </div>
+
+        <div class="pt-4 border-t border-[#e5e7eb] flex items-center justify-end gap-3">
+          <button type="button" id="cancelGalleryBtn" class="px-4 py-2 text-xs font-semibold border border-[#e5e7eb] text-[#374151] hover:bg-[#f3f4f6]">Batal</button>
+          <button type="submit" class="btn-primary text-xs font-bold uppercase py-2.5 px-6">Simpan Dokumentasi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: SUPABASE SETTINGS ==================== -->
+  <div id="settingsModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="w-full max-w-lg bg-white border border-[#e5e7eb] shadow-2xl p-6">
+      <div class="flex items-center justify-between pb-4 border-b border-[#e5e7eb]">
+        <h3 class="text-sm sm:text-base font-bold text-[#111827] uppercase flex items-center gap-2">
+          <svg class="w-5 h-5 text-[#093180]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          Konfigurasi Supabase Free Tier
+        </h3>
+        <button id="closeSettingsModalBtn" class="text-[#6b7280] hover:text-[#111827]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="py-4 space-y-4">
+        <p class="text-xs text-[#6b7280]">
+          Masukkan URL & Anon Key dari project Supabase Anda (bisa didapatkan di <strong>Supabase Dashboard &gt; Project Settings &gt; API</strong>).
+        </p>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Supabase Project URL</label>
+          <input type="text" id="cfgUrl" placeholder="https://your-project.supabase.co" class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none focus:border-[#093180]">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Supabase Anon Public Key</label>
+          <textarea id="cfgAnonKey" rows="3" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." class="w-full text-xs p-2.5 border border-[#e5e7eb] outline-none focus:border-[#093180] font-mono"></textarea>
+        </div>
+
+        <div class="p-3 bg-[#e6ecf5] text-[#093180] text-xs leading-relaxed">
+          <strong>Tips Deployment:</strong> Pada Cloudflare Pages, Anda juga dapat memasukkan nilai ini di <em>Settings &gt; Environment Variables</em> sebagai <code>VITE_SUPABASE_URL</code> dan <code>VITE_SUPABASE_ANON_KEY</code>.
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-[#e5e7eb] flex items-center justify-between">
+        <button type="button" id="btnClearConfig" class="text-xs font-semibold text-rose-600 hover:underline">Hapus Kredensial</button>
+        <div class="flex items-center gap-2">
+          <button type="button" id="cancelSettingsBtn" class="px-3 py-1.5 text-xs font-semibold border border-[#e5e7eb] text-[#374151]">Tutup</button>
+          <button type="button" id="btnSaveConfig" class="btn-primary text-xs font-bold uppercase py-2 px-5">Simpan Kredensial</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 max-w-md"></div>
+
+  <script type="module" src="../src/backend/admin.js"></script>
+</body>
+</html>

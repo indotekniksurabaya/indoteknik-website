@@ -1,4 +1,133 @@
-export const productsData = {
+// PT INDO TEKNIK EMPATBELAS - Fallback / Offline Data
+// Digunakan saat Supabase belum dikonfigurasi atau offline
+
+export const fallbackCompanyProfile = {
+  id: 'main',
+  company_name: 'PT INDO TEKNIK EMPATBELAS',
+  tagline: 'Fire Protection & Mechanical Electrical',
+  about_title: 'Profil & Integritas',
+  about_desc: 'Mitra kontraktor spesialis sistem proteksi kebakaran, instalasi perpipaan hidran, sprinkler, dan mekanikal elektrikal berskala komersial maupun fasilitas industri di seluruh Indonesia.',
+  vision: 'Menjadi kontraktor proteksi kebakaran dan mekanikal elektrikal terdepan di Indonesia dengan mengutamakan standar keselamatan tertinggi (NFPA & SNI).',
+  mission: [
+    'Memberikan solusi rekayasa proteksi kebakaran terintegrasi dengan standar internasional.',
+    'Menyediakan produk berkualitas tinggi, bersertifikasi, dan teruji keandalannya.',
+    'Memberikan pelayanan profesional, tepat waktu, dan berorientasi pada keselamatan jiwa.'
+  ],
+  stats: {
+    experience_years: '20+',
+    projects_completed: '500+',
+    standards: 'NFPA & SNI',
+    expert_engineers: '30+'
+  },
+  phone: '+62 813-9063-0360',
+  whatsapp: '6281390630360',
+  email: 'info@indoteknik14.com',
+  address: 'Workshop & Office: Jl. Raya Semarang - Kendal Km. 14, Semarang, Jawa Tengah'
+};
+
+export const fallbackGallery = [
+  {
+    id: 'gal-1',
+    title: 'Instalasi Hydrant Pillar Outdoor',
+    category: 'hydrant',
+    category_label: 'Instalasi Hydrant',
+    image_url: 'images/hydrant-pillar.jpg',
+    description: 'Pemasangan pilar hidran two-way dilengkapi ball valve kuningan dan sambungan Machino 2.5 inci standar Dinas Pemadam.',
+    order_num: 1
+  },
+  {
+    id: 'gal-2',
+    title: 'Instalasi Hydrant Box & Alarm Valve Indoor',
+    category: 'hydrant',
+    category_label: 'Hydrant Box & Valve',
+    image_url: 'images/hydrant-box-indoor.jpg',
+    description: 'Pemasangan boks hidran tipe indoor lengkap dengan landing valve, nozzle, fire hose kanvas 30 meter, dan alarm valve otomatis.',
+    order_num: 2
+  },
+  {
+    id: 'gal-3',
+    title: 'Instalasi Fire Pump Room Lengkap',
+    category: 'pump',
+    category_label: 'Fire Pump NFPA 20',
+    image_url: 'images/fire-pump-room.jpg',
+    description: 'Ruang pompa kebakaran komprehensif mengintegrasikan Electric Pump, Diesel Engine Pump, dan Jockey Pump sesuai standar NFPA 20.',
+    order_num: 3
+  },
+  {
+    id: 'gal-4',
+    title: 'Pemasangan Foam Bladder Tank & Proporsional',
+    category: 'pump',
+    category_label: 'Sistem Busa Foam',
+    image_url: 'images/foam-bladder-tank.jpg',
+    description: 'Tangki proporsional busa pemadam vertikal untuk proteksi area penyimpanan bahan bakar cair dan cairan mudah terbakar.',
+    order_num: 4
+  },
+  {
+    id: 'gal-5',
+    title: 'Pengelasan Flange & Pipa Utama Hidran',
+    category: 'pipa',
+    category_label: 'Pengelasan Bersertifikat',
+    image_url: 'images/welding-hydrant-pipe.jpg',
+    description: 'Pekerjaan pengelasan penetrasi penuh pada sambungan pipa baja karbon Sch 40 menggunakan juru las bersertifikasi migas/depnaker.',
+    order_num: 5
+  },
+  {
+    id: 'gal-6',
+    title: 'Fabrikasi & Header Manifold Pipa',
+    category: 'pipa',
+    category_label: 'Fabrikasi Pipa',
+    image_url: 'images/pipe-installation.jpg',
+    description: 'Perakitan header pipa manifold diameter 8 hingga 10 inci untuk pembagian jalur sprinkler dan hidran gedung bertingkat.',
+    order_num: 6
+  },
+  {
+    id: 'gal-7',
+    title: 'Pengecatan Standar Merah Proteksi Kebakaran',
+    category: 'pipa',
+    category_label: 'Coating Tahan Karat',
+    image_url: 'images/pipe-painting-uniform.jpg',
+    description: 'Aplikasi primer zincromate dan top coat epoxy red signal untuk ketahanan pipa terhadap korosi atmosferik dan identifikasi visual darurat.',
+    order_num: 7
+  },
+  {
+    id: 'gal-8',
+    title: 'Perakitan & Wiring Panel Kontrol Pompa',
+    category: 'pump',
+    category_label: 'Panel Kelistrikan',
+    image_url: 'images/control-panel-service.jpg',
+    description: 'Penyusunan kabel kontrol otomatis, kontaktor bintang-segitiga (Star-Delta), dan pengujian pressure switch aktivasi pompa.',
+    order_num: 8
+  },
+  {
+    id: 'gal-9',
+    title: 'Pemeriksaan Mesin Pompa Diesel',
+    category: 'pump',
+    category_label: 'Mesin Pompa Diesel',
+    image_url: 'images/diesel-pump-inspection.jpg',
+    description: 'Inspeksi sistem starter elektrik ganda, sirkulasi pendingin radiator heat-exchanger, dan bahan bakar mesin diesel proteksi kebakaran.',
+    order_num: 9
+  },
+  {
+    id: 'gal-10',
+    title: 'Uji Semprot Hydrant & Fire Drill',
+    category: 'team',
+    category_label: 'Uji Commissioning',
+    image_url: 'images/fire-drill-nozzle.jpg',
+    description: 'Pengujian pancaran nosel bertekanan kerja 7 bar bersama tim K3 dan petugas keselamatan kerja klien industri.',
+    order_num: 10
+  },
+  {
+    id: 'gal-11',
+    title: 'Tim Engineer PT Indo Teknik Empatbelas',
+    category: 'team',
+    category_label: 'Tim Profesional',
+    image_url: 'images/project-team-tanks.jpg',
+    description: 'Tenaga ahli lapangan dengan perlengkapan APD lengkap siap memberikan instalasi, perawatan berkala, dan solusi proteksi kebakaran.',
+    order_num: 11
+  }
+];
+
+export const fallbackProducts = {
   'vinci-box-a1': {
     code: 'VINCI-BOX-A1',
     title: 'HYDRANT BOX TYPE A1 (INDOOR)',
@@ -241,7 +370,6 @@ export const productsData = {
       { key: 'Kopling', value: 'Heavy Duty Machino Coupling Brass / Alloy' }
     ]
   },
-
   'al-cfp-mcfa': {
     code: 'AL-CFP-MCFA',
     title: 'CONVENTIONAL FIRE ALARM PANEL CFP SERIES',
@@ -401,7 +529,6 @@ export const productsData = {
       { key: 'Sertifikasi', value: 'EN54-11 & CE Marked' }
     ]
   },
-
   'al-alrml': {
     code: 'AL-ALRML',
     title: 'VERTICAL FIXED FOAM BLADDER TANK ALRML',
@@ -452,7 +579,6 @@ export const productsData = {
       { key: 'Perlengkapan', value: 'Pick-Up Suction Hose Transparan & Ball Valve Nipple' }
     ]
   },
-
   'al-ig-sys': {
     code: 'AL-IG-SYS',
     title: 'INERT GAS CLEAN AGENT SYSTEM (IG-55 / 100 / 541)',
@@ -517,111 +643,3 @@ export const productsData = {
     ]
   }
 };
-
-export function initKatalog() {
-  const modal = document.getElementById('hydrantDetailModal');
-  const closeBtn = document.getElementById('closeHydrantModalBtn');
-  const cards = document.querySelectorAll('.catalog-card');
-  const tabs = document.querySelectorAll('.catalog-tab');
-
-  const openProductModal = (prod) => {
-    if (!modal || !prod) return;
-
-    const codeEl = document.getElementById('modalProductCode');
-    const titleEl = document.getElementById('modalProductTitle');
-    const brandEl = document.getElementById('modalProductBrand');
-    const imgEl = document.getElementById('modalProductImage');
-    const descEl = document.getElementById('modalProductDesc');
-    const specsEl = document.getElementById('modalProductSpecs');
-    const waEl = document.getElementById('modalProductWa');
-
-    if (codeEl) codeEl.textContent = prod.code;
-    if (titleEl) titleEl.textContent = prod.title;
-    if (brandEl) brandEl.textContent = prod.brand;
-    if (imgEl) {
-      imgEl.src = prod.image;
-      imgEl.alt = prod.title;
-    }
-    if (descEl) descEl.textContent = prod.desc;
-
-    if (specsEl && prod.specs) {
-      specsEl.innerHTML = prod.specs.map(s => `
-        <div class="flex justify-between items-start gap-4 py-1.5 border-b border-[#f3f4f6]">
-          <span class="font-bold text-[#111827] shrink-0">${s.key}:</span>
-          <span class="text-right text-[#4b5563]">${s.value}</span>
-        </div>
-      `).join('');
-    }
-
-    if (waEl) {
-      const msg = encodeURIComponent(`Halo PT INDO TEKNIK EMPATBELAS, saya ingin menanyakan penawaran harga untuk produk ${prod.code} - ${prod.title}.`);
-      waEl.href = `https://wa.me/6281390630360?text=${msg}`;
-    }
-
-    modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-  };
-
-  const closeModal = () => {
-    if (!modal) return;
-    modal.classList.add('hidden');
-    document.body.style.overflow = '';
-  };
-
-  cards.forEach(card => {
-    card.addEventListener('click', () => {
-      const id = card.getAttribute('data-product-id');
-      const prod = productsData[id];
-      if (prod) openProductModal(prod);
-    });
-  });
-
-  const openSingleBtn = document.getElementById('openHydrantModalBtn');
-  if (openSingleBtn) {
-    openSingleBtn.addEventListener('click', () => {
-      const prod = productsData['vinci-hp-14a'];
-      if (prod) openProductModal(prod);
-      else {
-        modal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-      }
-    });
-  }
-
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-
-  if (modal) {
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    });
-  }
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
-      closeModal();
-    }
-  });
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const cat = tab.getAttribute('data-category');
-
-      tabs.forEach(t => {
-        t.classList.remove('bg-[#093180]', 'text-white', 'border-[#093180]');
-        t.classList.add('bg-white', 'text-[#4b5563]', 'border-[#e5e7eb]', 'hover:border-[#093180]');
-      });
-
-      tab.classList.remove('bg-white', 'text-[#4b5563]', 'border-[#e5e7eb]', 'hover:border-[#093180]');
-      tab.classList.add('bg-[#093180]', 'text-white', 'border-[#093180]');
-
-      cards.forEach(card => {
-        const cardCat = card.getAttribute('data-category');
-        if (cat === 'all' || cardCat === cat) {
-          card.style.display = '';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    });
-  });
-}
