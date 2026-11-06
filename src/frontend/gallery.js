@@ -70,6 +70,51 @@ export async function initGallery() {
     }
   });
 
+  // 3D Tilt Parallax & Lightning Spotlight handler (smooth 60fps)
+  const bindSpotlightHover = (root) => {
+    if (!root) return;
+    root.querySelectorAll('.gallery-card').forEach(card => {
+      const box = card.querySelector('.gallery-spotlight-box');
+      if (!box) return;
+
+      let rafId = null;
+
+      card.addEventListener('mouseenter', () => {
+        box.style.transition = 'transform 0.08s ease-out, box-shadow 0.25s ease-out';
+      });
+
+      card.addEventListener('mousemove', (e) => {
+        const rect = box.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => {
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+
+          // Clamped normalized offsets [-1, 1]
+          const percentX = Math.max(-1, Math.min(1, (x - centerX) / centerX));
+          const percentY = Math.max(-1, Math.min(1, (y - centerY) / centerY));
+
+          // 3D Tilt: mouse up tilts up, mouse right tilts right
+          const tiltX = (-percentY * 8).toFixed(2);
+          const tiltY = (percentX * 8).toFixed(2);
+
+          box.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
+          box.style.setProperty('--spotlight-x', `${x}px`);
+          box.style.setProperty('--spotlight-y', `${y}px`);
+        });
+      });
+
+      card.addEventListener('mouseleave', () => {
+        if (rafId) cancelAnimationFrame(rafId);
+        box.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+        box.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      });
+    });
+  };
+
   const renderGallery = (items) => {
     if (!grid) return;
     currentFiltered = items;
@@ -91,17 +136,6 @@ export async function initGallery() {
     const startIdx = (currentPage - 1) * PER_PAGE;
     const pageItems = items.slice(startIdx, startIdx + PER_PAGE);
 
-    const bindSpotlightHover = (root) => {
-      if (!root) return;
-      root.querySelectorAll('.gallery-spotlight-box').forEach(box => {
-        box.addEventListener('mousemove', (e) => {
-          const rect = box.getBoundingClientRect();
-          box.style.setProperty('--spotlight-x', `${e.clientX - rect.left}px`);
-          box.style.setProperty('--spotlight-y', `${e.clientY - rect.top}px`);
-        });
-      });
-    };
-
     grid.innerHTML = pageItems.map((item, idx) => {
       const itemNum = String(startIdx + idx + 1).padStart(2, '0');
       return `
@@ -118,19 +152,13 @@ export async function initGallery() {
               </span>
             </div>
 
-            <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-              <div class="w-12 h-12 bg-black/40 border border-white/30 text-white flex items-center justify-center opacity-75 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 backdrop-blur-sm">
-                <svg class="w-5 h-5 text-[#ffc107] transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-              </div>
-            </div>
-
             <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between z-10 pointer-events-none">
               <span class="px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase text-white bg-black/70 border border-white/30 backdrop-blur-sm">
                 ${item.category_label || item.category}
               </span>
-              <span class="text-[11px] font-bold text-white group-hover:text-[#ffc107] uppercase tracking-wider flex items-center gap-1.5 transition-colors">
+              <span class="text-[11px] font-bold text-white uppercase tracking-wider flex items-center gap-1 transition-colors">
                 <span>VIEW</span>
-                <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
               </span>
             </div>
           </div>
@@ -242,19 +270,13 @@ export async function initGallery() {
               </span>
             </div>
 
-            <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-              <div class="w-12 h-12 bg-black/40 border border-white/30 text-white flex items-center justify-center opacity-75 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 backdrop-blur-sm">
-                <svg class="w-5 h-5 text-[#ffc107] transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-              </div>
-            </div>
-
             <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between z-10 pointer-events-none">
               <span class="px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase text-white bg-black/70 border border-white/30 backdrop-blur-sm">
                 ${item.category_label || item.category}
               </span>
-              <span class="text-[11px] font-bold text-white group-hover:text-[#ffc107] uppercase tracking-wider flex items-center gap-1.5 transition-colors">
+              <span class="text-[11px] font-bold text-white uppercase tracking-wider flex items-center gap-1 transition-colors">
                 <span>VIEW</span>
-                <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
               </span>
             </div>
           </div>
