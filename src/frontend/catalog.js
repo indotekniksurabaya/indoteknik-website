@@ -366,7 +366,7 @@ export async function initKatalog() {
     });
 
     let html = `
-      <button data-category="all" class="catalog-tab px-4 py-2 text-xs font-bold uppercase tracking-wider border border-[#093180] bg-[#093180] text-white transition-all cursor-pointer">
+      <button data-category="all" class="catalog-tab active px-4 py-2 text-xs font-bold uppercase tracking-wider border border-[#093180] bg-[#093180] text-white transition-all cursor-pointer">
         Semua Produk
       </button>
     `;
@@ -386,12 +386,12 @@ export async function initKatalog() {
         currentCategory = tab.getAttribute('data-category');
 
         tabsContainer.querySelectorAll('.catalog-tab').forEach(t => {
-          t.classList.remove('bg-[#093180]', 'text-white', 'border-[#093180]');
-          t.classList.add('bg-white', 'text-[#4b5563]', 'border-[#e5e7eb]', 'hover:border-[#093180]');
+          t.classList.remove('active', 'bg-[#093180]', 'text-white', 'border-[#093180]');
+          t.classList.add('bg-white', 'text-[#4b5563]', 'border-[#e5e7eb]');
         });
 
-        tab.classList.remove('bg-white', 'text-[#4b5563]', 'border-[#e5e7eb]', 'hover:border-[#093180]');
-        tab.classList.add('bg-[#093180]', 'text-white', 'border-[#093180]');
+        tab.classList.remove('bg-white', 'text-[#4b5563]', 'border-[#e5e7eb]');
+        tab.classList.add('active', 'bg-[#093180]', 'text-white', 'border-[#093180]');
 
         applyFilters();
       });

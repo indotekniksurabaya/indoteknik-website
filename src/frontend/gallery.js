@@ -372,7 +372,7 @@ export async function initGallery() {
     });
 
     let html = `
-      <button class="gallery-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-[#093180] text-white transition-colors cursor-pointer" data-filter="all">
+      <button class="gallery-filter-btn active px-4 py-2 text-xs font-bold uppercase tracking-wider bg-[#093180] text-white transition-colors cursor-pointer" data-filter="all">
         SEMUA DOKUMENTASI
       </button>
     `;
@@ -392,11 +392,11 @@ export async function initGallery() {
         const filter = btn.getAttribute('data-filter');
 
         filterContainer.querySelectorAll('.gallery-filter-btn').forEach(b => {
-          b.classList.remove('bg-[#093180]', 'text-white');
+          b.classList.remove('active', 'bg-[#093180]', 'text-white');
           b.classList.add('bg-white', 'text-[#111827]');
         });
         btn.classList.remove('bg-white', 'text-[#111827]');
-        btn.classList.add('bg-[#093180]', 'text-white');
+        btn.classList.add('active', 'bg-[#093180]', 'text-white');
 
         currentPage = 1;
         if (filter === 'all') {

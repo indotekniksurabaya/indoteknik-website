@@ -53,40 +53,37 @@
   <link rel="stylesheet" href="src/css/style.css">
 </head>
 
-<body class="bg-white text-[#111827] font-sans antialiased selection:bg-[#093180] selection:text-white flex flex-col min-h-screen justify-between pt-20">
+<body class="bg-white text-[#111827] font-sans antialiased selection:bg-[#093180] selection:text-white flex flex-col min-h-screen justify-between pt-24 sm:pt-28">
 
-  <header id="navbar" class="fixed top-0 left-0 right-0 z-50 w-full h-20 bg-white/80 backdrop-blur-md border-b border-[#e5e7eb] transition-all duration-200">
-    <div class="w-full h-full px-4 sm:px-8 xl:px-12 flex items-center justify-between">
+  <header id="navbar" class="fixed top-3 sm:top-5 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] sm:w-auto max-w-5xl transition-all duration-300">
+    <div class="floating-navbar-inner px-3 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between sm:justify-center gap-3 sm:gap-6 relative overflow-hidden">
       
-      <a href="index.html" class="flex items-center gap-3 shrink-0 group">
-        <div class="w-10 h-10 sm:w-11 sm:h-11 bg-[#093180] flex items-center justify-center font-bold text-white text-lg sm:text-xl border border-[#093180] group-hover:bg-[#062460] transition-colors shrink-0">
-          <span class="text-[#ffc107]">14</span>
-        </div>
-        <div class="flex flex-col shrink-0">
-          <span class="text-sm sm:text-base lg:text-lg font-bold tracking-tight text-[#111827] leading-tight whitespace-nowrap">
-            PT INDO TEKNIK EMPATBELAS
-          </span>
-          <span class="text-[10px] sm:text-[11px] font-semibold text-[#093180] tracking-wider uppercase whitespace-nowrap hidden sm:block">
-            Fire Protection & Mechanical Electrical
-          </span>
-        </div>
+      <!-- Compact '14' Brand Badge (Brand Text Removed per request) -->
+      <a href="index.html" class="w-8 h-8 sm:w-9 sm:h-9 bg-[#093180] flex items-center justify-center font-bold text-white text-base sm:text-lg border border-[#093180] hover:scale-105 transition-transform shrink-0" title="PT INDO TEKNIK 14">
+        <span class="text-[#ffc107]">14</span>
       </a>
 
-      <nav class="hidden lg:flex items-center gap-4 xl:gap-7">
-        <a href="index.html" class="nav-link font-bold text-xs uppercase tracking-wider text-[#111827] hover:text-[#093180]">HOME</a>
-        <a href="about.html" class="nav-link font-bold text-xs uppercase tracking-wider text-[#111827] hover:text-[#093180]">ABOUT US</a>
-        <a href="portfolio.html" class="nav-link font-bold text-xs uppercase tracking-wider text-[#111827] hover:text-[#093180]">PORTFOLIO</a>
-        <a href="gallery.html" class="nav-link active font-bold text-xs uppercase tracking-wider text-[#093180]">GALLERY</a>
-        <a href="catalog.html" class="nav-link font-bold text-xs uppercase tracking-wider text-[#111827] hover:text-[#093180]">CATALOG</a>
-        <a href="contact.html" class="nav-link font-bold text-xs uppercase tracking-wider text-[#111827] hover:text-[#093180]">CONTACT</a>
+      <!-- Subtle vertical divider on desktop -->
+      <div class="h-4 w-[1px] bg-[#e5e7eb] hidden md:block"></div>
+
+      <!-- Center: Navigation Menu with Premium Animations -->
+      <nav class="hidden md:flex items-center gap-1 lg:gap-2">
+        <a href="index.html" class="floating-nav-link">HOME</a>
+        <a href="about.html" class="floating-nav-link">ABOUT US</a>
+        <a href="portfolio.html" class="floating-nav-link">PORTFOLIO</a>
+        <a href="gallery.html" class="floating-nav-link active">GALLERY</a>
+        <a href="catalog.html" class="floating-nav-link">CATALOG</a>
+        <a href="contact.html" class="floating-nav-link">CONTACT</a>
       </nav>
 
-      <button id="mobileMenuBtn" aria-label="Buka Menu" class="lg:hidden p-2 text-[#111827] hover:text-[#093180] focus:outline-none">
-        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <!-- Mobile Menu Toggle Button -->
+      <button id="mobileMenuBtn" aria-label="Buka Menu" class="md:hidden p-1.5 text-[#111827] hover:text-[#093180] focus:outline-none transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
 
+      <!-- Scroll Progress Bar embedded at bottom edge -->
+      <div id="scrollProgress" class="absolute bottom-0 left-0 h-[2px] bg-[#093180] w-0 transition-all duration-75"></div>
     </div>
-    <div id="scrollProgress" class="absolute bottom-0 left-0 h-[2.5px] bg-[#093180] w-0 transition-all duration-75"></div>
   </header>
 
   <div id="mobileMenu" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex justify-end">
@@ -138,7 +135,7 @@
       <div class="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-16">
 
         <div id="galleryFilterContainer" class="flex flex-wrap items-center gap-2 mb-10 pb-4 border-b border-[#e5e7eb]">
-          <button class="gallery-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-[#093180] text-white transition-colors" data-filter="all">
+          <button class="gallery-filter-btn active px-4 py-2 text-xs font-bold uppercase tracking-wider bg-[#093180] text-white transition-colors" data-filter="all">
             SEMUA DOKUMENTASI
           </button>
           <button class="gallery-filter-btn px-4 py-2 text-xs font-bold uppercase tracking-wider bg-white text-[#111827] border border-[#e5e7eb] hover:bg-[#e6ecf5] hover:text-[#093180] transition-colors" data-filter="hydrant">

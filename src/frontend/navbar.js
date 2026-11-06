@@ -4,12 +4,10 @@ export function initNavbar() {
 
   if (navbar) {
     const handleNavbarStyle = () => {
-      if (window.scrollY > 10) {
-        navbar.classList.add('shadow-sm', 'bg-white/95');
-        navbar.classList.remove('bg-white/80');
+      if (window.scrollY > 15) {
+        navbar.classList.add('navbar-scrolled');
       } else {
-        navbar.classList.remove('shadow-sm', 'bg-white/95');
-        navbar.classList.add('bg-white/80');
+        navbar.classList.remove('navbar-scrolled');
       }
     };
     window.addEventListener('scroll', handleNavbarStyle, { passive: true });
