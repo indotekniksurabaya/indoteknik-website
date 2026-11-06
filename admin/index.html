@@ -6,9 +6,8 @@
   <title>CMS Portal Admin | PT INDO TEKNIK EMPATBELAS</title>
   
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23093180'/><polygon points='50,15 85,80 15,80' fill='%23ffc107'/><path d='M50 35 L70 75 L30 75 Z' fill='%23093180'/></svg>">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&f[]=satoshi@300,400,500,700,900&display=swap">
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -27,7 +26,14 @@
             }
           },
           fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif']
+            sans: ['Satoshi', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            display: ["'Clash Display'", 'Satoshi', 'system-ui', '-apple-system', 'sans-serif'],
+            heading: ["'Clash Display'", 'Satoshi', 'system-ui', '-apple-system', 'sans-serif']
+          },
+          letterSpacing: {
+            tighter: '-0.04em',
+            tight: '-0.02em',
+            normal: '-0.02em'
           }
         }
       }
