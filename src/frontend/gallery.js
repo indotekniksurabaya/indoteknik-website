@@ -91,34 +91,65 @@ export async function initGallery() {
     const startIdx = (currentPage - 1) * PER_PAGE;
     const pageItems = items.slice(startIdx, startIdx + PER_PAGE);
 
-    grid.innerHTML = pageItems.map(item => `
-      <div class="gallery-item group bg-white border border-[#e5e7eb] overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300" data-category="${item.category}" data-id="${item.id}">
-        <div class="relative overflow-hidden aspect-[4/3] bg-gray-100">
-          <img src="${item.image_url}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
-          <div class="absolute top-3 left-3">
-            <span class="px-2.5 py-0.5 bg-[#093180] text-white text-[10px] font-bold uppercase tracking-wider shadow">
-              ${item.category_label || item.category}
-            </span>
-          </div>
-        </div>
-        <div class="p-5 border-t border-[#e5e7eb]">
-          <h3 class="gallery-card-title text-base font-bold text-[#111827] group-hover:text-[#093180] transition-colors mb-1.5 line-clamp-1">
-            ${item.title}
-          </h3>
-          <p class="gallery-card-desc text-xs text-[#4b5563] leading-relaxed line-clamp-2">
-            ${item.description || ''}
-          </p>
-          <div class="mt-4 pt-3 border-t border-[#f3f4f6] flex items-center justify-between text-[11px] font-bold text-[#093180] uppercase tracking-wider">
-            <span>Perbesar Dokumentasi</span>
-            <span class="flex items-center gap-1 group-hover:translate-x-0.5 transition-transform text-[#093180]">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-            </span>
-          </div>
-        </div>
-      </div>
-    `).join('');
+    const bindSpotlightHover = (root) => {
+      if (!root) return;
+      root.querySelectorAll('.gallery-spotlight-box').forEach(box => {
+        box.addEventListener('mousemove', (e) => {
+          const rect = box.getBoundingClientRect();
+          box.style.setProperty('--spotlight-x', `${e.clientX - rect.left}px`);
+          box.style.setProperty('--spotlight-y', `${e.clientY - rect.top}px`);
+        });
+      });
+    };
 
-    grid.querySelectorAll('.gallery-item').forEach(el => {
+    grid.innerHTML = pageItems.map((item, idx) => {
+      const itemNum = String(startIdx + idx + 1).padStart(2, '0');
+      return `
+        <div class="gallery-card group relative cursor-pointer" data-category="${item.category}" data-id="${item.id}">
+          <div class="gallery-spotlight-box relative overflow-hidden aspect-[16/10] bg-[#0f172a] border border-[#e5e7eb] shadow-sm">
+            <img src="${item.image_url}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/30 pointer-events-none"></div>
+            <div class="gallery-spotlight-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"></div>
+
+            <div class="absolute top-4 left-4 z-10 pointer-events-none">
+              <span class="text-xs font-mono font-bold tracking-widest text-white/90 bg-black/60 px-2.5 py-1 border border-white/20 select-none">
+                ${itemNum}
+              </span>
+            </div>
+
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+              <div class="w-12 h-12 bg-black/40 border border-white/30 text-white flex items-center justify-center opacity-75 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 backdrop-blur-sm">
+                <svg class="w-5 h-5 text-[#ffc107] transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              </div>
+            </div>
+
+            <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between z-10 pointer-events-none">
+              <span class="px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase text-white bg-black/70 border border-white/30 backdrop-blur-sm">
+                ${item.category_label || item.category}
+              </span>
+              <span class="text-[11px] font-bold text-white group-hover:text-[#ffc107] uppercase tracking-wider flex items-center gap-1.5 transition-colors">
+                <span>VIEW</span>
+                <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </span>
+            </div>
+          </div>
+
+          <div class="pt-4 pb-2">
+            <h3 class="gallery-card-title text-lg sm:text-xl font-extrabold text-[#111827] group-hover:text-[#093180] tracking-tight transition-colors line-clamp-1">
+              ${item.title}
+            </h3>
+            <p class="gallery-card-desc text-xs sm:text-sm text-[#4b5563] leading-relaxed line-clamp-2 mt-1">
+              ${item.description || ''}
+            </p>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    bindSpotlightHover(grid);
+
+    grid.querySelectorAll('.gallery-card').forEach(el => {
       el.addEventListener('click', () => {
         const id = el.getAttribute('data-id');
         const item = galleryItems.find(g => g.id === id);
@@ -196,32 +227,51 @@ export async function initGallery() {
     if (!homeGrid) return;
     const topItems = items.slice(0, 4);
 
-    homeGrid.innerHTML = topItems.map(item => `
-      <a href="gallery.html" class="group bg-white border border-[#e5e7eb] overflow-hidden hover:shadow-lg transition-all flex flex-col justify-between">
-        <div class="aspect-[4/3] overflow-hidden bg-gray-100 relative">
-          <img src="${item.image_url}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
-          <div class="absolute top-2 left-2">
-            <span class="px-2 py-0.5 bg-[#093180] text-white text-[9px] font-bold uppercase tracking-wider">
-              ${item.category_label || item.category}
-            </span>
+    homeGrid.innerHTML = topItems.map((item, idx) => {
+      const itemNum = String(idx + 1).padStart(2, '0');
+      return `
+        <a href="gallery.html" class="gallery-card group relative block cursor-pointer" data-id="${item.id}">
+          <div class="gallery-spotlight-box relative overflow-hidden aspect-[16/10] bg-[#0f172a] border border-[#e5e7eb] shadow-sm">
+            <img src="${item.image_url}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/30 pointer-events-none"></div>
+            <div class="gallery-spotlight-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"></div>
+
+            <div class="absolute top-4 left-4 z-10 pointer-events-none">
+              <span class="text-xs font-mono font-bold tracking-widest text-white/90 bg-black/60 px-2.5 py-1 border border-white/20 select-none">
+                ${itemNum}
+              </span>
+            </div>
+
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+              <div class="w-12 h-12 bg-black/40 border border-white/30 text-white flex items-center justify-center opacity-75 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 backdrop-blur-sm">
+                <svg class="w-5 h-5 text-[#ffc107] transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              </div>
+            </div>
+
+            <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between z-10 pointer-events-none">
+              <span class="px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase text-white bg-black/70 border border-white/30 backdrop-blur-sm">
+                ${item.category_label || item.category}
+              </span>
+              <span class="text-[11px] font-bold text-white group-hover:text-[#ffc107] uppercase tracking-wider flex items-center gap-1.5 transition-colors">
+                <span>VIEW</span>
+                <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </span>
+            </div>
           </div>
-        </div>
-        <div class="p-4 border-t border-[#e5e7eb] flex-1 flex flex-col justify-between">
-          <div>
-            <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block mb-1">
-              ${item.category_label || 'Dokumentasi'}
-            </span>
-            <h3 class="text-xs font-bold text-[#111827] group-hover:text-[#093180] line-clamp-2 transition-colors">
+
+          <div class="pt-4 pb-2">
+            <h3 class="text-lg sm:text-xl font-extrabold text-[#111827] group-hover:text-[#093180] tracking-tight transition-colors line-clamp-1">
               ${item.title}
             </h3>
+            <p class="text-xs sm:text-sm text-[#4b5563] leading-relaxed line-clamp-2 mt-1">
+              ${item.description || ''}
+            </p>
           </div>
-          <div class="mt-3 pt-2 border-t border-[#f3f4f6] flex items-center justify-between text-[10px] text-[#093180] font-semibold">
-            <span>Lihat Foto</span>
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-          </div>
-        </div>
-      </a>
-    `).join('');
+        </a>
+      `;
+    }).join('');
+
+    bindSpotlightHover(homeGrid);
   };
 
   // Build category filter buttons dynamically on gallery.html

@@ -296,7 +296,8 @@
           </a>
         </div>
 
-        <div id="homeGalleryGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Homepage Gallery Grid (Big & Simple 2-Column Cards) -->
+        <div id="homeGalleryGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
           <a href="gallery.html" class="group bg-white border border-[#e5e7eb] overflow-hidden hover:shadow-lg transition-all">
             <div class="aspect-[4/3] overflow-hidden bg-gray-100 parallax-container">
               <img src="images/hydrant-pillar.jpg" alt="Instalasi Hydrant" class="w-full h-full object-cover parallax-img group-hover:scale-105 transition-transform duration-300">
@@ -672,36 +673,92 @@
     </div>
   </aside>
 
-  <footer class="bg-[#093180] text-white pt-12 pb-8 border-t border-[#062460] w-full">
+  <footer class="bg-[#093180] text-white pt-14 pb-10 border-t border-[#062460] w-full">
     <div class="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-16">
       
-      <div class="flex flex-col md:flex-row items-center justify-between pb-8 border-b border-white/10 gap-6">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 bg-white text-[#093180] font-bold text-lg flex items-center justify-center">14</div>
+      <!-- Main Footer Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 pb-12 border-b border-white/10">
+        <!-- Brand & Description (Col 1-5) -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-white text-[#093180] font-black text-lg flex items-center justify-center shrink-0">14</div>
+            <div>
+              <span class="text-base font-extrabold text-white block tracking-tight" data-company-name>PT INDO TEKNIK EMPATBELAS</span>
+              <span class="text-[11px] text-[#ffc107] font-bold tracking-wider uppercase block" data-company-tagline>Fire Protection & Mechanical Electrical</span>
+            </div>
+          </div>
+          <p class="text-xs text-white/75 leading-relaxed max-w-md pt-2" data-company-about-desc>
+            Mitra kontraktor spesialis sistem proteksi kebakaran gedung, instalasi perpipaan hidran, sprinkler, fire pump room, clean agent, serta mekanikal elektrikal terpercaya di seluruh Indonesia.
+          </p>
+        </div>
+
+        <!-- Links Columns (Col 6-12) -->
+        <div class="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
+          <!-- MENU -->
           <div>
-            <span class="text-base font-bold text-white block">PT INDO TEKNIK EMPATBELAS</span>
-            <span class="text-xs text-[#ffc107] font-semibold tracking-wider uppercase block">Fire Protection & Mechanical Electrical</span>
+            <span class="text-[11px] font-bold tracking-[0.2em] text-white/50 uppercase block mb-4">MENU</span>
+            <ul class="space-y-2.5 text-xs">
+              <li><a href="index.html" class="text-[#ffc107] font-bold transition-colors">Home</a></li>
+              <li><a href="about.html" class="text-white/80 hover:text-[#ffc107] transition-colors">About Us</a></li>
+              <li><a href="portfolio.html" class="text-white/80 hover:text-[#ffc107] transition-colors">Portfolio</a></li>
+              <li><a href="gallery.html" class="text-white/80 hover:text-[#ffc107] transition-colors">Gallery</a></li>
+              <li><a href="catalog.html" class="text-white/80 hover:text-[#ffc107] transition-colors">Catalog</a></li>
+              <li><a href="contact.html" class="text-white/80 hover:text-[#ffc107] transition-colors">Contact</a></li>
+            </ul>
+          </div>
+
+          <!-- SERVICES -->
+          <div>
+            <span class="text-[11px] font-bold tracking-[0.2em] text-white/50 uppercase block mb-4">SERVICES</span>
+            <ul class="space-y-2.5 text-xs text-white/80">
+              <li><a href="portfolio.html" class="hover:text-[#ffc107] transition-colors">Fire Hydrant & Sprinkler</a></li>
+              <li><a href="portfolio.html" class="hover:text-[#ffc107] transition-colors">Fire Pump Room & Mesin</a></li>
+              <li><a href="portfolio.html" class="hover:text-[#ffc107] transition-colors">Clean Agent Suppression</a></li>
+              <li><a href="portfolio.html" class="hover:text-[#ffc107] transition-colors">Fabrikasi & Perpipaan</a></li>
+              <li><a href="portfolio.html" class="hover:text-[#ffc107] transition-colors">Inspeksi & Hydrotest SNI</a></li>
+            </ul>
+          </div>
+
+          <!-- CONNECT -->
+          <div class="col-span-2 sm:col-span-1">
+            <span class="text-[11px] font-bold tracking-[0.2em] text-white/50 uppercase block mb-4">CONNECT</span>
+            <ul class="space-y-2.5 text-xs">
+              <li>
+                <a data-company-wa href="https://wa.me/6281390630360" target="_blank" class="text-white/80 hover:text-[#ffc107] transition-colors inline-flex items-center gap-1">
+                  <span>WhatsApp Hotline</span>
+                  <span class="text-[10px] text-[#ffc107]">↗</span>
+                </a>
+              </li>
+              <li>
+                <a data-company-email href="mailto:info@indoteknik14.com" class="text-white/80 hover:text-[#ffc107] transition-colors inline-flex items-center gap-1">
+                  <span>Email Resmi</span>
+                  <span class="text-[10px] text-[#ffc107]">↗</span>
+                </a>
+              </li>
+              <li>
+                <a href="admin/" class="text-white/80 hover:text-[#ffc107] transition-colors inline-flex items-center gap-1">
+                  <span>Portal Admin CMS</span>
+                  <span class="text-[10px] text-[#ffc107]">↗</span>
+                </a>
+              </li>
+              <li>
+                <a href="contact.html" class="text-white/80 hover:text-[#ffc107] transition-colors inline-flex items-center gap-1">
+                  <span>Lokasi Workshop</span>
+                  <span class="text-[10px] text-[#ffc107]">↗</span>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
-
-        <nav class="flex flex-wrap items-center gap-6 text-xs uppercase font-semibold">
-          <a href="index.html" class="hover:text-[#ffc107] transition-colors">HOME</a>
-          <a href="about.html" class="hover:text-[#ffc107] transition-colors">ABOUT US</a>
-          <a href="portfolio.html" class="hover:text-[#ffc107] transition-colors">PORTFOLIO</a>
-          <a href="gallery.html" class="hover:text-[#ffc107] transition-colors">GALLERY</a>
-          <a href="catalog.html" class="hover:text-[#ffc107] transition-colors">CATALOG</a>
-          <a href="contact.html" class="hover:text-[#ffc107] transition-colors">CONTACT</a>
-        </nav>
       </div>
 
-      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 gap-4">
+      <!-- Bottom Sub-footer -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-white/60 gap-4">
         <div>
-          &copy; 2026 <span data-company-name>PT INDO TEKNIK EMPATBELAS</span>. <span data-company-address>Dusun Pekojo, Tunggalpager, Pungging, Mojokerto, Jawa Timur.</span>
+          &copy; 2026 <strong class="text-white font-bold" data-company-name>PT INDO TEKNIK EMPATBELAS</strong>. ALL RIGHTS RESERVED.
         </div>
-        <div class="flex items-center gap-4">
-          <a href="admin/" class="text-gray-400 hover:text-white transition-colors">Portal Admin CMS</a>
-          <span class="text-gray-600">|</span>
-          <a href="#navbar" class="text-[#ffc107] hover:underline">Kembali ke Atas ↑</a>
+        <div class="text-[11px] uppercase tracking-wider text-white/50">
+          MOJOKERTO, JAWA TIMUR &bull; INDONESIA
         </div>
       </div>
 

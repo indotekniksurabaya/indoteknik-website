@@ -77,6 +77,10 @@ export async function initAbout() {
       el.textContent = tagline;
     });
 
+    document.querySelectorAll('[data-company-about-desc]').forEach(el => {
+      if (profile.about_desc) el.textContent = profile.about_desc;
+    });
+
     const stats = profile.stats || {};
 
     // 6.1 Hydrate Workshop & Operating Hours Card (contact.html & index.html)
