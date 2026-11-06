@@ -104,9 +104,9 @@ export function initInteractiveMarquee() {
     const track = container.querySelector('.marquee-track');
     if (!track) return;
 
-    const BASE_SPEED = 1.0;     // Cruising speed (pixels per frame)
-    const MAX_BOOST = 5.0;      // Max additional velocity during fast scroll
-    const LERP_FACTOR = 0.045;  // Smooth inertia turnaround factor
+    const BASE_SPEED = 1.4;     // Cruising speed (pixels per frame) - lively & elegant
+    const MAX_BOOST = 8.0;      // Max additional velocity during fast scroll
+    const LERP_FACTOR = 0.065;  // Responsive yet smooth turnaround factor
 
     let currentSpeed = -BASE_SPEED; // Cruising left initially (-X)
     let targetSpeed = -BASE_SPEED;
@@ -134,21 +134,21 @@ export function initInteractiveMarquee() {
       }
     }, { passive: true });
 
-    // Listen to scroll to determine direction and velocity
+    // Listen to scroll to determine direction and velocity (sensitive yet smooth)
     const onScroll = () => {
       const nowY = window.scrollY;
       const delta = nowY - lastScrollY;
       lastScrollY = nowY;
 
-      if (Math.abs(delta) < 1) return;
+      if (Math.abs(delta) < 0.5) return;
 
-      const boost = Math.min(Math.abs(delta) * 0.12, MAX_BOOST);
+      const boost = Math.min(Math.abs(delta) * 0.32, MAX_BOOST);
 
       if (delta > 0) {
-        // User scrolls DOWN -> marquee moves to the RIGHT (+X)
+        // User scrolls DOWN -> marquee accelerates to the RIGHT (+X)
         targetSpeed = BASE_SPEED + boost;
       } else {
-        // User scrolls UP -> marquee moves to the LEFT (-X)
+        // User scrolls UP -> marquee accelerates to the LEFT (-X)
         targetSpeed = -(BASE_SPEED + boost);
       }
 
@@ -156,7 +156,7 @@ export function initInteractiveMarquee() {
       scrollDebounce = setTimeout(() => {
         // Smoothly settle back to cruising speed in the active direction
         targetSpeed = targetSpeed > 0 ? BASE_SPEED : -BASE_SPEED;
-      }, 150);
+      }, 200);
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });

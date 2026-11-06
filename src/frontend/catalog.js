@@ -29,21 +29,18 @@ export async function initKatalog() {
     }
   } catch (_) {}
 
-  // 3D Tilt Parallax & Lightning Spotlight handler (smooth 60fps)
+  // 3D Tilt Parallax & Lightning Spotlight handler (Single Unified 3D Card, Smooth 60fps)
   const bindSpotlightHover = (root) => {
     if (!root) return;
     root.querySelectorAll('.product-card').forEach(card => {
-      const box = card.querySelector('.gallery-spotlight-box');
-      if (!box) return;
-
       let rafId = null;
 
       card.addEventListener('mouseenter', () => {
-        box.style.transition = 'transform 0.08s ease-out, box-shadow 0.25s ease-out';
+        card.style.transition = 'transform 0.08s ease-out, box-shadow 0.25s ease-out, border-color 0.25s ease';
       });
 
       card.addEventListener('mousemove', (e) => {
-        const rect = box.getBoundingClientRect();
+        const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
@@ -55,19 +52,19 @@ export async function initKatalog() {
           const percentX = Math.max(-1, Math.min(1, (x - centerX) / centerX));
           const percentY = Math.max(-1, Math.min(1, (y - centerY) / centerY));
 
-          const tiltX = (-percentY * 8).toFixed(2);
-          const tiltY = (percentX * 8).toFixed(2);
+          const tiltX = (-percentY * 6).toFixed(2);
+          const tiltY = (percentX * 6).toFixed(2);
 
-          box.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
-          box.style.setProperty('--spotlight-x', `${x}px`);
-          box.style.setProperty('--spotlight-y', `${y}px`);
+          card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.015, 1.015, 1.015)`;
+          card.style.setProperty('--spotlight-x', `${x}px`);
+          card.style.setProperty('--spotlight-y', `${y}px`);
         });
       });
 
       card.addEventListener('mouseleave', () => {
         if (rafId) cancelAnimationFrame(rafId);
-        box.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
-        box.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        card.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease';
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
       });
     });
   };
@@ -93,42 +90,38 @@ export async function initKatalog() {
     const startIdx = (currentPage - 1) * PER_PAGE;
     const pageItems = items.slice(startIdx, startIdx + PER_PAGE);
 
-    grid.innerHTML = pageItems.map((p, idx) => {
-      const itemNum = String(startIdx + idx + 1).padStart(2, '0');
-      const catLabel = p.category_label || standardizeCategory(p.category)?.label || p.category;
-      return `
-        <div class="product-card gallery-card group relative cursor-pointer flex flex-col justify-between bg-white border border-[#e5e7eb] p-4 transition-all" data-category="${p.category}" data-id="${p.id}">
-          <div>
-            <!-- Clean Studio Showcase Box with 3D Tilt & Lightning Sheen (Minimal, No Overlay Badges) -->
-            <div class="gallery-spotlight-box relative overflow-hidden aspect-[4/3] bg-[#f8fafc] border border-[#e5e7eb] flex items-center justify-center p-6 mb-4 shadow-xs">
-              <img src="${p.image}" alt="${p.title}" class="max-h-full max-w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
-              <div class="gallery-spotlight-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"></div>
-            </div>
-
-            <!-- Product Typography Details -->
-            <div class="pb-2">
-              <h3 class="product-card-title text-sm sm:text-base font-extrabold text-[#111827] group-hover:text-[#093180] tracking-tight transition-colors line-clamp-2 leading-snug">
-                ${p.title}
-              </h3>
-              <p class="product-card-desc text-xs text-[#4b5563] leading-relaxed line-clamp-2 mt-1.5">
-                ${p.desc || ''}
-              </p>
-            </div>
+    grid.innerHTML = pageItems.map(p => `
+      <div class="product-card group relative cursor-pointer flex flex-col justify-between bg-white border border-[#e5e7eb] p-5 sm:p-6 transition-all" data-category="${p.category}" data-id="${p.id}">
+        <div>
+          <!-- Seamless Product Showcase (No inner card border, no nested box) -->
+          <div class="relative aspect-[4/3] w-full flex items-center justify-center p-3 mb-4 overflow-hidden bg-white">
+            <img src="${p.image}" alt="${p.title}" class="max-h-full max-w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
+            <div class="gallery-spotlight-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"></div>
           </div>
 
-          <!-- Footer Specs / Brand Bar -->
-          <div class="pt-3 border-t border-[#e5e7eb] flex items-center justify-between mt-3">
-            <span class="text-[10px] font-bold text-[#6b7280] uppercase tracking-wider">
-              ${p.brand || 'VINCI FIREFIGHTING SUPPLIER'}
-            </span>
-            <span class="btn-outline text-xs py-1.5 px-3 pointer-events-none">
-              <span>Buka Rincian</span>
-              <svg class="btn-arrow w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-            </span>
+          <!-- Product Typography Details -->
+          <div class="pb-2">
+            <h3 class="product-card-title text-sm sm:text-base font-extrabold text-[#111827] group-hover:text-[#093180] tracking-tight transition-colors line-clamp-2 leading-snug">
+              ${p.title}
+            </h3>
+            <p class="product-card-desc text-xs text-[#4b5563] leading-relaxed line-clamp-2 mt-1.5">
+              ${p.desc || ''}
+            </p>
           </div>
         </div>
-      `;
-    }).join('');
+
+        <!-- Footer Specs / Brand Bar -->
+        <div class="pt-4 border-t border-[#e5e7eb] flex items-center justify-between mt-3">
+          <span class="text-[10px] font-bold text-[#6b7280] uppercase tracking-wider">
+            ${p.brand || 'VINCI FIREFIGHTING SUPPLIER'}
+          </span>
+          <span class="btn-outline text-xs py-1.5 px-3 pointer-events-none">
+            <span>Buka Rincian</span>
+            <svg class="btn-arrow w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+          </span>
+        </div>
+      </div>
+    `).join('');
 
     bindSpotlightHover(grid);
 

@@ -235,9 +235,8 @@
   will-change: transform;
 }
 
-/* Gallery & Product Large Card & Mouse Lightning Spotlight */
-.gallery-card,
-.product-card {
+/* Gallery Large Card & Mouse Lightning Spotlight */
+.gallery-card {
   perspective: 1000px;
 }
 
@@ -252,15 +251,26 @@
   transition: box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.gallery-card:hover .gallery-spotlight-box,
-.product-card:hover .gallery-spotlight-box {
+.gallery-card:hover .gallery-spotlight-box {
   border-color: #e5e7eb;
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.18);
+}
+
+/* Product Catalog Card - Single Unified 3D Card (No inner card nesting) */
+.product-card {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  will-change: transform;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
 }
 
 .product-card:hover {
   border-color: #d1d5db;
-  box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 22px 45px -15px rgba(0, 0, 0, 0.12);
 }
 
 .gallery-spotlight-glow {
