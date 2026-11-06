@@ -1183,6 +1183,24 @@ function setupEventListeners() {
     });
   }
 
+  // Toggle password visibility in login form
+  const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+  if (togglePasswordBtn) {
+    togglePasswordBtn.addEventListener('click', () => {
+      const pwdInput = document.getElementById('loginPassword');
+      const eyeIcon = document.getElementById('eyeIcon');
+      const eyeOffIcon = document.getElementById('eyeOffIcon');
+      if (pwdInput) {
+        const isPassword = pwdInput.type === 'password';
+        pwdInput.type = isPassword ? 'text' : 'password';
+        if (eyeIcon && eyeOffIcon) {
+          eyeIcon.classList.toggle('hidden', isPassword);
+          eyeOffIcon.classList.toggle('hidden', !isPassword);
+        }
+      }
+    });
+  }
+
   // Logout button (Custom confirmation modal)
   if (adminLogoutBtn) {
     adminLogoutBtn.addEventListener('click', () => {
