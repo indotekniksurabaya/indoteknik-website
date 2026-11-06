@@ -266,6 +266,38 @@
                 <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Alamat Kantor & Workshop</label>
                 <textarea id="cpAddress" rows="2" class="w-full text-xs p-2.5 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]"></textarea>
               </div>
+
+              <!-- SUB-SECTION: KANTOR PUSAT, WILAYAH & JAM OPERASIONAL -->
+              <div class="pt-4 border-t border-[#e5e7eb] space-y-4">
+                <div class="flex items-center gap-2 pb-1">
+                  <span class="w-2 h-2 bg-[#ffc107]"></span>
+                  <h4 class="text-xs font-bold uppercase tracking-wider text-[#093180]">Kartu Kantor Pusat & Jam Operasional (contact.html & index.html)</h4>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Judul Seksi Kantor / Workshop</label>
+                    <input type="text" id="cpWorkshopTitle" class="w-full text-xs p-2.5 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" placeholder="Kantor Pusat & Workshop">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold uppercase text-[#374151] mb-1">Wilayah Operasional</label>
+                    <input type="text" id="cpOperationalArea" class="w-full text-xs p-2.5 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" placeholder="Jawa Timur & Seluruh Indonesia">
+                  </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div>
+                    <label class="block text-[11px] font-bold uppercase text-[#374151] mb-1">Senin - Jumat</label>
+                    <input type="text" id="cpHoursWorkday" class="w-full text-xs p-2.5 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" placeholder="08:00 - 17:00 WIB">
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold uppercase text-[#374151] mb-1">Sabtu</label>
+                    <input type="text" id="cpHoursSaturday" class="w-full text-xs p-2.5 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" placeholder="08:00 - 13:00 WIB">
+                  </div>
+                  <div>
+                    <label class="block text-[11px] font-bold uppercase text-[#374151] mb-1">Layanan Darurat</label>
+                    <input type="text" id="cpHoursEmergency" class="w-full text-xs p-2.5 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]" placeholder="Siaga 24 Jam">
+                  </div>
+                </div>
+              </div>
             </div>
 
             <!-- BAGIAN 2: HALAMAN ABOUT US (4 CARD) -->

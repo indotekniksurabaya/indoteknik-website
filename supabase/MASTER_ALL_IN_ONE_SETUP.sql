@@ -188,7 +188,12 @@ INSERT INTO public.company_profile (
         "home_card2_footer": "Standar Teruji",
         "home_card3_title": "Solusi Terintegrasi",
         "home_card3_desc": "Layanan menyeluruh meliputi instalasi fire hydrant, sprinkler, clean agent suppression, perakitan fire pump room, hingga maintenance berkala.",
-        "home_card3_footer": "End-to-End Service"
+        "home_card3_footer": "End-to-End Service",
+        "workshop_title": "Kantor Pusat & Workshop",
+        "operational_area": "Jawa Timur & Seluruh Indonesia",
+        "hours_workday": "08:00 - 17:00 WIB",
+        "hours_saturday": "08:00 - 13:00 WIB",
+        "hours_emergency": "Siaga 24 Jam"
     }'::jsonb,
     '+62 813-9063-0360',
     '6281390630360',

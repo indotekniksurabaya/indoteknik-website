@@ -884,6 +884,23 @@ async function loadCompanyProfile() {
 
     const stats = cp.stats || {};
 
+    // 1.1 Kantor Pusat & Jam Operasional (contact.html & index.html)
+    if (document.getElementById('cpWorkshopTitle')) {
+      document.getElementById('cpWorkshopTitle').value = stats.workshop_title || cp.workshop_title || 'Kantor Pusat & Workshop';
+    }
+    if (document.getElementById('cpOperationalArea')) {
+      document.getElementById('cpOperationalArea').value = stats.operational_area || cp.operational_area || 'Jawa Timur & Seluruh Indonesia';
+    }
+    if (document.getElementById('cpHoursWorkday')) {
+      document.getElementById('cpHoursWorkday').value = stats.hours_workday || cp.hours_workday || '08:00 - 17:00 WIB';
+    }
+    if (document.getElementById('cpHoursSaturday')) {
+      document.getElementById('cpHoursSaturday').value = stats.hours_saturday || cp.hours_saturday || '08:00 - 13:00 WIB';
+    }
+    if (document.getElementById('cpHoursEmergency')) {
+      document.getElementById('cpHoursEmergency').value = stats.hours_emergency || cp.hours_emergency || 'Siaga 24 Jam';
+    }
+
     // 2. About Us 4 Kartu
     if (document.getElementById('cpVisionTitle')) document.getElementById('cpVisionTitle').value = stats.vision_title || 'VISI PERUSAHAAN';
     if (document.getElementById('cpVision')) document.getElementById('cpVision').value = cp.vision || '';
@@ -956,6 +973,11 @@ async function handleCompanyProfileSubmit(e) {
     email: document.getElementById('cpEmail').value.trim(),
     address: document.getElementById('cpAddress').value.trim(),
     stats: {
+      workshop_title: document.getElementById('cpWorkshopTitle')?.value.trim() || 'Kantor Pusat & Workshop',
+      operational_area: document.getElementById('cpOperationalArea')?.value.trim() || 'Jawa Timur & Seluruh Indonesia',
+      hours_workday: document.getElementById('cpHoursWorkday')?.value.trim() || '08:00 - 17:00 WIB',
+      hours_saturday: document.getElementById('cpHoursSaturday')?.value.trim() || '08:00 - 13:00 WIB',
+      hours_emergency: document.getElementById('cpHoursEmergency')?.value.trim() || 'Siaga 24 Jam',
       vision_title: document.getElementById('cpVisionTitle')?.value.trim() || 'VISI PERUSAHAAN',
       vision_footer: document.getElementById('cpVisionFooter')?.value.trim() || 'KOMITMEN PROFESIONALISME',
       safety_title: document.getElementById('cpSafetyTitle')?.value.trim() || 'STANDAR MUTU & K3L',

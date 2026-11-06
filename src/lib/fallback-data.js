@@ -52,12 +52,18 @@ export const fallbackCompanyProfile = {
     home_card2_footer: 'Standar Teruji',
     home_card3_title: 'Solusi Terintegrasi',
     home_card3_desc: 'Layanan menyeluruh meliputi instalasi fire hydrant, sprinkler, clean agent suppression, perakitan fire pump room, hingga maintenance berkala.',
-    home_card3_footer: 'End-to-End Service'
+    home_card3_footer: 'End-to-End Service',
+    // Kantor Pusat & Jam Operasional (contact.html & index.html)
+    workshop_title: 'Kantor Pusat & Workshop',
+    operational_area: 'Jawa Timur & Seluruh Indonesia',
+    hours_workday: '08:00 - 17:00 WIB',
+    hours_saturday: '08:00 - 13:00 WIB',
+    hours_emergency: 'Siaga 24 Jam'
   },
   phone: '+62 813-9063-0360',
   whatsapp: '6281390630360',
   email: 'info@indoteknik14.com',
-  address: 'Workshop & Office: Jl. Raya Semarang - Kendal Km. 14, Semarang, Jawa Tengah'
+  address: 'Dusun Pekojo, RT 02/RW 02, Desa Tunggalpager, Kec. Pungging, Kab. Mojokerto, Jawa Timur 61384'
 };
 
 export const fallbackGallery = [

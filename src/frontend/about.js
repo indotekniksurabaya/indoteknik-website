@@ -79,6 +79,29 @@ export async function initAbout() {
 
     const stats = profile.stats || {};
 
+    // 6.1 Hydrate Workshop & Operating Hours Card (contact.html & index.html)
+    const workshopTitle = stats.workshop_title || profile.workshop_title || 'Kantor Pusat & Workshop';
+    const operationalArea = stats.operational_area || profile.operational_area || 'Jawa Timur & Seluruh Indonesia';
+    const hoursWorkday = stats.hours_workday || profile.hours_workday || '08:00 - 17:00 WIB';
+    const hoursSaturday = stats.hours_saturday || profile.hours_saturday || '08:00 - 13:00 WIB';
+    const hoursEmergency = stats.hours_emergency || profile.hours_emergency || 'Siaga 24 Jam';
+
+    document.querySelectorAll('[data-company-workshop-title]').forEach(el => {
+      el.textContent = workshopTitle;
+    });
+    document.querySelectorAll('[data-company-operational-area]').forEach(el => {
+      el.textContent = operationalArea;
+    });
+    document.querySelectorAll('[data-company-hours-workday]').forEach(el => {
+      el.textContent = hoursWorkday;
+    });
+    document.querySelectorAll('[data-company-hours-saturday]').forEach(el => {
+      el.textContent = hoursSaturday;
+    });
+    document.querySelectorAll('[data-company-hours-emergency]').forEach(el => {
+      el.textContent = hoursEmergency;
+    });
+
     // 7. About page specific fields (about.html)
     const aboutTitleEl = document.getElementById('aboutPageTitle');
     if (aboutTitleEl && profile.about_title) {
