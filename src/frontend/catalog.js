@@ -99,37 +99,10 @@ export async function initKatalog() {
       return `
         <div class="product-card gallery-card group relative cursor-pointer flex flex-col justify-between bg-white border border-[#e5e7eb] p-4 transition-all" data-category="${p.category}" data-id="${p.id}">
           <div>
-            <!-- Spotlight Showcase Box with 3D Tilt -->
-            <div class="gallery-spotlight-box relative overflow-hidden aspect-[4/3] bg-[#f8fafc] border border-[#e5e7eb] flex items-center justify-center p-5 mb-4 shadow-xs">
+            <!-- Clean Studio Showcase Box with 3D Tilt & Lightning Sheen (Minimal, No Overlay Badges) -->
+            <div class="gallery-spotlight-box relative overflow-hidden aspect-[4/3] bg-[#f8fafc] border border-[#e5e7eb] flex items-center justify-center p-6 mb-4 shadow-xs">
               <img src="${p.image}" alt="${p.title}" class="max-h-full max-w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
-              
-              <!-- Pure White Lightning Sheen -->
               <div class="gallery-spotlight-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"></div>
-
-              <!-- Top-left Product Code Badge -->
-              <div class="absolute top-3 left-3 z-10 pointer-events-none">
-                <span class="text-[11px] font-mono font-bold tracking-wider text-[#093180] bg-white/95 px-2.5 py-1 border border-[#093180]/20 shadow-xs select-none">
-                  ${p.code}
-                </span>
-              </div>
-
-              <!-- Top-right Monospace Number Badge -->
-              <div class="absolute top-3 right-3 z-10 pointer-events-none">
-                <span class="text-[10px] font-mono font-bold tracking-widest text-[#4b5563] bg-white/90 px-2 py-0.5 border border-[#e5e7eb] select-none">
-                  ${itemNum}
-                </span>
-              </div>
-
-              <!-- Bottom Bar Overlay inside Showcase Box -->
-              <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between z-10 pointer-events-none">
-                <span class="px-2.5 py-0.5 text-[9px] font-bold tracking-wider uppercase text-white bg-[#093180] shadow-xs">
-                  ${catLabel}
-                </span>
-                <span class="text-[10px] font-bold text-[#093180] bg-white/95 px-2 py-0.5 border border-[#e5e7eb] uppercase tracking-wider flex items-center gap-1 group-hover:translate-x-0.5 transition-transform shadow-xs">
-                  <span>RINCIAN</span>
-                  <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-                </span>
-              </div>
             </div>
 
             <!-- Product Typography Details -->
@@ -146,12 +119,12 @@ export async function initKatalog() {
           <!-- Footer Specs / Brand Bar -->
           <div class="pt-3 border-t border-[#e5e7eb] flex items-center justify-between mt-3">
             <span class="text-[10px] font-bold text-[#6b7280] uppercase tracking-wider">
-              ${p.brand || 'VINCI'}
+              ${p.brand || 'VINCI FIREFIGHTING SUPPLIER'}
             </span>
-            <button class="btn-detail text-xs font-bold text-[#093180] flex items-center gap-1 group-hover:translate-x-0.5 transition-transform cursor-pointer pointer-events-none">
+            <span class="btn-outline text-xs py-1.5 px-3 pointer-events-none">
               <span>Buka Rincian</span>
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-            </button>
+              <svg class="btn-arrow w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+            </span>
           </div>
         </div>
       `;
