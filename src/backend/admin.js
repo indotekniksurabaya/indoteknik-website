@@ -595,7 +595,7 @@ async function handleProductFormSubmit(e) {
   try {
     if (isSupabaseConfigured()) {
       await saveProduct(productData);
-      showAdminToast(`Produk ${code} berhasil disimpan ke Supabase!`, 'success');
+      showAdminToast(`Produk ${code} berhasil disimpan`, 'success');
     } else {
       // Demo update
       const existingIdx = allProducts.findIndex(p => p.id === id);
@@ -623,7 +623,7 @@ function handleDeleteProduct(id) {
       try {
         if (isSupabaseConfigured()) {
           await deleteProduct(id);
-          showAdminToast(`Produk berhasil dihapus dari Supabase.`, 'success');
+          showAdminToast(`Produk berhasil dihapus.`, 'success');
         } else {
           allProducts = allProducts.filter(p => p.id !== id);
           showAdminToast(`Produk dihapus (Mode Offline).`, 'info');
@@ -824,7 +824,7 @@ async function handleGalleryFormSubmit(e) {
   try {
     if (isSupabaseConfigured()) {
       await saveGalleryItem(galData);
-      showAdminToast('Dokumentasi tersimpan ke Supabase!', 'success');
+      showAdminToast('Dokumentasi tersimpan', 'success');
     } else {
       const idx = allGallery.findIndex(g => g.id === id);
       if (idx >= 0) allGallery[idx] = galData;
@@ -1011,7 +1011,7 @@ async function handleCompanyProfileSubmit(e) {
   try {
     if (isSupabaseConfigured()) {
       await updateCompanyProfile(profile);
-      showAdminToast('Profil & Konten Tentang Kami berhasil diperbarui di Supabase!', 'success');
+      showAdminToast('Profil & Konten Tentang Kami berhasil diperbarui', 'success');
     } else {
       await updateCompanyProfile(profile);
       showAdminToast('Profil & Konten Tentang Kami diperbarui di penyimpanan lokal.', 'info');
@@ -1170,7 +1170,7 @@ function setupEventListeners() {
           showAdminToast('Login berhasil!', 'success');
         } else {
           sessionStorage.setItem('indoteknik_admin_demo', 'true');
-          showAdminToast('Masuk dalam Mode Demo CMS (Supabase belum di-link).', 'warning');
+          showAdminToast('Masuk dalam Mode Demo CMS (Database belum di-link).', 'warning');
           showDashboard(email);
         }
       } catch (err) {
@@ -1322,7 +1322,7 @@ function setupEventListeners() {
         if (isSupabaseConfigured()) {
           const url = await uploadMedia(file, 'products');
           document.getElementById('prodImageUrl').value = url;
-          showAdminToast('Gambar berhasil diunggah ke Supabase!', 'success');
+          showAdminToast('Gambar berhasil diunggah', 'success');
         } else {
           const reader = new FileReader();
           reader.onload = (ev) => {
