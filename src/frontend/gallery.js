@@ -141,8 +141,8 @@ export async function initGallery() {
       const itemNum = String(startIdx + idx + 1).padStart(2, '0');
       return `
         <div class="gallery-card group relative cursor-pointer" data-category="${item.category}" data-id="${item.id}">
-          <div class="gallery-spotlight-box relative overflow-hidden aspect-[16/10] bg-[#0f172a] border border-[#e5e7eb] shadow-sm">
-            <img src="${item.image_url}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
+          <div class="gallery-spotlight-box skeleton-loader relative overflow-hidden aspect-[16/10] bg-[#0f172a] border border-[#e5e7eb] shadow-sm">
+            <img src="${item.image_url}" alt="${item.title}" class="img-lazy w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async" onload="this.classList.add('loaded'); this.parentElement?.classList.add('is-loaded');" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'; this.classList.add('loaded'); this.parentElement?.classList.add('is-loaded');">
             
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/30 pointer-events-none"></div>
             <div class="gallery-spotlight-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"></div>
@@ -260,8 +260,8 @@ export async function initGallery() {
       const itemNum = String(idx + 1).padStart(2, '0');
       return `
         <a href="gallery.html" class="gallery-card group relative block cursor-pointer" data-id="${item.id}">
-          <div class="gallery-spotlight-box relative overflow-hidden aspect-[16/10] bg-[#0f172a] border border-[#e5e7eb] shadow-sm">
-            <img src="${item.image_url}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
+          <div class="gallery-spotlight-box skeleton-loader relative overflow-hidden aspect-[16/10] bg-[#0f172a] border border-[#e5e7eb] shadow-sm">
+            <img src="${item.image_url}" alt="${item.title}" class="img-lazy w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async" onload="this.classList.add('loaded'); this.parentElement?.classList.add('is-loaded');" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'; this.classList.add('loaded'); this.parentElement?.classList.add('is-loaded');">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/30 pointer-events-none"></div>
             <div class="gallery-spotlight-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"></div>
 
@@ -306,8 +306,8 @@ export async function initGallery() {
       const itemNum = String(idx + 1).padStart(2, '0');
       return `
         <div class="gallery-card group relative cursor-pointer" data-category="${item.category}" data-id="${item.id}">
-          <div class="gallery-spotlight-box relative overflow-hidden aspect-[16/10] bg-[#0f172a] border border-[#e5e7eb] shadow-sm">
-            <img src="${item.image_url}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
+          <div class="gallery-spotlight-box skeleton-loader relative overflow-hidden aspect-[16/10] bg-[#0f172a] border border-[#e5e7eb] shadow-sm">
+            <img src="${item.image_url}" alt="${item.title}" class="img-lazy w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async" onload="this.classList.add('loaded'); this.parentElement?.classList.add('is-loaded');" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'; this.classList.add('loaded'); this.parentElement?.classList.add('is-loaded');">
             
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/30 pointer-events-none"></div>
             <div class="gallery-spotlight-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"></div>

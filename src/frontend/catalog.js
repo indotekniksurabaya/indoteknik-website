@@ -94,8 +94,8 @@ export async function initKatalog() {
       <div class="product-card group relative cursor-pointer flex flex-col justify-between bg-white border border-[#e5e7eb] p-5 sm:p-6 transition-all" data-category="${p.category}" data-id="${p.id}">
         <div>
           <!-- Seamless Product Showcase (No inner card border, no nested box) -->
-          <div class="relative aspect-[4/3] w-full flex items-center justify-center p-3 mb-4 overflow-hidden bg-white">
-            <img src="${p.image}" alt="${p.title}" class="max-h-full max-w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
+          <div class="skeleton-loader relative aspect-[4/3] w-full flex items-center justify-center p-3 mb-4 overflow-hidden bg-white">
+            <img src="${p.image}" alt="${p.title}" class="img-lazy max-h-full max-w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async" onload="this.classList.add('loaded'); this.parentElement?.classList.add('is-loaded');" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'; this.classList.add('loaded'); this.parentElement?.classList.add('is-loaded');">
             <div class="gallery-spotlight-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"></div>
           </div>
 
@@ -226,8 +226,8 @@ export async function initKatalog() {
       <div class="product-card group relative cursor-pointer flex flex-col justify-between bg-white border border-[#e5e7eb] p-5 sm:p-6 transition-all" data-category="${p.category || 'hydrant'}" data-id="${p.id}">
         <div>
           <!-- Seamless Product Showcase (No inner card border, no nested box) -->
-          <div class="relative aspect-[4/3] w-full flex items-center justify-center p-3 mb-4 overflow-hidden bg-white">
-            <img src="${p.image}" alt="${p.title}" class="max-h-full max-w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
+          <div class="skeleton-loader relative aspect-[4/3] w-full flex items-center justify-center p-3 mb-4 overflow-hidden bg-white">
+            <img src="${p.image}" alt="${p.title}" class="img-lazy max-h-full max-w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async" onload="this.classList.add('loaded'); this.parentElement?.classList.add('is-loaded');" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'; this.classList.add('loaded'); this.parentElement?.classList.add('is-loaded');">
             <div class="gallery-spotlight-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"></div>
           </div>
 

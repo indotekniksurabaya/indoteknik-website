@@ -6,6 +6,7 @@ import { initContactForm } from './form.js';
 import { initGallery } from './gallery.js';
 import { initKatalog } from './catalog.js';
 import { initAbout } from './about.js';
+import { startLazyLoadWatcher } from './lazyload.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
@@ -15,4 +16,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initGallery();
   initKatalog();
   initAbout();
+  startLazyLoadWatcher();
 });

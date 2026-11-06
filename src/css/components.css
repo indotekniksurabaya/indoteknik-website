@@ -604,3 +604,51 @@ main {
   transform: translateX(6px);
   color: #093180 !important;
 }
+
+
+/* ==========================================
+   PROGRESSIVE LAZY LOADING & SKELETON SHIMMER
+   ========================================== */
+.img-lazy {
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s ease-out;
+  will-change: opacity, transform;
+}
+
+.img-lazy.loaded {
+  opacity: 1 !important;
+}
+
+.skeleton-loader {
+  position: relative;
+  background-color: #f1f5f9;
+}
+
+.skeleton-loader::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 100%
+  );
+  animation: skeletonShimmer 1.5s infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.skeleton-loader.is-loaded::after {
+  display: none !important;
+}
+
+@keyframes skeletonShimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
