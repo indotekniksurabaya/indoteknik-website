@@ -76,7 +76,7 @@ function openConfirmDialog({ title, message, confirmText = 'Ya, Hapus', isDanger
     : 'bg-[#093180] hover:bg-[#062460] text-white';
 
   modal.innerHTML = `
-    <div class="relative bg-white border-2 border-[#093180] max-w-sm w-full shadow-2xl p-6 transform transition-all duration-200">
+    <div class="relative bg-white border-2 border-[#093180] max-w-sm w-full shadow-2xl p-4 sm:p-6 transform transition-all duration-200">
       <div class="flex items-center gap-3 pb-3 mb-4 border-b border-[#e5e7eb]">
         <div class="w-9 h-9 ${isDanger ? 'bg-rose-100 text-rose-600' : 'bg-blue-100 text-[#093180]'} flex items-center justify-center font-bold text-base shrink-0">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
@@ -87,11 +87,11 @@ function openConfirmDialog({ title, message, confirmText = 'Ya, Hapus', isDanger
         </div>
       </div>
       <p class="text-xs text-[#4b5563] leading-relaxed mb-6">${message}</p>
-      <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-[#f3f4f6]">
-        <button id="btnCancelConfirmAction" class="px-4 py-2 text-xs font-semibold bg-white border border-[#e5e7eb] hover:bg-gray-100 text-[#374151] transition-colors cursor-pointer">
+      <div class="grid grid-cols-2 sm:flex sm:justify-end gap-2.5 pt-3 border-t border-[#f3f4f6]">
+        <button id="btnCancelConfirmAction" class="w-full sm:w-auto px-4 py-2 text-xs font-semibold bg-white border border-[#e5e7eb] hover:bg-gray-100 text-[#374151] transition-colors cursor-pointer text-center">
           Batal
         </button>
-        <button id="btnProceedConfirmAction" class="px-4 py-2 text-xs font-bold uppercase tracking-wider ${btnTheme} transition-colors cursor-pointer shadow-sm">
+        <button id="btnProceedConfirmAction" class="w-full sm:w-auto px-4 py-2 text-xs font-bold uppercase tracking-wider ${btnTheme} transition-colors cursor-pointer shadow-sm text-center">
           ${confirmText}
         </button>
       </div>
@@ -539,11 +539,22 @@ function addSpecRow(key = '', val = '') {
   if (!container) return;
 
   const row = document.createElement('div');
-  row.className = 'flex items-center gap-2 spec-row';
+  row.className = 'spec-row p-2.5 sm:p-2 bg-[#f9fafb] sm:bg-white border border-[#e5e7eb] flex flex-col sm:flex-row sm:items-center gap-2 transition-all';
   row.innerHTML = `
-    <input type="text" placeholder="Parameter (cth: Dimensi)" value="${key}" class="spec-key w-1/3 text-xs p-2 border border-[#e5e7eb] outline-none focus:border-[#093180]">
-    <input type="text" placeholder="Nilai (cth: 1250 x 800 mm)" value="${val}" class="spec-val flex-1 text-xs p-2 border border-[#e5e7eb] outline-none focus:border-[#093180]">
-    <button type="button" class="btn-remove-spec p-2 text-rose-500 hover:text-rose-700 cursor-pointer" title="Hapus">✕</button>
+    <div class="w-full sm:w-1/3">
+      <label class="block sm:hidden text-[10px] font-bold text-[#6b7280] uppercase mb-1">Nama Parameter</label>
+      <input type="text" placeholder="Parameter (cth: Dimensi)" value="${key}" class="spec-key w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]">
+    </div>
+    <div class="w-full sm:flex-1">
+      <label class="block sm:hidden text-[10px] font-bold text-[#6b7280] uppercase mb-1">Nilai / Ukuran</label>
+      <input type="text" placeholder="Nilai (cth: 1250 x 800 mm)" value="${val}" class="spec-val w-full text-xs p-2 bg-white border border-[#e5e7eb] outline-none focus:border-[#093180]">
+    </div>
+    <div class="flex justify-end sm:justify-center pt-1 sm:pt-0">
+      <button type="button" class="btn-remove-spec px-2.5 py-1 text-xs font-semibold text-rose-600 hover:bg-rose-50 border border-rose-200 sm:border-0 sm:p-2 cursor-pointer flex items-center gap-1 transition-colors" title="Hapus Parameter">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+        <span class="sm:hidden text-[11px]">Hapus</span>
+      </button>
+    </div>
   `;
 
   row.querySelector('.btn-remove-spec').addEventListener('click', () => row.remove());
@@ -1040,17 +1051,17 @@ function renderInquiriesRows() {
     return `
       <tr class="hover:bg-gray-50 transition-colors">
         <td class="py-3 px-4 text-[#6b7280] text-[11px] whitespace-nowrap">${dateStr}</td>
-        <td class="py-3 px-4 font-bold text-[#111827]">
-          <div>${item.name}</div>
+        <td class="py-3 px-4 font-bold text-[#111827] whitespace-nowrap">
+          <div class="text-xs">${item.name}</div>
           <div class="text-[11px] text-[#093180] font-medium">${item.company || 'Perorangan'}</div>
         </td>
-        <td class="py-3 px-4 text-xs font-semibold text-[#111827]">${item.phone}</td>
-        <td class="py-3 px-4">
+        <td class="py-3 px-4 text-xs font-semibold text-[#111827] whitespace-nowrap">${item.phone}</td>
+        <td class="py-3 px-4 whitespace-nowrap">
           <span class="px-2 py-0.5 text-[10px] font-bold uppercase bg-[#e6ecf5] text-[#093180]">
             ${item.service || 'Umum'}
           </span>
         </td>
-        <td class="py-3 px-4 text-xs text-[#4b5563] max-w-xs leading-relaxed">
+        <td class="py-3 px-4 text-xs text-[#4b5563] min-w-[220px] max-w-sm leading-relaxed break-words">
           ${item.message}
         </td>
         <td class="py-3 px-4 text-right whitespace-nowrap">
