@@ -32,5 +32,15 @@ export function initNavbar() {
 
     if (closeBtn) closeBtn.addEventListener('click', closeHandler);
     mobileLinks.forEach(link => link.addEventListener('click', closeHandler));
+
+    mobileMenu.addEventListener('click', (e) => {
+      if (e.target === mobileMenu) closeHandler();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+        closeHandler();
+      }
+    });
   }
 }

@@ -86,30 +86,86 @@
     </div>
   </header>
 
-  <div id="mobileMenu" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex justify-end">
-    <div class="w-full max-w-sm bg-white h-full p-6 flex flex-col justify-between border-l border-[#e5e7eb] shadow-2xl">
+  <!-- Minimalist Agency Mobile Sidebar Drawer (Matching user design reference) -->
+  <div id="mobileMenu" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex justify-end">
+    <div class="w-full max-w-sm sm:max-w-md bg-[#0a0d14] text-white h-full p-6 sm:p-8 flex flex-col justify-between border-l border-white/10 shadow-2xl overflow-y-auto">
+      
+      <!-- Top Brand Strip & Close Button -->
       <div>
-        <div class="flex items-center justify-between pb-6 border-b border-[#e5e7eb]">
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 bg-[#093180] text-[#ffc107] font-bold flex items-center justify-center text-sm">14</div>
-            <span class="font-bold text-sm text-[#111827]">PT INDO TEKNIK 14</span>
-          </div>
-          <button id="closeMobileMenuBtn" aria-label="Tutup Menu" class="p-2 text-[#4b5563] hover:text-[#111827]">
+        <div class="flex items-center justify-between pb-5 border-b border-white/10">
+          <a href="index.html" class="flex items-center gap-3 group">
+            <div class="w-8 h-8 bg-[#093180] text-[#ffc107] font-black flex items-center justify-center text-xs border border-white/20">14</div>
+            <div class="flex flex-col">
+              <span class="text-xs font-black tracking-wider text-white uppercase">PT INDO TEKNIK</span>
+              <span class="text-[8px] font-bold tracking-[0.2em] text-[#ffc107] uppercase">FIRE PROTECTION & ME</span>
+            </div>
+          </a>
+          <button id="closeMobileMenuBtn" aria-label="Tutup Menu" class="p-2 text-white/70 hover:text-white transition-colors cursor-pointer focus:outline-none">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
           </button>
         </div>
-        <nav class="flex flex-col gap-4 mt-6">
-          <a href="index.html" class="mobile-nav-link text-base font-bold py-2 text-[#111827] hover:text-[#093180] border-b border-[#f3f4f6]">HOME</a>
-          <a href="about.html" class="mobile-nav-link text-base font-bold py-2 text-[#111827] hover:text-[#093180] border-b border-[#f3f4f6]">ABOUT US</a>
-          <a href="portfolio.html" class="mobile-nav-link text-base font-bold py-2 text-[#111827] hover:text-[#093180] border-b border-[#f3f4f6]">PORTFOLIO</a>
-          <a href="gallery.html" class="mobile-nav-link text-base font-bold py-2 text-[#111827] hover:text-[#093180] border-b border-[#f3f4f6]">GALLERY</a>
-          <a href="catalog.html" class="mobile-nav-link text-base font-bold py-2 text-[#111827] hover:text-[#093180] border-b border-[#f3f4f6]">CATALOG</a>
-          <a href="contact.html" class="mobile-nav-link text-base font-bold py-2 text-[#093180]">CONTACT</a>
+
+        <!-- Agency Style Typography Navigation List -->
+        <nav class="flex flex-col pt-5 pb-4">
+          
+          <!-- Home -->
+          <a href="index.html" class="mobile-nav-link text-2xl sm:text-3xl font-extrabold text-white tracking-tight hover:text-[#ffc107] transition-colors py-3 block border-b border-white/10">
+            Home
+          </a>
+
+          <!-- Work (Portfolio & Projects) -->
+          <div class="py-3 border-b border-white/10">
+            <a href="portfolio.html" class="mobile-nav-link text-2xl sm:text-3xl font-extrabold text-white tracking-tight hover:text-[#ffc107] transition-colors block">
+              Work
+            </a>
+          </div>
+
+          <!-- Services (Expanded Sub-Capabilities) -->
+          <div class="py-3 border-b border-white/10">
+            <span class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight block">
+              Services
+            </span>
+            <div class="flex flex-col space-y-2.5 pt-3.5 pb-2">
+              <a href="portfolio.html" class="mobile-nav-link text-[11px] font-mono font-bold tracking-[0.2em] text-gray-400 hover:text-white uppercase transition-colors">
+                FIRE PROTECTION SPECIALIST
+              </a>
+              <a href="portfolio.html" class="mobile-nav-link text-[11px] font-mono font-bold tracking-[0.2em] text-gray-400 hover:text-white uppercase transition-colors">
+                INSTALASI HYDRANT & SPRINKLER
+              </a>
+              <a href="portfolio.html" class="mobile-nav-link text-[11px] font-mono font-bold tracking-[0.2em] text-gray-400 hover:text-white uppercase transition-colors">
+                FIRE PUMP ROOM & DIESEL
+              </a>
+              <a href="catalog.html" class="mobile-nav-link text-[11px] font-mono font-bold tracking-[0.2em] text-gray-400 hover:text-white uppercase transition-colors">
+                KATALOG PERALATAN TEKNIK
+              </a>
+              <a href="gallery.html" class="mobile-nav-link text-[11px] font-mono font-bold tracking-[0.2em] text-gray-400 hover:text-white uppercase transition-colors">
+                DOKUMENTASI LAPANGAN
+              </a>
+            </div>
+          </div>
+
+          <!-- About -->
+          <a href="about.html" class="mobile-nav-link text-2xl sm:text-3xl font-extrabold text-white tracking-tight hover:text-[#ffc107] transition-colors py-3.5 block border-b border-white/10">
+            About
+          </a>
+
+          <!-- Contact -->
+          <a href="contact.html" class="mobile-nav-link text-2xl sm:text-3xl font-extrabold text-white tracking-tight hover:text-[#ffc107] transition-colors py-3.5 block border-b border-white/10">
+            Contact
+          </a>
+
         </nav>
       </div>
-      <div class="pt-6 border-t border-[#e5e7eb]">
-        <a data-company-wa href="https://wa.me/6281390630360" target="_blank" class="w-full btn-secondary text-center block">Chat WhatsApp: <span data-company-phone>+62 813-9063-0360</span></a>
+
+      <!-- Minimal Agency Footer -->
+      <div class="pt-6 pb-2 border-t border-white/10 mt-auto flex flex-col gap-2">
+        <a data-company-wa href="https://wa.me/6281390630360" target="_blank" class="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-[0.2em] text-[#ffc107] hover:text-white uppercase transition-colors">
+          <span>Chat WhatsApp</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </a>
+        <span class="text-[9px] font-mono text-gray-500 uppercase tracking-widest">JAKARTA • SURABAYA • MOJOKERTO</span>
       </div>
+
     </div>
   </div>
 
