@@ -86,7 +86,7 @@ function openRfqSuccessModal({ name, company, phone, service, message, companyWa
   if (!modal) {
     modal = document.createElement('div');
     modal.id = 'rfqSuccessCustomModal';
-    modal.className = 'fixed inset-0 z-[100] bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 transition-all duration-300';
+    modal.className = 'fixed inset-0 z-[100] bg-black/75 flex items-center justify-center p-4 transition-all duration-300';
     document.body.appendChild(modal);
   }
 

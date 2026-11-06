@@ -86,84 +86,84 @@
     </div>
   </header>
 
-  <!-- Minimalist Agency Mobile Sidebar Drawer (Matching user design reference) -->
-  <div id="mobileMenu" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex justify-end">
-    <div class="w-full max-w-sm sm:max-w-md bg-[#0a0d14] text-white h-full p-6 sm:p-8 flex flex-col justify-between border-l border-white/10 shadow-2xl overflow-y-auto">
+  <!-- Minimalist Agency Mobile Sidebar Drawer (White Theme, Proportional, Full-Screen on Mobile) -->
+  <div id="mobileMenu" class="fixed inset-0 z-50 bg-black/60 hidden flex justify-end">
+    <div class="w-full h-full sm:max-w-md bg-white text-[#111827] p-6 sm:p-8 flex flex-col justify-between border-l border-[#e5e7eb] shadow-2xl overflow-y-auto">
       
-      <!-- Top Brand Strip & Close Button -->
+      <!-- Top Brand Strip & Close Button (Only 14 Icon, Company Name Removed) -->
       <div>
-        <div class="flex items-center justify-between pb-5 border-b border-white/10">
-          <a href="index.html" class="flex items-center gap-3 group">
-            <div class="w-8 h-8 bg-[#093180] text-[#ffc107] font-black flex items-center justify-center text-xs border border-white/20">14</div>
-            <div class="flex flex-col">
-              <span class="text-xs font-black tracking-wider text-white uppercase">PT INDO TEKNIK</span>
-              <span class="text-[8px] font-bold tracking-[0.2em] text-[#ffc107] uppercase">FIRE PROTECTION & ME</span>
-            </div>
+        <div class="flex items-center justify-between pb-5 border-b border-[#e5e7eb]">
+          <a href="index.html" class="w-8 h-8 sm:w-9 sm:h-9 bg-[#093180] text-[#ffc107] font-black flex items-center justify-center text-sm border border-[#093180] hover:scale-105 transition-transform" title="PT INDO TEKNIK 14">
+            14
           </a>
-          <button id="closeMobileMenuBtn" aria-label="Tutup Menu" class="p-2 text-white/70 hover:text-white transition-colors cursor-pointer focus:outline-none">
+          <button id="closeMobileMenuBtn" aria-label="Tutup Menu" class="p-2 text-[#4b5563] hover:text-[#111827] transition-colors cursor-pointer focus:outline-none">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
           </button>
         </div>
 
-        <!-- Agency Style Typography Navigation List -->
+        <!-- Agency Style Typography Navigation List with Slide Hover Animations -->
         <nav class="flex flex-col pt-5 pb-4">
           
           <!-- Home -->
-          <a href="index.html" class="mobile-nav-link text-2xl sm:text-3xl font-extrabold text-white tracking-tight hover:text-[#ffc107] transition-colors py-3 block border-b border-white/10">
-            Home
-          </a>
+          <div class="py-3 border-b border-[#e5e7eb]">
+            <a href="index.html" class="mobile-nav-link text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight hover:text-[#093180] transition-all block">
+              Home
+            </a>
+          </div>
 
           <!-- Work (Portfolio & Projects) -->
-          <div class="py-3 border-b border-white/10">
-            <a href="portfolio.html" class="mobile-nav-link text-2xl sm:text-3xl font-extrabold text-white tracking-tight hover:text-[#ffc107] transition-colors block">
+          <div class="py-3 border-b border-[#e5e7eb]">
+            <a href="portfolio.html" class="mobile-nav-link text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight hover:text-[#093180] transition-all block">
               Work
             </a>
           </div>
 
           <!-- Services (Expanded Sub-Capabilities) -->
-          <div class="py-3 border-b border-white/10">
-            <span class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight block">
+          <div class="py-3 border-b border-[#e5e7eb]">
+            <span class="text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight block">
               Services
             </span>
-            <div class="flex flex-col space-y-2.5 pt-3.5 pb-2">
-              <a href="portfolio.html" class="mobile-nav-link text-[11px] font-mono font-bold tracking-[0.2em] text-gray-400 hover:text-white uppercase transition-colors">
+            <div class="flex flex-col space-y-3 pt-3.5 pb-2">
+              <a href="portfolio.html" class="mobile-nav-sublink text-[11px] font-mono font-bold tracking-[0.2em] text-[#4b5563] hover:text-[#093180] uppercase transition-all">
                 FIRE PROTECTION SPECIALIST
               </a>
-              <a href="portfolio.html" class="mobile-nav-link text-[11px] font-mono font-bold tracking-[0.2em] text-gray-400 hover:text-white uppercase transition-colors">
+              <a href="portfolio.html" class="mobile-nav-sublink text-[11px] font-mono font-bold tracking-[0.2em] text-[#4b5563] hover:text-[#093180] uppercase transition-all">
                 INSTALASI HYDRANT & SPRINKLER
               </a>
-              <a href="portfolio.html" class="mobile-nav-link text-[11px] font-mono font-bold tracking-[0.2em] text-gray-400 hover:text-white uppercase transition-colors">
+              <a href="portfolio.html" class="mobile-nav-sublink text-[11px] font-mono font-bold tracking-[0.2em] text-[#4b5563] hover:text-[#093180] uppercase transition-all">
                 FIRE PUMP ROOM & DIESEL
               </a>
-              <a href="catalog.html" class="mobile-nav-link text-[11px] font-mono font-bold tracking-[0.2em] text-gray-400 hover:text-white uppercase transition-colors">
+              <a href="catalog.html" class="mobile-nav-sublink text-[11px] font-mono font-bold tracking-[0.2em] text-[#4b5563] hover:text-[#093180] uppercase transition-all">
                 KATALOG PERALATAN TEKNIK
               </a>
-              <a href="gallery.html" class="mobile-nav-link text-[11px] font-mono font-bold tracking-[0.2em] text-gray-400 hover:text-white uppercase transition-colors">
+              <a href="gallery.html" class="mobile-nav-sublink text-[11px] font-mono font-bold tracking-[0.2em] text-[#4b5563] hover:text-[#093180] uppercase transition-all">
                 DOKUMENTASI LAPANGAN
               </a>
             </div>
           </div>
 
           <!-- About -->
-          <a href="about.html" class="mobile-nav-link text-2xl sm:text-3xl font-extrabold text-white tracking-tight hover:text-[#ffc107] transition-colors py-3.5 block border-b border-white/10">
-            About
-          </a>
+          <div class="py-3.5 border-b border-[#e5e7eb]">
+            <a href="about.html" class="mobile-nav-link text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight hover:text-[#093180] transition-all block">
+              About
+            </a>
+          </div>
 
           <!-- Contact -->
-          <a href="contact.html" class="mobile-nav-link text-2xl sm:text-3xl font-extrabold text-white tracking-tight hover:text-[#ffc107] transition-colors py-3.5 block border-b border-white/10">
-            Contact
-          </a>
+          <div class="py-3.5 border-b border-[#e5e7eb]">
+            <a href="contact.html" class="mobile-nav-link text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight hover:text-[#093180] transition-all block">
+              Contact
+            </a>
+          </div>
 
         </nav>
       </div>
 
-      <!-- Minimal Agency Footer -->
-      <div class="pt-6 pb-2 border-t border-white/10 mt-auto flex flex-col gap-2">
-        <a data-company-wa href="https://wa.me/6281390630360" target="_blank" class="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-[0.2em] text-[#ffc107] hover:text-white uppercase transition-colors">
-          <span>Chat WhatsApp</span>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      <!-- Minimal Agency Footer: Only WhatsApp CTA without arrow, text 'Hubungi Kami' -->
+      <div class="pt-6 pb-2 border-t border-[#e5e7eb] mt-auto">
+        <a data-company-wa href="https://wa.me/6281390630360" target="_blank" class="w-full btn-outline text-center block py-3 text-xs font-bold uppercase tracking-wider">
+          Hubungi Kami
         </a>
-        <span class="text-[9px] font-mono text-gray-500 uppercase tracking-widest">JAKARTA • SURABAYA • MOJOKERTO</span>
       </div>
 
     </div>
@@ -389,7 +389,7 @@
   </main>
 
   <!-- Modal Gallery Preview -->
-  <div id="galleryModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-6 md:p-8">
+  <div id="galleryModal" class="fixed inset-0 z-50 bg-black/80 hidden flex items-center justify-center p-3 sm:p-6 md:p-8">
     <div class="relative bg-white border border-[#093180] max-w-4xl w-full max-h-[92vh] flex flex-col overflow-hidden shadow-2xl">
       
       <!-- Modal Header -->

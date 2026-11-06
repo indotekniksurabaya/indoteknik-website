@@ -17,7 +17,7 @@ export function initNavbar() {
   const menuBtn = document.getElementById('mobileMenuBtn');
   const mobileMenu = document.getElementById('mobileMenu');
   const closeBtn = document.getElementById('closeMobileMenuBtn');
-  const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+  const mobileLinks = document.querySelectorAll('.mobile-nav-link, .mobile-nav-sublink');
 
   if (menuBtn && mobileMenu) {
     menuBtn.addEventListener('click', () => {

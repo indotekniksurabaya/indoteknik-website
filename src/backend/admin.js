@@ -67,7 +67,7 @@ function openConfirmDialog({ title, message, confirmText = 'Ya, Hapus', isDanger
   if (!modal) {
     modal = document.createElement('div');
     modal.id = 'adminCustomConfirmModal';
-    modal.className = 'fixed inset-0 z-[120] bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 transition-all duration-200';
+    modal.className = 'fixed inset-0 z-[120] bg-black/75 flex items-center justify-center p-4 transition-all duration-200';
     document.body.appendChild(modal);
   }
 
