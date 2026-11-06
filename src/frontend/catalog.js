@@ -29,6 +29,49 @@ export async function initKatalog() {
     }
   } catch (_) {}
 
+  // 3D Tilt Parallax & Lightning Spotlight handler (smooth 60fps)
+  const bindSpotlightHover = (root) => {
+    if (!root) return;
+    root.querySelectorAll('.product-card').forEach(card => {
+      const box = card.querySelector('.gallery-spotlight-box');
+      if (!box) return;
+
+      let rafId = null;
+
+      card.addEventListener('mouseenter', () => {
+        box.style.transition = 'transform 0.08s ease-out, box-shadow 0.25s ease-out';
+      });
+
+      card.addEventListener('mousemove', (e) => {
+        const rect = box.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(() => {
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+
+          const percentX = Math.max(-1, Math.min(1, (x - centerX) / centerX));
+          const percentY = Math.max(-1, Math.min(1, (y - centerY) / centerY));
+
+          const tiltX = (-percentY * 8).toFixed(2);
+          const tiltY = (percentX * 8).toFixed(2);
+
+          box.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
+          box.style.setProperty('--spotlight-x', `${x}px`);
+          box.style.setProperty('--spotlight-y', `${y}px`);
+        });
+      });
+
+      card.addEventListener('mouseleave', () => {
+        if (rafId) cancelAnimationFrame(rafId);
+        box.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+        box.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      });
+    });
+  };
+
   const renderProducts = (items) => {
     if (!grid) return;
     currentFiltered = items;
@@ -50,33 +93,71 @@ export async function initKatalog() {
     const startIdx = (currentPage - 1) * PER_PAGE;
     const pageItems = items.slice(startIdx, startIdx + PER_PAGE);
 
-    grid.innerHTML = pageItems.map(p => `
-      <div class="product-card group bg-white border border-[#e5e7eb] p-4 flex flex-col justify-between hover:shadow-lg transition-all" data-category="${p.category}" data-id="${p.id}">
-        <div>
-          <div class="aspect-square bg-white flex items-center justify-center p-3 mb-4 overflow-hidden border border-[#f3f4f6]">
-            <img src="${p.image}" alt="${p.title}" class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
+    grid.innerHTML = pageItems.map((p, idx) => {
+      const itemNum = String(startIdx + idx + 1).padStart(2, '0');
+      const catLabel = p.category_label || standardizeCategory(p.category)?.label || p.category;
+      return `
+        <div class="product-card gallery-card group relative cursor-pointer flex flex-col justify-between bg-white border border-[#e5e7eb] p-4 transition-all" data-category="${p.category}" data-id="${p.id}">
+          <div>
+            <!-- Spotlight Showcase Box with 3D Tilt -->
+            <div class="gallery-spotlight-box relative overflow-hidden aspect-[4/3] bg-[#f8fafc] border border-[#e5e7eb] flex items-center justify-center p-5 mb-4 shadow-xs">
+              <img src="${p.image}" alt="${p.title}" class="max-h-full max-w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
+              
+              <!-- Pure White Lightning Sheen -->
+              <div class="gallery-spotlight-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"></div>
+
+              <!-- Top-left Product Code Badge -->
+              <div class="absolute top-3 left-3 z-10 pointer-events-none">
+                <span class="text-[11px] font-mono font-bold tracking-wider text-[#093180] bg-white/95 px-2.5 py-1 border border-[#093180]/20 shadow-xs select-none">
+                  ${p.code}
+                </span>
+              </div>
+
+              <!-- Top-right Monospace Number Badge -->
+              <div class="absolute top-3 right-3 z-10 pointer-events-none">
+                <span class="text-[10px] font-mono font-bold tracking-widest text-[#4b5563] bg-white/90 px-2 py-0.5 border border-[#e5e7eb] select-none">
+                  ${itemNum}
+                </span>
+              </div>
+
+              <!-- Bottom Bar Overlay inside Showcase Box -->
+              <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between z-10 pointer-events-none">
+                <span class="px-2.5 py-0.5 text-[9px] font-bold tracking-wider uppercase text-white bg-[#093180] shadow-xs">
+                  ${catLabel}
+                </span>
+                <span class="text-[10px] font-bold text-[#093180] bg-white/95 px-2 py-0.5 border border-[#e5e7eb] uppercase tracking-wider flex items-center gap-1 group-hover:translate-x-0.5 transition-transform shadow-xs">
+                  <span>RINCIAN</span>
+                  <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                </span>
+              </div>
+            </div>
+
+            <!-- Product Typography Details -->
+            <div class="pb-2">
+              <h3 class="product-card-title text-sm sm:text-base font-extrabold text-[#111827] group-hover:text-[#093180] tracking-tight transition-colors line-clamp-2 leading-snug">
+                ${p.title}
+              </h3>
+              <p class="product-card-desc text-xs text-[#4b5563] leading-relaxed line-clamp-2 mt-1.5">
+                ${p.desc || ''}
+              </p>
+            </div>
           </div>
-          <span class="text-[10px] font-bold text-[#093180] tracking-wider uppercase block mb-1">
-            ${p.code}
-          </span>
-          <h3 class="product-card-title text-xs font-bold text-[#111827] line-clamp-2 mb-2 group-hover:text-[#093180] transition-colors">
-            ${p.title}
-          </h3>
-          <p class="text-[11px] text-[#6b7280] line-clamp-2 mb-3 leading-relaxed">
-            ${p.desc || ''}
-          </p>
+
+          <!-- Footer Specs / Brand Bar -->
+          <div class="pt-3 border-t border-[#e5e7eb] flex items-center justify-between mt-3">
+            <span class="text-[10px] font-bold text-[#6b7280] uppercase tracking-wider">
+              ${p.brand || 'VINCI'}
+            </span>
+            <button class="btn-detail text-xs font-bold text-[#093180] flex items-center gap-1 group-hover:translate-x-0.5 transition-transform cursor-pointer pointer-events-none">
+              <span>Buka Rincian</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
         </div>
-        <div class="pt-3 border-t border-[#e5e7eb] flex items-center justify-between">
-          <span class="text-[10px] font-bold text-[#4b5563] uppercase">
-            ${p.brand || 'Vinci'}
-          </span>
-          <button class="btn-detail text-xs font-bold text-[#093180] flex items-center gap-1 group-hover:translate-x-0.5 transition-transform cursor-pointer pointer-events-none">
-            <span>Rincian</span>
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-          </button>
-        </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
+
+    bindSpotlightHover(grid);
 
     grid.querySelectorAll('.product-card').forEach(card => {
       card.addEventListener('click', () => {
@@ -158,16 +239,16 @@ export async function initKatalog() {
     if (!featured) return;
 
     homeFeatured.innerHTML = `
-      <button id="openHydrantModalBtn" class="group flex flex-col items-center bg-white p-6 max-w-sm w-full focus:outline-none transition-all duration-300 hover:opacity-90 cursor-pointer border border-[#e5e7eb] hover:border-[#093180] shadow-sm hover:shadow-xl">
-        <div class="w-full aspect-[3/4] bg-white flex items-center justify-center overflow-hidden mb-6 p-4">
+      <button id="openHydrantModalBtn" class="group flex flex-col items-center bg-white p-6 max-w-sm w-full focus:outline-none transition-all duration-300 hover:opacity-95 cursor-pointer border border-[#e5e7eb] hover:border-[#d1d5db] shadow-sm hover:shadow-xl">
+        <div class="w-full aspect-[3/4] bg-[#f8fafc] flex items-center justify-center overflow-hidden mb-6 p-4 border border-[#e5e7eb]">
           <img src="${featured.image}" alt="${featured.title}" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
         </div>
         <div class="text-center w-full">
-          <span class="text-xs font-bold tracking-[0.2em] text-[#093180] uppercase block mb-1">${featured.code}</span>
-          <span class="text-[11px] font-bold tracking-wider text-[#111827] uppercase block mb-3 line-clamp-1">${featured.title}</span>
-          <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#093180] group-hover:underline">
-            <span>Klik untuk Detail Spesifikasi</span>
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          <span class="text-xs font-mono font-bold tracking-[0.2em] text-[#093180] uppercase block mb-1">${featured.code}</span>
+          <span class="text-xs font-bold tracking-wider text-[#111827] uppercase block mb-3 line-clamp-1">${featured.title}</span>
+          <span class="inline-flex items-center gap-1.5 text-xs font-bold text-[#093180] group-hover:translate-x-1 transition-transform">
+            <span>Lihat Detail Spesifikasi</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
           </span>
         </div>
       </button>
