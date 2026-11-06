@@ -53,7 +53,7 @@
   <link rel="stylesheet" href="src/css/style.css">
 </head>
 
-<body class="bg-white text-[#111827] font-sans antialiased selection:bg-[#093180] selection:text-white flex flex-col min-h-screen justify-between pt-24 sm:pt-28">
+<body class="bg-white text-[#111827] font-sans antialiased selection:bg-[#093180] selection:text-white flex flex-col min-h-screen justify-between pt-0">
 
   <header id="navbar" class="fixed top-3 sm:top-5 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] sm:w-auto max-w-5xl transition-all duration-300">
     <div class="floating-navbar-inner px-3 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between sm:justify-center gap-3 sm:gap-6 relative overflow-hidden">
@@ -115,25 +115,23 @@
 
   <main class="flex-1 w-full bg-white">
     
-    <section class="relative w-full aspect-[16/9] sm:aspect-[21/9] sm:min-h-[380px] sm:max-h-[560px] lg:max-h-[620px] bg-black overflow-hidden border-b border-[#e5e7eb] flex items-center justify-center">
+    <!-- Hero Video Section (Full to top edge, no top whitespace) -->
+    <section class="relative w-full min-h-[340px] sm:min-h-[440px] md:min-h-[500px] lg:min-h-[580px] h-[55vh] sm:h-[62vh] lg:h-[70vh] max-h-[680px] bg-black overflow-hidden border-b border-[#e5e7eb] flex items-center justify-center pt-16 sm:pt-14">
       <video autoplay loop muted playsinline preload="auto" class="video-landscape-crisp absolute inset-0 w-full h-full object-cover">
         <source src="videos/asset-video.mp4" type="video/mp4">
       </video>
 
-      <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-black/55"></div>
+      <!-- Atmospheric Darkening Overlay for maximum contrast & crispness -->
+      <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/45 to-black/60"></div>
 
-      <div class="relative z-10 flex items-center justify-center gap-2.5 sm:gap-5 md:gap-6 px-3 sm:px-6 text-center sm:text-left select-none">
-        <div class="w-8 h-8 sm:w-14 sm:h-14 md:w-18 md:h-18 bg-[#093180] flex items-center justify-center font-extrabold text-white text-xs sm:text-2xl md:text-3xl border sm:border-2 border-white/90 shrink-0 shadow-lg">
-          <span class="text-[#ffc107]">14</span>
-        </div>
-        <div class="flex flex-col text-left">
-          <h1 class="text-xs sm:text-2xl md:text-4xl lg:text-5xl font-black tracking-tight text-white uppercase whitespace-nowrap drop-shadow-md">
-            PT. INDO TEKNIK EMPATBELAS
-          </h1>
-          <span class="text-[8px] sm:text-xs md:text-sm font-bold tracking-wider sm:tracking-[0.22em] text-[#ffc107] uppercase mt-0.5 sm:mt-1 drop-shadow-sm whitespace-nowrap">
-            Fire Protection & Mechanical Electrical
-          </span>
-        </div>
+      <!-- Hero Typography Showcase (14 Badge Box Removed, Proportional & Centered on all screens) -->
+      <div class="relative z-10 flex flex-col items-center justify-center px-4 sm:px-8 text-center select-none max-w-4xl mx-auto">
+        <h1 class="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-white uppercase leading-tight drop-shadow-lg">
+          PT. INDO TEKNIK EMPATBELAS
+        </h1>
+        <p class="text-xs sm:text-sm md:text-base font-bold tracking-[0.16em] sm:tracking-[0.24em] text-[#ffc107] uppercase mt-2 sm:mt-3 drop-shadow-md">
+          Fire Protection & Mechanical Electrical
+        </p>
       </div>
     </section>
     
