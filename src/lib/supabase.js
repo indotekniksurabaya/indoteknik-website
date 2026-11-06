@@ -5,8 +5,8 @@ import { fallbackCompanyProfile, fallbackGallery, fallbackProducts } from './fal
 const STORAGE_KEY_URL = 'indoteknik_supabase_url';
 const STORAGE_KEY_ANON = 'indoteknik_supabase_anon_key';
 
-const DEFAULT_SUPABASE_URL = 'https://asdapivwgwihgbxjedzu.supabase.co';
-const DEFAULT_SUPABASE_ANON_KEY = 'sb_publishable_6kaiJ-t5Hlbqyeb-ugS9vg_dz-fMknP';
+const DEFAULT_SUPABASE_URL = 'https://rwqphjueeeydmahpnomy.supabase.co';
+const DEFAULT_SUPABASE_ANON_KEY = 'sb_publishable_zfjyWxi_7It_Pi-XSlqf_g_GetuvK90';
 
 export function getSupabaseCredentials() {
   const envUrl = import.meta.env?.VITE_SUPABASE_URL || '';
