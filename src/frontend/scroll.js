@@ -82,6 +82,113 @@ export function initScroll() {
     maskElements.forEach(el => el.classList.add('is-visible'));
     revealElements.forEach(el => el.classList.add('is-visible'));
   }
+
+  // Initialize scroll-direction-aware interactive marquee
+  initInteractiveMarquee();
+}
+
+/**
+ * Interactive Dynamic Marquee
+ * Features:
+ * - Idle cruising animation
+ * - Scrolling DOWN turns/accelerates marquee to the RIGHT
+ * - Scrolling UP turns/accelerates marquee to the LEFT
+ * - Smooth physics inertia when changing direction (lerp)
+ * - Infinite seamless wrap-around with zero seams
+ */
+export function initInteractiveMarquee() {
+  const containers = document.querySelectorAll('.interactive-marquee');
+  if (!containers.length) return;
+
+  containers.forEach(container => {
+    const track = container.querySelector('.marquee-track');
+    if (!track) return;
+
+    const BASE_SPEED = 1.0;     // Cruising speed (pixels per frame)
+    const MAX_BOOST = 5.0;      // Max additional velocity during fast scroll
+    const LERP_FACTOR = 0.045;  // Smooth inertia turnaround factor
+
+    let currentSpeed = -BASE_SPEED; // Cruising left initially (-X)
+    let targetSpeed = -BASE_SPEED;
+    let currentX = 0;
+    let isHovered = false;
+    let lastScrollY = window.scrollY;
+    let scrollDebounce = null;
+
+    const getGroupWidth = () => {
+      const firstGroup = track.querySelector('.marquee-group');
+      if (firstGroup && firstGroup.offsetWidth > 0) {
+        return firstGroup.offsetWidth;
+      }
+      return track.scrollWidth / (track.children.length || 4);
+    };
+
+    let groupWidth = getGroupWidth();
+    currentX = -groupWidth;
+
+    window.addEventListener('resize', () => {
+      const nw = getGroupWidth();
+      if (nw > 0 && Math.abs(nw - groupWidth) > 5) {
+        groupWidth = nw;
+        currentX = -groupWidth;
+      }
+    }, { passive: true });
+
+    // Listen to scroll to determine direction and velocity
+    const onScroll = () => {
+      const nowY = window.scrollY;
+      const delta = nowY - lastScrollY;
+      lastScrollY = nowY;
+
+      if (Math.abs(delta) < 1) return;
+
+      const boost = Math.min(Math.abs(delta) * 0.12, MAX_BOOST);
+
+      if (delta > 0) {
+        // User scrolls DOWN -> marquee moves to the RIGHT (+X)
+        targetSpeed = BASE_SPEED + boost;
+      } else {
+        // User scrolls UP -> marquee moves to the LEFT (-X)
+        targetSpeed = -(BASE_SPEED + boost);
+      }
+
+      clearTimeout(scrollDebounce);
+      scrollDebounce = setTimeout(() => {
+        // Smoothly settle back to cruising speed in the active direction
+        targetSpeed = targetSpeed > 0 ? BASE_SPEED : -BASE_SPEED;
+      }, 150);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    container.addEventListener('mouseenter', () => { isHovered = true; });
+    container.addEventListener('mouseleave', () => { isHovered = false; });
+
+    // Smooth animation frame loop
+    const animate = () => {
+      const activeTarget = isHovered ? (targetSpeed * 0.25) : targetSpeed;
+
+      // Realistic inertia: gradually lerp currentSpeed toward targetSpeed
+      // When direction changes, speed smoothly crosses zero with visible deceleration & acceleration
+      currentSpeed += (activeTarget - currentSpeed) * LERP_FACTOR;
+      currentX += currentSpeed;
+
+      // Seamless mathematical wrap-around across groups
+      if (groupWidth > 10) {
+        if (currentX <= -2 * groupWidth) {
+          currentX += groupWidth;
+        } else if (currentX >= 0) {
+          currentX -= groupWidth;
+        }
+      }
+
+      track.style.transform = `translate3d(${currentX.toFixed(2)}px, 0, 0)`;
+      requestAnimationFrame(animate);
+    };
+
+    track.style.animation = 'none';
+    requestAnimationFrame(animate);
+  });
 }
 
 export function refreshScrollReveal(root = document) {

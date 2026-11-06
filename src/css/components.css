@@ -192,6 +192,18 @@
   animation-play-state: paused;
 }
 
+.interactive-marquee {
+  background-color: #093180;
+  border-top: 1px solid #062460;
+  border-bottom: 1px solid #062460;
+  user-select: none;
+}
+
+.interactive-marquee .marquee-track {
+  animation: none !important;
+  will-change: transform;
+}
+
 @keyframes pageEntrance {
   0% {
     opacity: 0;
