@@ -198,32 +198,72 @@ export async function initKatalog() {
     }
   };
 
-  // Render featured product for Homepage (index.html)
+  // Render top 4 featured products for Homepage (index.html) in responsive 4-column grid
   const renderHomeFeatured = (items) => {
-    if (!homeFeatured) return;
-    const featured = items.find(p => p.id === 'vinci-hp-14a') || items[0];
-    if (!featured) return;
+    if (!homeFeatured || !items || items.length === 0) return;
 
-    homeFeatured.innerHTML = `
-      <button id="openHydrantModalBtn" class="group flex flex-col items-center bg-white p-6 max-w-sm w-full focus:outline-none transition-all duration-300 hover:opacity-95 cursor-pointer border border-[#e5e7eb] hover:border-[#d1d5db] shadow-sm hover:shadow-xl">
-        <div class="w-full aspect-[3/4] bg-[#f8fafc] flex items-center justify-center overflow-hidden mb-6 p-4 border border-[#e5e7eb]">
-          <img src="${featured.image}" alt="${featured.title}" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
+    // Select 4 priority featured products, or first 4 available products
+    const preferredIds = ['vinci-hp-14a', 'vinci-box-b', 'vinci-sc-s7a', 'vinci-hr-01', 'vinci-box-a1', 'vinci-box-c'];
+    const featuredList = [];
+
+    for (const pid of preferredIds) {
+      const match = items.find(p => p.id === pid);
+      if (match && !featuredList.some(p => p.id === match.id)) {
+        featuredList.push(match);
+      }
+      if (featuredList.length >= 4) break;
+    }
+
+    for (const item of items) {
+      if (featuredList.length >= 4) break;
+      if (!featuredList.some(p => p.id === item.id)) {
+        featuredList.push(item);
+      }
+    }
+
+    homeFeatured.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8';
+    homeFeatured.innerHTML = featuredList.map(p => `
+      <div class="product-card group relative cursor-pointer flex flex-col justify-between bg-white border border-[#e5e7eb] p-5 sm:p-6 transition-all" data-category="${p.category || 'hydrant'}" data-id="${p.id}">
+        <div>
+          <!-- Seamless Product Showcase (No inner card border, no nested box) -->
+          <div class="relative aspect-[4/3] w-full flex items-center justify-center p-3 mb-4 overflow-hidden bg-white">
+            <img src="${p.image}" alt="${p.title}" class="max-h-full max-w-full object-contain transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
+            <div class="gallery-spotlight-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"></div>
+          </div>
+
+          <!-- Product Typography Details -->
+          <div class="pb-2">
+            <h3 class="product-card-title text-sm sm:text-base font-extrabold text-[#111827] group-hover:text-[#093180] tracking-tight transition-colors line-clamp-2 leading-snug">
+              ${p.title}
+            </h3>
+            <p class="product-card-desc text-xs text-[#4b5563] leading-relaxed line-clamp-2 mt-1.5">
+              ${p.desc || ''}
+            </p>
+          </div>
         </div>
-        <div class="text-center w-full">
-          <span class="text-xs font-mono font-bold tracking-[0.2em] text-[#093180] uppercase block mb-1">${featured.code}</span>
-          <span class="text-xs font-bold tracking-wider text-[#111827] uppercase block mb-3 line-clamp-1">${featured.title}</span>
-          <span class="inline-flex items-center gap-1.5 text-xs font-bold text-[#093180] group-hover:translate-x-1 transition-transform">
-            <span>Lihat Detail Spesifikasi</span>
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+
+        <!-- Footer Specs / Brand Bar -->
+        <div class="pt-4 border-t border-[#e5e7eb] flex items-center justify-between mt-3">
+          <span class="text-[10px] font-bold text-[#6b7280] uppercase tracking-wider">
+            ${p.brand || 'VINCI FIREFIGHTING SUPPLIER'}
+          </span>
+          <span class="btn-outline text-xs py-1.5 px-3 pointer-events-none">
+            <span>Buka Rincian</span>
+            <svg class="btn-arrow w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
           </span>
         </div>
-      </button>
-    `;
+      </div>
+    `).join('');
 
-    const btn = document.getElementById('openHydrantModalBtn');
-    if (btn) {
-      btn.addEventListener('click', () => openProductModal(featured));
-    }
+    bindSpotlightHover(homeFeatured);
+
+    homeFeatured.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const id = card.getAttribute('data-id');
+        const prod = items.find(p => p.id === id);
+        if (prod) openProductModal(prod);
+      });
+    });
   };
 
   const openProductModal = (prod) => {
@@ -363,6 +403,18 @@ export async function initKatalog() {
     searchInput.addEventListener('input', (e) => {
       currentSearch = e.target.value.trim().toLowerCase();
       applyFilters();
+    });
+  }
+
+  // Pre-bind static cards in homeFeatured if present
+  if (homeFeatured) {
+    bindSpotlightHover(homeFeatured);
+    homeFeatured.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const id = card.getAttribute('data-id');
+        const prod = products.find(p => p.id === id);
+        if (prod) openProductModal(prod);
+      });
     });
   }
 
