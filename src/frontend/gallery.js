@@ -5,6 +5,7 @@ export async function initGallery() {
   const grid = document.getElementById('galleryGrid');
   const pagContainer = document.getElementById('galleryPagination');
   const homeGrid = document.getElementById('homeGalleryGrid');
+  const portfolioGrid = document.getElementById('portfolioGalleryGrid');
   const modal = document.getElementById('galleryModal');
   const modalImg = document.getElementById('galleryModalImg');
   const modalTitle = document.getElementById('galleryModalTitle');
@@ -296,6 +297,61 @@ export async function initGallery() {
     bindSpotlightHover(homeGrid);
   };
 
+  // Render top 6 items for Portfolio page with 3D tilt & modal preview
+  const renderPortfolioGallery = (items) => {
+    if (!portfolioGrid) return;
+    const topItems = items.slice(0, 6);
+
+    portfolioGrid.innerHTML = topItems.map((item, idx) => {
+      const itemNum = String(idx + 1).padStart(2, '0');
+      return `
+        <div class="gallery-card group relative cursor-pointer" data-category="${item.category}" data-id="${item.id}">
+          <div class="gallery-spotlight-box relative overflow-hidden aspect-[16/10] bg-[#0f172a] border border-[#e5e7eb] shadow-sm">
+            <img src="${item.image_url}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/30 pointer-events-none"></div>
+            <div class="gallery-spotlight-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"></div>
+
+            <div class="absolute top-4 left-4 z-10 pointer-events-none">
+              <span class="text-xs font-mono font-bold tracking-widest text-white/90 bg-black/60 px-2.5 py-1 border border-white/20 select-none">
+                ${itemNum}
+              </span>
+            </div>
+
+            <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between z-10 pointer-events-none">
+              <span class="px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase text-white bg-black/70 border border-white/30 backdrop-blur-sm">
+                ${item.category_label || item.category}
+              </span>
+              <span class="text-[11px] font-bold text-white uppercase tracking-wider flex items-center gap-1 transition-colors">
+                <span>VIEW</span>
+                <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+              </span>
+            </div>
+          </div>
+
+          <div class="pt-4 pb-2">
+            <h3 class="gallery-card-title text-lg sm:text-xl font-extrabold text-[#111827] group-hover:text-[#093180] tracking-tight transition-colors line-clamp-1">
+              ${item.title}
+            </h3>
+            <p class="gallery-card-desc text-xs sm:text-sm text-[#4b5563] leading-relaxed line-clamp-2 mt-1">
+              ${item.description || ''}
+            </p>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    bindSpotlightHover(portfolioGrid);
+
+    portfolioGrid.querySelectorAll('.gallery-card').forEach(el => {
+      el.addEventListener('click', () => {
+        const id = el.getAttribute('data-id');
+        const item = galleryItems.find(g => g.id === id);
+        if (item) openModal(item);
+      });
+    });
+  };
+
   // Build category filter buttons dynamically on gallery.html
   const buildCategoryTabs = (items) => {
     if (!filterContainer) return;
@@ -363,6 +419,9 @@ export async function initGallery() {
     }
     if (homeGrid) {
       renderHomeGallery(galleryItems);
+    }
+    if (portfolioGrid) {
+      renderPortfolioGallery(galleryItems);
     }
   } catch (err) {
     console.error('Error loading gallery:', err);

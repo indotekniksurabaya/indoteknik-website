@@ -177,75 +177,154 @@
           </div>
           <a href="gallery.html" class="btn-primary inline-flex items-center gap-2 text-xs py-2.5 px-4">
             <span>Buka Galeri Foto Lengkap</span>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
           </a>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Dynamic Portfolio Gallery Grid (Big & Simple 2-Column Cards with 3D Tilt) -->
+        <div id="portfolioGalleryGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
 
-          <div class="bg-white border border-[#e5e7eb] overflow-hidden group">
-            <div class="aspect-[4/3] overflow-hidden bg-gray-100">
-              <img src="images/hydrant-pillar.jpg" alt="Instalasi Hydrant Pillar" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+          <div class="gallery-card group relative cursor-pointer" data-id="p1">
+            <div class="gallery-spotlight-box relative overflow-hidden aspect-[16/10] bg-[#0f172a] border border-[#e5e7eb] shadow-sm">
+              <img src="images/hydrant-pillar.jpg" alt="Pemasangan Hydrant Pillar Outdoor" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/30 pointer-events-none"></div>
+              <div class="gallery-spotlight-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"></div>
+
+              <div class="absolute top-4 left-4 z-10 pointer-events-none">
+                <span class="text-xs font-mono font-bold tracking-widest text-white/90 bg-black/60 px-2.5 py-1 border border-white/20 select-none">01</span>
+              </div>
+
+              <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between z-10 pointer-events-none">
+                <span class="px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase text-white bg-black/70 border border-white/30 backdrop-blur-sm">Instalasi Hydrant</span>
+                <span class="text-[11px] font-bold text-white uppercase tracking-wider flex items-center gap-1 transition-colors">
+                  <span>VIEW</span>
+                  <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                </span>
+              </div>
             </div>
-            <div class="p-5 border-t border-[#e5e7eb]">
-              <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block mb-1">Instalasi Hydrant</span>
-              <h3 class="text-sm font-bold text-[#111827] mb-1">Pemasangan Hydrant Pillar Outdoor</h3>
-              <p class="text-xs text-[#4b5563]">Pemasangan pilar hidran dua arah lengkap dengan sambungan flange dan pondasi cor beton.</p>
+            <div class="pt-4 pb-2">
+              <h3 class="gallery-card-title text-lg sm:text-xl font-extrabold text-[#111827] group-hover:text-[#093180] tracking-tight transition-colors line-clamp-1">Pemasangan Hydrant Pillar Outdoor</h3>
+              <p class="gallery-card-desc text-xs sm:text-sm text-[#4b5563] leading-relaxed line-clamp-2 mt-1">Pemasangan pilar hidran dua arah lengkap dengan sambungan flange dan pondasi cor beton.</p>
             </div>
           </div>
 
-          <div class="bg-white border border-[#e5e7eb] overflow-hidden group">
-            <div class="aspect-[4/3] overflow-hidden bg-gray-100">
-              <img src="images/fire-pump-room.jpg" alt="Fire Pump Room" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+          <div class="gallery-card group relative cursor-pointer" data-id="p2">
+            <div class="gallery-spotlight-box relative overflow-hidden aspect-[16/10] bg-[#0f172a] border border-[#e5e7eb] shadow-sm">
+              <img src="images/fire-pump-room.jpg" alt="Ruang Pompa Turbin Vertikal & Diesel" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/30 pointer-events-none"></div>
+              <div class="gallery-spotlight-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"></div>
+
+              <div class="absolute top-4 left-4 z-10 pointer-events-none">
+                <span class="text-xs font-mono font-bold tracking-widest text-white/90 bg-black/60 px-2.5 py-1 border border-white/20 select-none">02</span>
+              </div>
+
+              <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between z-10 pointer-events-none">
+                <span class="px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase text-white bg-black/70 border border-white/30 backdrop-blur-sm">Ruang Pompa</span>
+                <span class="text-[11px] font-bold text-white uppercase tracking-wider flex items-center gap-1 transition-colors">
+                  <span>VIEW</span>
+                  <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                </span>
+              </div>
             </div>
-            <div class="p-5 border-t border-[#e5e7eb]">
-              <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block mb-1">Ruang Pompa</span>
-              <h3 class="text-sm font-bold text-[#111827] mb-1">Ruang Pompa Turbin Vertikal & Diesel</h3>
-              <p class="text-xs text-[#4b5563]">Pemasangan paket pompa kebakaran utama, pompa cadangan diesel, dan tangki penekan.</p>
+            <div class="pt-4 pb-2">
+              <h3 class="gallery-card-title text-lg sm:text-xl font-extrabold text-[#111827] group-hover:text-[#093180] tracking-tight transition-colors line-clamp-1">Ruang Pompa Turbin Vertikal & Diesel</h3>
+              <p class="gallery-card-desc text-xs sm:text-sm text-[#4b5563] leading-relaxed line-clamp-2 mt-1">Pemasangan paket pompa kebakaran utama, pompa cadangan diesel, dan tangki penekan.</p>
             </div>
           </div>
 
-          <div class="bg-white border border-[#e5e7eb] overflow-hidden group">
-            <div class="aspect-[4/3] overflow-hidden bg-gray-100">
-              <img src="images/foam-bladder-tank.jpg" alt="Foam Bladder Tank" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+          <div class="gallery-card group relative cursor-pointer" data-id="p3">
+            <div class="gallery-spotlight-box relative overflow-hidden aspect-[16/10] bg-[#0f172a] border border-[#e5e7eb] shadow-sm">
+              <img src="images/foam-bladder-tank.jpg" alt="Instalasi Tangki Busa Pemadam Alerta" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/30 pointer-events-none"></div>
+              <div class="gallery-spotlight-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"></div>
+
+              <div class="absolute top-4 left-4 z-10 pointer-events-none">
+                <span class="text-xs font-mono font-bold tracking-widest text-white/90 bg-black/60 px-2.5 py-1 border border-white/20 select-none">03</span>
+              </div>
+
+              <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between z-10 pointer-events-none">
+                <span class="px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase text-white bg-black/70 border border-white/30 backdrop-blur-sm">Foam System</span>
+                <span class="text-[11px] font-bold text-white uppercase tracking-wider flex items-center gap-1 transition-colors">
+                  <span>VIEW</span>
+                  <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                </span>
+              </div>
             </div>
-            <div class="p-5 border-t border-[#e5e7eb]">
-              <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block mb-1">Foam System</span>
-              <h3 class="text-sm font-bold text-[#111827] mb-1">Instalasi Tangki Busa Pemadam Alerta</h3>
-              <p class="text-xs text-[#4b5563]">Instalasi sistem proteksi busa kimia tangki ganda untuk keselamatan fasilitas industri khusus.</p>
+            <div class="pt-4 pb-2">
+              <h3 class="gallery-card-title text-lg sm:text-xl font-extrabold text-[#111827] group-hover:text-[#093180] tracking-tight transition-colors line-clamp-1">Instalasi Tangki Busa Pemadam Alerta</h3>
+              <p class="gallery-card-desc text-xs sm:text-sm text-[#4b5563] leading-relaxed line-clamp-2 mt-1">Instalasi sistem proteksi busa kimia tangki ganda untuk keselamatan fasilitas industri khusus.</p>
             </div>
           </div>
 
-          <div class="bg-white border border-[#e5e7eb] overflow-hidden group">
-            <div class="aspect-[4/3] overflow-hidden bg-gray-100">
-              <img src="images/welding-hydrant-pipe.jpg" alt="Pengelasan Flange Pipa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+          <div class="gallery-card group relative cursor-pointer" data-id="p4">
+            <div class="gallery-spotlight-box relative overflow-hidden aspect-[16/10] bg-[#0f172a] border border-[#e5e7eb] shadow-sm">
+              <img src="images/welding-hydrant-pipe.jpg" alt="Fabrikasi & Pengelasan Jalur Air Intake" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/30 pointer-events-none"></div>
+              <div class="gallery-spotlight-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"></div>
+
+              <div class="absolute top-4 left-4 z-10 pointer-events-none">
+                <span class="text-xs font-mono font-bold tracking-widest text-white/90 bg-black/60 px-2.5 py-1 border border-white/20 select-none">04</span>
+              </div>
+
+              <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between z-10 pointer-events-none">
+                <span class="px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase text-white bg-black/70 border border-white/30 backdrop-blur-sm">Welding & Plambing</span>
+                <span class="text-[11px] font-bold text-white uppercase tracking-wider flex items-center gap-1 transition-colors">
+                  <span>VIEW</span>
+                  <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                </span>
+              </div>
             </div>
-            <div class="p-5 border-t border-[#e5e7eb]">
-              <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block mb-1">Welding & Plambing</span>
-              <h3 class="text-sm font-bold text-[#111827] mb-1">Fabrikasi & Pengelasan Jalur Air Intake</h3>
-              <p class="text-xs text-[#4b5563]">Pengelasan presisi sambungan pipa transmisi air bertekanan tinggi di area penampungan air.</p>
+            <div class="pt-4 pb-2">
+              <h3 class="gallery-card-title text-lg sm:text-xl font-extrabold text-[#111827] group-hover:text-[#093180] tracking-tight transition-colors line-clamp-1">Fabrikasi & Pengelasan Jalur Air Intake</h3>
+              <p class="gallery-card-desc text-xs sm:text-sm text-[#4b5563] leading-relaxed line-clamp-2 mt-1">Pengelasan presisi sambungan pipa transmisi air bertekanan tinggi di area penampungan air.</p>
             </div>
           </div>
 
-          <div class="bg-white border border-[#e5e7eb] overflow-hidden group">
-            <div class="aspect-[4/3] overflow-hidden bg-gray-100">
-              <img src="images/control-panel-service.jpg" alt="Panel Kontrol Pompa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+          <div class="gallery-card group relative cursor-pointer" data-id="p5">
+            <div class="gallery-spotlight-box relative overflow-hidden aspect-[16/10] bg-[#0f172a] border border-[#e5e7eb] shadow-sm">
+              <img src="images/control-panel-service.jpg" alt="Pengawatan & Pengujian Panel Kontrol" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/30 pointer-events-none"></div>
+              <div class="gallery-spotlight-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"></div>
+
+              <div class="absolute top-4 left-4 z-10 pointer-events-none">
+                <span class="text-xs font-mono font-bold tracking-widest text-white/90 bg-black/60 px-2.5 py-1 border border-white/20 select-none">05</span>
+              </div>
+
+              <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between z-10 pointer-events-none">
+                <span class="px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase text-white bg-black/70 border border-white/30 backdrop-blur-sm">Panel Kelistrikan</span>
+                <span class="text-[11px] font-bold text-white uppercase tracking-wider flex items-center gap-1 transition-colors">
+                  <span>VIEW</span>
+                  <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                </span>
+              </div>
             </div>
-            <div class="p-5 border-t border-[#e5e7eb]">
-              <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block mb-1">Panel Kelistrikan</span>
-              <h3 class="text-sm font-bold text-[#111827] mb-1">Pengawatan & Pengujian Panel Kontrol</h3>
-              <p class="text-xs text-[#4b5563]">Pengaturan sistem kontrol otomatisasi start/stop pompa kebakaran elektrik dan jockey pump.</p>
+            <div class="pt-4 pb-2">
+              <h3 class="gallery-card-title text-lg sm:text-xl font-extrabold text-[#111827] group-hover:text-[#093180] tracking-tight transition-colors line-clamp-1">Pengawatan & Pengujian Panel Kontrol</h3>
+              <p class="gallery-card-desc text-xs sm:text-sm text-[#4b5563] leading-relaxed line-clamp-2 mt-1">Pengaturan sistem kontrol otomatisasi start/stop pompa kebakaran elektrik dan jockey pump.</p>
             </div>
           </div>
 
-          <div class="bg-white border border-[#e5e7eb] overflow-hidden group">
-            <div class="aspect-[4/3] overflow-hidden bg-gray-100">
-              <img src="images/fire-drill-nozzle.jpg" alt="Fire Drill & Commissioning" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+          <div class="gallery-card group relative cursor-pointer" data-id="p6">
+            <div class="gallery-spotlight-box relative overflow-hidden aspect-[16/10] bg-[#0f172a] border border-[#e5e7eb] shadow-sm">
+              <img src="images/fire-drill-nozzle.jpg" alt="Uji Aliran Air & Pelatihan Tim Damkar" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/30 pointer-events-none"></div>
+              <div class="gallery-spotlight-glow absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"></div>
+
+              <div class="absolute top-4 left-4 z-10 pointer-events-none">
+                <span class="text-xs font-mono font-bold tracking-widest text-white/90 bg-black/60 px-2.5 py-1 border border-white/20 select-none">06</span>
+              </div>
+
+              <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between z-10 pointer-events-none">
+                <span class="px-2.5 py-1 text-[10px] font-bold tracking-wider uppercase text-white bg-black/70 border border-white/30 backdrop-blur-sm">Commissioning</span>
+                <span class="text-[11px] font-bold text-white uppercase tracking-wider flex items-center gap-1 transition-colors">
+                  <span>VIEW</span>
+                  <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                </span>
+              </div>
             </div>
-            <div class="p-5 border-t border-[#e5e7eb]">
-              <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block mb-1">Commissioning</span>
-              <h3 class="text-sm font-bold text-[#111827] mb-1">Uji Aliran Air & Pelatihan Tim Damkar</h3>
-              <p class="text-xs text-[#4b5563]">Pengujian performa debit semprotan hidran dan pelatihan pengoperasian nosel bersama klien.</p>
+            <div class="pt-4 pb-2">
+              <h3 class="gallery-card-title text-lg sm:text-xl font-extrabold text-[#111827] group-hover:text-[#093180] tracking-tight transition-colors line-clamp-1">Uji Aliran Air & Pelatihan Tim Damkar</h3>
+              <p class="gallery-card-desc text-xs sm:text-sm text-[#4b5563] leading-relaxed line-clamp-2 mt-1">Pengujian performa debit semprotan hidran dan pelatihan pengoperasian nosel bersama klien.</p>
             </div>
           </div>
 
@@ -255,6 +334,75 @@
     </section>
 
   </main>
+
+  <!-- Modal Gallery Preview -->
+  <div id="galleryModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-6 md:p-8">
+    <div class="relative bg-white border border-[#093180] max-w-4xl w-full max-h-[92vh] flex flex-col overflow-hidden shadow-2xl">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 bg-[#093180] text-white shrink-0">
+        <div class="flex items-center gap-3">
+          <span class="w-2.5 h-2.5 bg-[#ffc107]"></span>
+          <span class="text-xs sm:text-sm font-bold uppercase tracking-wider">Dokumentasi Proyek Lapangan</span>
+        </div>
+        <button id="closeGalleryModalBtn" aria-label="Tutup Pratinjau" class="p-1.5 text-white/80 hover:text-[#ffc107] hover:bg-white/10 transition-colors focus:outline-none cursor-pointer">
+          <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Modal Body (2 Column Grid) -->
+      <div class="flex-1 overflow-y-auto grid grid-cols-1 md:grid-cols-12 bg-white">
+        <!-- Photo Container: clean light background, no harsh black bars -->
+        <div class="md:col-span-7 bg-[#f8fafc] flex items-center justify-center p-4 sm:p-6 border-b md:border-b-0 md:border-r border-[#e5e7eb] min-h-[260px] sm:min-h-[360px]">
+          <img id="galleryModalImg" src="" alt="Pratinjau Foto" class="max-h-[50vh] md:max-h-[65vh] w-auto max-w-full object-contain shadow-sm border border-[#e2e8f0]" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
+        </div>
+
+        <!-- Info & Action Container -->
+        <div class="md:col-span-5 p-5 sm:p-6 flex flex-col justify-between bg-white space-y-5">
+          <div class="space-y-4">
+            <div>
+              <span id="galleryModalCategory" class="inline-block px-2.5 py-1 bg-[#093180] text-white text-[10px] font-bold uppercase tracking-wider mb-2">
+                DOKUMENTASI
+              </span>
+              <h3 id="galleryModalTitle" class="text-base sm:text-lg font-bold text-[#111827] leading-snug"></h3>
+            </div>
+
+            <div class="border-t border-[#e5e7eb] pt-3">
+              <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block mb-1.5">Keterangan Teknis</span>
+              <p id="galleryModalDesc" class="text-xs sm:text-sm text-[#4b5563] leading-relaxed"></p>
+            </div>
+
+            <!-- Standard & Assurance Badges -->
+            <div class="p-3 bg-[#f8fafc] border border-[#e5e7eb] space-y-2">
+              <div class="text-[10px] font-bold text-[#093180] uppercase tracking-wider">Jaminan Kualitas Kontraktor:</div>
+              <ul class="text-[11px] text-[#4b5563] space-y-1">
+                <li class="flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5 text-[#093180] shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  <span>Sesuai Regulasi SNI & Standar NFPA</span>
+                </li>
+                <li class="flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5 text-[#093180] shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  <span>Teknisi & Fabrikator Profesional Berpengalaman</span>
+                </li>
+                <li class="flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5 text-[#093180] shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  <span>Uji Hydrotest & Komisioning Menyeluruh</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Direct CTA WhatsApp -->
+          <div class="pt-2 border-t border-[#e5e7eb]">
+            <a id="galleryModalWa" href="https://wa.me/6281390630360" target="_blank" class="w-full btn-primary text-center block py-3 text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-shadow">
+              Konsultasi Proyek Serupa via WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
   <!-- Interactive Dynamic Marquee (Above Footer) -->
   <aside aria-label="Layanan & Nilai Utama" class="w-full h-12 sm:h-14 bg-[#093180] border-t border-[#062460] border-b border-[#062460] marquee-container interactive-marquee select-none flex items-center overflow-hidden">
