@@ -178,40 +178,50 @@
   </main>
 
   <!-- Product Detail Modal -->
-  <div id="hydrantDetailModal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden flex items-center justify-center p-4 sm:p-6 md:p-8">
-    <div class="relative bg-white border border-[#093180] max-w-3xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl">
+  <div id="productDetailModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-6 md:p-8">
+    <div class="relative bg-white border border-[#093180] max-w-3xl w-full max-h-[92vh] flex flex-col overflow-hidden shadow-2xl">
       
-      <div class="flex items-center justify-between p-4 sm:p-5 bg-[#093180] text-white">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 bg-[#093180] text-white shrink-0">
         <div>
           <span id="modalProductCode" class="text-[10px] font-bold tracking-widest text-[#ffc107] uppercase block mb-0.5"></span>
-          <h3 id="modalProductTitle" class="text-xs sm:text-base font-bold tracking-tight uppercase line-clamp-1"></h3>
+          <h3 id="modalProductTitle" class="text-sm sm:text-base font-bold tracking-tight uppercase line-clamp-1"></h3>
         </div>
-        <button id="closeHydrantModalBtn" aria-label="Tutup Rincian" class="p-1 hover:text-[#ffc107] focus:outline-none">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        <button id="closeModalBtn" aria-label="Tutup Rincian" class="p-1.5 text-white/80 hover:text-[#ffc107] hover:bg-white/10 transition-colors focus:outline-none cursor-pointer">
+          <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
 
+      <!-- Modal Body -->
       <div class="flex-1 overflow-y-auto p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-6 bg-white">
-        <div class="flex flex-col items-center justify-center bg-gray-50 p-4 border border-[#e5e7eb] aspect-square overflow-hidden">
-          <img id="modalProductImage" src="" alt="Produk" class="max-h-full max-w-full object-contain">
+        <!-- Product Image Showcase -->
+        <div class="flex flex-col items-center justify-center bg-[#f8fafc] p-4 border border-[#e5e7eb] aspect-square overflow-hidden relative">
+          <img id="modalProductImage" src="" alt="Produk" class="max-h-full max-w-full object-contain drop-shadow-sm" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
+          <div class="absolute bottom-2 left-2 right-2 text-center">
+            <span class="text-[9px] font-bold text-[#6b7280] uppercase tracking-wider bg-white/90 px-2 py-0.5 border border-[#e5e7eb] inline-block">Foto Asli Pabrikan & Standar SNI</span>
+          </div>
         </div>
 
+        <!-- Product Specs & Inquiries -->
         <div class="flex flex-col justify-between space-y-4">
-          <div>
-            <div class="flex items-center justify-between pb-2 border-b border-[#e5e7eb] mb-3">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-[#e5e7eb]">
               <span class="text-[11px] font-bold text-[#093180] uppercase tracking-wider">Spesifikasi Resmi</span>
-              <span id="modalProductBrand" class="text-[10px] font-bold text-[#6b7280] uppercase"></span>
+              <span id="modalProductBrand" class="text-[10px] font-bold text-[#093180] bg-blue-50 px-2.5 py-0.5 border border-blue-200 uppercase"></span>
             </div>
-            <p id="modalProductDesc" class="text-xs text-[#4b5563] leading-relaxed mb-4"></p>
+            <p id="modalProductDesc" class="text-xs sm:text-sm text-[#4b5563] leading-relaxed"></p>
             
-            <div id="modalProductSpecs" class="space-y-1 text-xs">
-              <!-- Dynamically populated specs -->
+            <div>
+              <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block mb-1.5">Parameter Teknis:</span>
+              <div id="modalProductSpecs" class="space-y-1 text-xs">
+                <!-- Dynamically populated specs -->
+              </div>
             </div>
           </div>
 
-          <div class="pt-2">
-            <a id="modalProductWa" href="https://wa.me/6281390630360?text=Halo%20PT%20INDO%20TEKNIK%20EMPATBELAS,%20saya%20ingin%20menanyakan%20penawaran%20harga%20produk." target="_blank" class="w-full btn-primary text-center block py-3 text-xs font-bold uppercase tracking-wider">
-              Hubungi via WhatsApp untuk Penawaran
+          <div class="pt-2 border-t border-[#e5e7eb]">
+            <a id="modalProductWa" href="https://wa.me/6281390630360" target="_blank" class="w-full btn-primary text-center block py-3 text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-shadow">
+              Minta Penawaran Harga via WhatsApp
             </a>
           </div>
         </div>

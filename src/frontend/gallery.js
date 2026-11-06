@@ -1,5 +1,5 @@
 // Frontend Dynamic Gallery Controller
-import { getGallery, standardizeCategory } from '../lib/supabase.js';
+import { getCompanyProfile, getGallery, standardizeCategory } from '../lib/supabase.js';
 
 export async function initGallery() {
   const grid = document.getElementById('galleryGrid');
@@ -9,6 +9,8 @@ export async function initGallery() {
   const modalImg = document.getElementById('galleryModalImg');
   const modalTitle = document.getElementById('galleryModalTitle');
   const modalDesc = document.getElementById('galleryModalDesc');
+  const modalCategory = document.getElementById('galleryModalCategory');
+  const modalWa = document.getElementById('galleryModalWa');
   const closeBtn = document.getElementById('closeGalleryModalBtn');
   const filterContainer = document.getElementById('galleryFilterContainer') || document.querySelector('.gallery-filter-btn')?.parentElement;
 
@@ -17,11 +19,33 @@ export async function initGallery() {
   let currentPage = 1;
   const PER_PAGE = 6;
 
+  // Company WhatsApp number for inquiry fallback
+  let companyWa = '6281390630360';
+  try {
+    const cp = await getCompanyProfile();
+    if (cp && cp.phone) {
+      companyWa = cp.phone.replace(/[^0-9]/g, '');
+      if (companyWa.startsWith('0')) companyWa = '62' + companyWa.slice(1);
+    }
+  } catch (_) {}
+
   const openModal = (item) => {
     if (!modal) return;
-    if (modalImg) modalImg.src = item.image_url;
+    if (modalImg) {
+      modalImg.src = item.image_url;
+      modalImg.alt = item.title;
+      modalImg.onerror = () => { modalImg.onerror = null; modalImg.src = '/images/Fire-Hydrant-Yellow.png'; };
+    }
     if (modalTitle) modalTitle.textContent = item.title;
-    if (modalDesc) modalDesc.textContent = item.description || '';
+    if (modalDesc) modalDesc.textContent = item.description || 'Dokumentasi pekerjaan instalasi dan fabrikasi sistem proteksi kebakaran oleh tim teknis PT INDO TEKNIK EMPATBELAS.';
+    if (modalCategory) {
+      const catLabel = item.category_label || standardizeCategory(item.category)?.label || item.category || 'Dokumentasi';
+      modalCategory.textContent = catLabel.toUpperCase();
+    }
+    if (modalWa) {
+      const msg = encodeURIComponent(`Halo PT INDO TEKNIK EMPATBELAS, saya ingin konsultasi/penawaran terkait pekerjaan proyek dokumentasi ini: ${item.title}`);
+      modalWa.href = `https://wa.me/${companyWa}?text=${msg}`;
+    }
     modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
   };
@@ -86,7 +110,9 @@ export async function initGallery() {
           </p>
           <div class="mt-4 pt-3 border-t border-[#f3f4f6] flex items-center justify-between text-[11px] font-bold text-[#093180] uppercase tracking-wider">
             <span>Perbesar Dokumentasi</span>
-            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            <span class="flex items-center gap-1 group-hover:translate-x-0.5 transition-transform text-[#093180]">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </span>
           </div>
         </div>
       </div>

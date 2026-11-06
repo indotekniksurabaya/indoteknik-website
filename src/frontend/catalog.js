@@ -7,8 +7,8 @@ export async function initKatalog() {
   const homeFeatured = document.getElementById('homeFeaturedContainer');
   const tabsContainer = document.getElementById('catalogTabsContainer') || document.querySelector('.catalog-tab')?.parentElement;
   const searchInput = document.getElementById('catalogSearchInput');
-  const modal = document.getElementById('productDetailModal');
-  const closeBtn = document.getElementById('closeModalBtn');
+  const modal = document.getElementById('productDetailModal') || document.getElementById('hydrantDetailModal');
+  const closeBtn = document.getElementById('closeModalBtn') || document.getElementById('closeHydrantModalBtn');
 
   let products = [];
   let currentFiltered = [];
@@ -70,7 +70,7 @@ export async function initKatalog() {
           <span class="text-[10px] font-bold text-[#4b5563] uppercase">
             ${p.brand || 'Vinci'}
           </span>
-          <button class="btn-detail text-xs font-bold text-[#093180] flex items-center gap-1 group-hover:translate-x-0.5 transition-transform cursor-pointer">
+          <button class="btn-detail text-xs font-bold text-[#093180] flex items-center gap-1 group-hover:translate-x-0.5 transition-transform cursor-pointer pointer-events-none">
             <span>Rincian</span>
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
           </button>
@@ -203,14 +203,18 @@ export async function initKatalog() {
     if (specsEl) {
       const specsList = Array.isArray(prod.specs) ? prod.specs : [];
       if (specsList.length > 0) {
-        specsEl.innerHTML = specsList.map(s => `
-          <div class="flex justify-between items-start gap-4 py-1.5 border-b border-[#f3f4f6]">
-            <span class="font-bold text-[#111827] shrink-0 text-xs">${s.key}:</span>
-            <span class="text-right text-[#4b5563] text-xs">${s.value}</span>
+        specsEl.innerHTML = `
+          <div class="border border-[#e5e7eb] divide-y divide-[#e5e7eb] max-h-56 overflow-y-auto bg-white">
+            ${specsList.map(s => `
+              <div class="flex justify-between items-start gap-3 px-3 py-2 text-xs hover:bg-[#f8fafc] transition-colors">
+                <span class="font-bold text-[#111827] shrink-0">${s.key}:</span>
+                <span class="text-right text-[#4b5563] font-medium break-words">${s.value}</span>
+              </div>
+            `).join('')}
           </div>
-        `).join('');
+        `;
       } else {
-        specsEl.innerHTML = '<p class="text-xs text-[#9ca3af]">Spesifikasi standar pabrik.</p>';
+        specsEl.innerHTML = '<p class="text-xs text-[#9ca3af] py-2 border border-dashed border-[#e5e7eb] text-center">Spesifikasi teknis standar pabrikan dan teruji SNI/NFPA.</p>';
       }
     }
 

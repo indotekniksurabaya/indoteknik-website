@@ -168,20 +168,72 @@
 
   </main>
 
-  <div id="galleryModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-4 sm:p-8">
-    <div class="relative bg-white border border-[#093180] max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl">
-      <div class="flex items-center justify-between p-4 bg-[#093180] text-white">
-        <h3 id="galleryModalTitle" class="text-sm sm:text-base font-bold tracking-tight"></h3>
-        <button id="closeGalleryModalBtn" aria-label="Tutup Pratinjau" class="p-1 hover:text-[#ffc107] focus:outline-none">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+  <!-- Modal Gallery Preview -->
+  <div id="galleryModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-6 md:p-8">
+    <div class="relative bg-white border border-[#093180] max-w-4xl w-full max-h-[92vh] flex flex-col overflow-hidden shadow-2xl">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 bg-[#093180] text-white shrink-0">
+        <div class="flex items-center gap-3">
+          <span class="w-2.5 h-2.5 bg-[#ffc107]"></span>
+          <span class="text-xs sm:text-sm font-bold uppercase tracking-wider">Dokumentasi Proyek Lapangan</span>
+        </div>
+        <button id="closeGalleryModalBtn" aria-label="Tutup Pratinjau" class="p-1.5 text-white/80 hover:text-[#ffc107] hover:bg-white/10 transition-colors focus:outline-none cursor-pointer">
+          <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
-      <div class="flex-1 overflow-auto bg-black flex items-center justify-center p-2">
-        <img id="galleryModalImg" src="" alt="Pratinjau Foto" class="max-h-[65vh] w-auto max-w-full object-contain">
+
+      <!-- Modal Body (2 Column Grid) -->
+      <div class="flex-1 overflow-y-auto grid grid-cols-1 md:grid-cols-12 bg-white">
+        <!-- Photo Container: clean light background, no harsh black bars -->
+        <div class="md:col-span-7 bg-[#f8fafc] flex items-center justify-center p-4 sm:p-6 border-b md:border-b-0 md:border-r border-[#e5e7eb] min-h-[260px] sm:min-h-[360px]">
+          <img id="galleryModalImg" src="" alt="Pratinjau Foto" class="max-h-[50vh] md:max-h-[65vh] w-auto max-w-full object-contain shadow-sm border border-[#e2e8f0]" onerror="this.onerror=null; this.src='/images/Fire-Hydrant-Yellow.png'">
+        </div>
+
+        <!-- Info & Action Container -->
+        <div class="md:col-span-5 p-5 sm:p-6 flex flex-col justify-between bg-white space-y-5">
+          <div class="space-y-4">
+            <div>
+              <span id="galleryModalCategory" class="inline-block px-2.5 py-1 bg-[#093180] text-white text-[10px] font-bold uppercase tracking-wider mb-2">
+                DOKUMENTASI
+              </span>
+              <h3 id="galleryModalTitle" class="text-base sm:text-lg font-bold text-[#111827] leading-snug"></h3>
+            </div>
+
+            <div class="border-t border-[#e5e7eb] pt-3">
+              <span class="text-[10px] font-bold text-[#093180] uppercase tracking-wider block mb-1.5">Keterangan Teknis</span>
+              <p id="galleryModalDesc" class="text-xs sm:text-sm text-[#4b5563] leading-relaxed"></p>
+            </div>
+
+            <!-- Standard & Assurance Badges -->
+            <div class="p-3 bg-[#f8fafc] border border-[#e5e7eb] space-y-2">
+              <div class="text-[10px] font-bold text-[#093180] uppercase tracking-wider">Jaminan Kualitas Kontraktor:</div>
+              <ul class="text-[11px] text-[#4b5563] space-y-1">
+                <li class="flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5 text-[#093180] shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  <span>Sesuai Regulasi SNI & Standar NFPA</span>
+                </li>
+                <li class="flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5 text-[#093180] shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  <span>Teknisi & Fabrikator Profesional Berpengalaman</span>
+                </li>
+                <li class="flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5 text-[#093180] shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  <span>Uji Hydrotest & Komisioning Menyeluruh</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Direct CTA WhatsApp -->
+          <div class="pt-2 border-t border-[#e5e7eb]">
+            <a id="galleryModalWa" href="https://wa.me/6281390630360" target="_blank" class="w-full btn-primary text-center block py-3 text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-shadow">
+              Konsultasi Proyek Serupa via WhatsApp
+            </a>
+          </div>
+        </div>
       </div>
-      <div class="p-4 bg-white border-t border-[#e5e7eb]">
-        <p id="galleryModalDesc" class="text-xs sm:text-sm text-[#4b5563] leading-relaxed"></p>
-      </div>
+
     </div>
   </div>
 
